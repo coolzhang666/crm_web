@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<!--<base href="http://localhost:8080/" />-->
+		<title>重庆理工大学客户关系管理系统</title>
+		<link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
+		<link rel="stylesheet" type="text/css" href="easyui/demo.css">
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<script type="text/javascript" src="easyui/jquery.min.js"></script>
+		<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+		<script src="easyui/locale/easyui-lang-zh_CN.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body class="easyui-layout">
+		
+		<!--顶部区域-->
+		<div class="header" data-options="region:'north'">
+			<div class="logo"></div>
+			<div class="info">重庆理工大学客户关系管理系统</div>
+			<div class="logo" style="background-image: none;"></div>
+		</div>
+
+		<!--<div data-options="region:'south',title:'South Title',split:true" style="height:100px;"></div>-->
+
+		<!--<div data-options="region:'east',title:'East',split:true" style="width:100px;"></div>-->
+
+		<!--左部菜单栏-->
+		<div class="slider" data-options="region:'west',title:'菜单', collapsible	:false">
+			<div id="sm" class="easyui-sidemenu" data-options="data:data, border:false, width:298"></div>
+		</div>
+
+		<!--中间内容部分-->
+		<div class="container" data-options="region:'center'">
+			<div id="tt" class="easyui-tabs"></div>
+		</div>
+
+	</body>
+
+</html>
