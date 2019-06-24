@@ -1,0 +1,45 @@
+<div>
+	<table id="allSaleChance" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#saleChanceToolBar"
+		data-options="pagination:true,singleSelect:true,collapsible:false,loader:myloader,
+		method:'get',fitColumns:true, nowrap:true,pageList:[5,10,15,20],pageSize:5,displayMsg:''">
+		<thead>
+			<tr>
+				<th data-options="field:'customerName',width:80,align:'center',resizable:false">客户名称</th>
+				<th data-options="field:'customerPhone',width:80, align:'center',resizable:false">客户电话</th>
+				<th data-options="field:'contactName',width:80,align:'center',resizable:false">联系人名称</th>
+				<th data-options="field:'contactPhone',width:80,align:'center',resizable:false">联系人电话</th>
+				<th data-options="field:'chanceResource',width:80, align:'center',resizable:false">机会来源</th>
+				<th data-options="field:'successRate',width:80,align:'center',resizable:false">成功几率</th>
+				<th data-options="field:'chanceDescription',width:80,align:'center',resizable:false">机会描述</th>
+				<th data-options="field:'creatorId',width:80,align:'center',resizable:false">创建人id</th>
+				<th data-options="field:'creatorName',width:80,align:'center',resizable:false">创建人名称</th>
+				<th data-options="field:'createTime',width:80,align:'center',resizable:false">创建时间</th>
+				<th data-options="field:'belong',width:80,align:'center',resizable:false">指派给</th>
+				<th data-options="field:'dispatchTime',width:80,align:'center',resizable:false">指派时间</th>
+				<th data-options="field:'chanceStatus',width:80,align:'center',resizable:false">状态</th>
+			</tr>
+		</thead>
+	</table>
+	<div id="saleChanceToolBar" style="height:auto">
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="">删除销售机会</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="">修改销售机会</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="">开发计划</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="">开发成功</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="">开发失败</a>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var myloader = function(param, success, error) {
+		$.ajax({
+			type: "GET",
+			url: "http://localhost:8080/saleChance/" + param.page + "/" + param.rows,
+			success: function(data) {
+				var obj = {};
+				obj.total = data.total;
+				obj.rows = data.data;
+				success(obj);
+			}
+		});
+	}
+</script>

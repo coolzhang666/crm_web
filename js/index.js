@@ -3,10 +3,11 @@ var data = [{
 	iconCls: 'icon-more',
 	state: 'open',
 	children: [{
-		text: '销售机会管理',
+		text: '新增销售机会',
+		href: 'html/marketing/addChance.html'
 	}, {
-		text: '客户开发计划管理',
-		href: 'html/developPlan.html'
+		text: '查看销售机会',
+		href: 'html/marketing/listChance.html'
 	}]
 }, {
 	text: '客户管理',
@@ -16,7 +17,43 @@ var data = [{
 		text: '新增客户',
 	}, {
 		text: '查看客户',
-		href: 'html/customer.html'
+		href: 'html/customer/listCustomer.html'
+	}, {
+		text: '流失预警',
+		href: 'html/customer/escape.html'
+	}]
+}, {
+	text: '服务管理',
+	iconCls: 'icon-more',
+	state: 'close',
+	children: [{
+		text: '新增服务',
+	}, {
+		text: '服务分配',
+	}, {
+		text: '处理服务',
+	}, {
+		text: '服务归档',
+	}]
+}, {
+	text: '统计报表',
+	iconCls: 'icon-more',
+	state: 'close',
+	children: [{
+		text: '客户贡献分析',
+	}, {
+		text: '客户构成分析',
+	}, {
+		text: '客户服务分析',
+	}, {
+		text: '客户流失分析',
+	}]
+}, {
+	text: '系统管理',
+	iconCls: 'icon-more',
+	state: 'close',
+	children: [{
+		text: '待补充',
 	}]
 }];
 
