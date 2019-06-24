@@ -1,36 +1,22 @@
 var data = [{
-	text: '客户管理',
+	text: '营销管理',
 	iconCls: 'icon-more',
 	state: 'open',
+	children: [{
+		text: '销售机会管理',
+	}, {
+		text: '客户开发计划管理',
+		href: 'html/developPlan.html'
+	}]
+}, {
+	text: '客户管理',
+	iconCls: 'icon-more',
+	state: 'close',
 	children: [{
 		text: '新增客户',
 	}, {
 		text: '查看客户',
-	}, {
-		text: '新增客户联系人',
-	}, {
-		text: '查看客户联系人',
-	}]
-}, {
-	text: '用户管理',
-	iconCls: 'icon-more',
-	children: [{
-		text: '用户登录',
-	}, {
-		text: '设置权限'
-	}]
-}, {
-	text: '图标统计',
-	children: [{
-		text: '客户区域统计图',
-	}]
-}, {
-	text: '销售管理',
-	iconCls: 'icon-more',
-	children: [{
-		text: '销售系统',
-	}, {
-		text: '查询销售记录',
+		href: 'html/customer.html'
 	}]
 }];
 
