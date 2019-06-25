@@ -15,6 +15,7 @@ var data = [{
 	state: 'close',
 	children: [{
 		text: '新增客户',
+		href:'html/test.html'
 	}, {
 		text: '查看客户',
 		href: 'html/customer/listCustomer.html'
