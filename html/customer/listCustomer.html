@@ -21,13 +21,257 @@
 	<div id="customerToolBar" style="height:auto">
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="">删除客户</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="">修改客户信息</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="">查看客户联系人</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="lookContact()">查看客户联系人</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="">交往记录</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="">查看客户联系人</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="addContact()">新增客户联系人</a>
+	</div>
+</div>
+
+<div id="addCon" title="添加客户联系人" class="easyui-dialog" data-options="closed:true,width:550,height:450">
+	<center>
+	<h2 style="padding-top: 50px;">联系人信息</h2>
+		<div style="padding:30px 60px 20px 60px">
+			<form id="submitCon" method="post">
+				<table cellpadding="5">
+					<tr>
+						<td>客户Id</td>
+						<td><input class="easyui-textbox" type="text" name="customerId" data-options="required:false,editable:false"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>联系人姓名:</td>
+						<td><input class="easyui-textbox" type="text" name="contactName" data-options="required:false"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>联系人性别:</td>
+						<td>
+							<select class="easyui-combobox" data-options="editable:false" name="contactGender" style="width: 173px;">
+								<option selected="selected" disabled="disabled" value=""></option>
+								<option value="男">男</option>
+								<option value="女">女</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>联系人电话:</td>
+						<td><input class="easyui-textbox" type="text" name="contactPhone" data-options="required:true"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>联系人职位:</td>
+						<td><input class="easyui-textbox" type="text" name="contactJob" data-options="required:false"></input>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<div style="text-align:center;padding:5px">
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitConForm()">提交</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearConForm()">清空</a>
+			</div>
+		</div>
+	</center>
+</div>
+
+<div id="listCon" title="查看联系人信息" class="easyui-dialog" data-options="closed:true">
+	<table id="allContact" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#contactToolBar"
+		data-options="pagination:true,singleSelect:true,collapsible:false,loader:myloaderCon,
+		method:'get',fitColumns:true, nowrap:true,pageList:[5,10,15,20],pageSize:5,displayMsg:''">
+		<thead>
+			<tr>
+				<th data-options="field:'contactName',width:150,align:'center',resizable:false">联系人姓名</th>
+				<th data-options="field:'contactGender',width:100,align:'center',resizable:false">联系人性别</th>
+				<th data-options="field:'contactPhone',width:120,align:'center',resizable:false">联系人电话</th>
+				<th data-options="field:'contactJob',width:120,align:'center',resizable:false">联系人职位</th>
+			</tr>
+		</thead>
+	</table>
+	<div id="contactToolBar" style="height:auto">
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="editContact()">修改联系人</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeContact()">删除联系人</a>
+	</div>
+</div>
+
+<div id="dlgEditContact" class="easyui-dialog" title="修改联系人信息" data-options="closable:false,closed:true,iconCls:'icon-edit'" style="width:600px;height:500px;padding:50px">
+	<div style="padding-top: 15px;">
+		<center>
+		<h2>联系人信息</h2>
+			<div style="padding:40px 60px 20px 60px">
+				<form id="editCon" method="post">
+					<table cellpadding="5">
+						<tr>
+							<td>联系人姓名:</td>
+							<input type="hidden" name="contactId" />
+							<input type="hidden" name="customerId" />
+							<td><input class="easyui-textbox" type="text" name="contactName" data-options="required:false"></input>
+							</td>
+						</tr>
+						<tr>
+							<td>联系人性别:</td>
+							<td>
+								<select class="easyui-combobox" data-options="editable:false" name="contactGender" style="width: 173px;">
+									<option selected="selected" disabled="disabled" value=""></option>
+									<option value="男">男</option>
+									<option value="女">女</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>联系人电话:</td>
+							<td><input class="easyui-textbox" type="text" name="contactPhone" data-options="required:true"></input>
+							</td>
+						</tr>
+						<tr>
+							<td>联系人职位:</td>
+							<td><input class="easyui-textbox" type="text" name="contactJob" data-options="required:false"></input>
+							</td>
+						</tr>
+					</table>
+				</form>
+			<div style="text-align:center;padding:5px">
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="editConForm()">修改</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancelConForm()">取消</a>
+			</div>
+			</div>
+		</center>
 	</div>
 </div>
 
 <script type="text/javascript">
+	var cusObj;
+	// 新增客户联系人
+	function addContact(){
+		cusObj = $("#allCustomer").datagrid("getSelected");
+		if (cusObj!=null) {
+			var objId = {};
+			objId.customerId  = cusObj.customerId;
+			// 将title中添加客户名字，以便查看
+			$("#addCon").dialog({"title":"添加客户 "+cusObj.customerName+" 联系人"}).dialog("open");
+			$("#submitCon").form("load",objId);
+			
+		} else{
+			$.messager.alert("提示","请选择客户");
+		}
+		
+	}
+	// 确认后提交新增的联系人的信息
+	function submitConForm(){
+		var boo = $("#submitCon").form("validate");
+		if (boo) {
+			$.ajax({
+				type:"POST",
+				url:"http://localhost:8080/contact",
+				dataType:"JSON",
+				data:$("#submitCon").serialize(),
+				success:function(obj){
+					$("#submitCon").form("clear");
+					$.messager.alert("新增提示",obj.msg);
+					// 新增后刷新联系人列表
+					$('#allContact').datagrid('reload');
+				}
+			});
+		} else{
+			alert("新增失败");
+		}
+	}
+	// 清空表单
+	function clearConForm(){
+		$("#submitCon").form("reset");
+		// 重新加载不能修改的项（客户Id），因为清空表单会把该值也去掉
+		cusObj = $("#allCustomer").datagrid("getSelected");
+		var obj = {};
+		obj.customerId  = cusObj.customerId;
+		$("#submitCon").form("load",obj);
+	}
+	//-----------------------------------------------------
+	// 修改联系人信息
+	function editContact(){
+		// 获取选中的联系人行
+		var con = $("#allContact").datagrid("getSelected");
+		// 获取选中的客户行
+		cusObj = $("#allCustomer").datagrid("getSelected");
+		if (con!=null) {
+			$("#dlgEditContact").dialog({"title":"修改客户 "+cusObj.customerName+" 的联系人信息"}).dialog("open");
+			$("#editCon").form("load",con);
+			$("#listCon").dialog("close");
+		} else{
+			$.messager.alert("提示","请选择修改的联系人");
+		}
+	}
+	// 确认修改后的信息并提交
+	function editConForm(){
+		var boo = $('#editCon').form('validate');
+		if(boo) {
+			$.ajax({
+				type: 'PUT',
+				url: 'http://localhost:8080/contact',
+				dataType: 'JSON',
+				data: $('#editCon').serialize(),
+				success: function(obj) {
+					$('#allContact').datagrid('reload');
+					$.messager.alert('修改提示',obj.msg);
+					$('#dlgEditContact').dialog('close');
+				}
+			});
+			$("#listCon").dialog("open");
+		} else {
+			$.messager.alert('修改联系人信息', "修改失败");
+		}
+	}
+	// 取消修改联系人信息对话框
+	function cancelConForm(){
+		$('#dlgEditContact').dialog('close');
+		$("#listCon").dialog("open");
+	}
+	
+	// 删除选中联系人信息
+	function removeContact(){
+		var boo = $("#allContact").datagrid("getSelected");
+		if (boo!=null) {
+			$.messager.confirm("Confirm", "确定要删除该联系人？", function(r) {
+				if(r) {
+					$.ajax({
+						type: 'DELETE',
+						url: 'http://localhost:8080/contact',
+						dataType: 'JSON',
+						data: boo,
+						success: function(obj) {
+							$('#allContact').datagrid('reload');
+							$.messager.alert('修改提示', obj.msg);
+						}
+					})
+				}
+			});
+		} else{
+			$.messager.alert("提示", "请选择删除行");
+		}
+	}
+
+	// 查看当前客户的所有联系人和信息
+	function lookContact(){
+		cusObj = $("#allCustomer").datagrid("getSelected");
+		if (cusObj!=null) {
+			$("#listCon").dialog({"title":"查看客户 "+cusObj.customerName+" 的联系人"}).dialog("open");
+		} else{
+			$.messager.alert("提示","请选择客户");
+		}
+	}
+	
+	// 加载联系人信息
+	var myloaderCon = function(param, success, error) {
+		cusObj = $("#allCustomer").datagrid("getSelected");
+		$.ajax({
+			type: "GET",
+			url: "http://localhost:8080/contact/" + param.page + "/" + param.rows,
+			success: function(data) {
+				var obj = {};
+				obj.total = data.total;
+				obj.rows = data.data;
+				success(obj);
+			}
+		});
+	}
+	// 加载客户信息
 	var myloader = function(param, success, error) {
 		$.ajax({
 			type: "GET",
