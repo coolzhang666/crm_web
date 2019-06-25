@@ -1,28 +1,64 @@
 <div>
+	<!--删除信息弹窗-->
+	<div id="dlg-removeChance" class="easyui-dialog" title="删除信息" data-options="iconCls:'icon-edit',closed:true" style="width:300px;height:180px;">
+			<h5 align="center" style="font-size: 16px;line-height: 80px;">确定删除该行内容？</h5>
+			<div style="text-align:center;padding:5px">
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="sure_removeChance()">删除</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="concel_removeChance()">取消</a>
+			</div>
+		
+	</div>
+	
+	<div id="dlg-sendPerson" class="easyui-dialog" title="指派人员" data-options="iconCls:'icon-edit',closed:true" style="width:400px;height:200px;padding:10px">
+			<div style="padding:10px 60px 20px 60px">
+			<center>
+				<form id="editSend" method="post">
+					<table cellpadding="5">
+						<tr>
+							<td>指派人ID:</td>
+							<td>
+								<!--修改时需要主键ID，所以用隐藏的input框来提交cusId-->
+								<input type="hidden" name="chanceId" />
+								<input class="easyui-textbox" type="text" value="" name="belong" data-options="required:true"></input>
+							</td>
+						</tr>
+					
+					</table>
+				</form>
+			</center>
+			<!--操作按键-->
+			<div style="text-align:center;padding-top:35px;">
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="sureForm()">确定</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancelForm()">取消</a>
+			</div>
+		</div>
+	</div>
+	
 	<table id="allSaleChance" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#saleChanceToolBar"
-		data-options="pagination:true,singleSelect:true,collapsible:false,loader:myloader,
-		method:'get',fitColumns:true, nowrap:true,pageList:[5,10,15,20],pageSize:5,displayMsg:''">
+		data-options="pagination:true,singleSelect:true,collapsible:false,loader:myloader,method:'post',onDblClickRow: onDblClickRow,
+		fitColumns:true, nowrap:true,pageList:[5,10,15,20],pageSize:5,displayMsg:'' ">
 		<thead>
 			<tr>
-				<th data-options="field:'customerName',width:80,align:'center',resizable:false">客户名称</th>
-				<th data-options="field:'customerPhone',width:80, align:'center',resizable:false">客户电话</th>
-				<th data-options="field:'contactName',width:80,align:'center',resizable:false">联系人名称</th>
-				<th data-options="field:'contactPhone',width:80,align:'center',resizable:false">联系人电话</th>
-				<th data-options="field:'chanceResource',width:80, align:'center',resizable:false">机会来源</th>
-				<th data-options="field:'successRate',width:80,align:'center',resizable:false">成功几率</th>
-				<th data-options="field:'chanceDescription',width:80,align:'center',resizable:false">机会描述</th>
-				<th data-options="field:'creatorId',width:80,align:'center',resizable:false">创建人id</th>
-				<th data-options="field:'creatorName',width:80,align:'center',resizable:false">创建人名称</th>
-				<th data-options="field:'createTime',width:80,align:'center',resizable:false">创建时间</th>
+				<th data-options="field:'customerName',width:80,align:'center',resizable:false,editor:'textbox'">客户名称</th>
+				<th data-options="field:'customerPhone',width:80, align:'center',resizable:false,editor:'textbox'">客户电话</th>
+				<th data-options="field:'contactName',width:80,align:'center',resizable:false,editor:'textbox'">联系人名称</th>
+				<th data-options="field:'contactPhone',width:80,align:'center',resizable:false,editor:'textbox'">联系人电话</th>
+				<th data-options="field:'chanceResource',width:80, align:'center',resizable:false,editor:'textbox'">机会来源</th>
+				<th data-options="field:'successRate',width:80,align:'center',resizable:false,editor:'textbox'">成功几率</th>
+				<th data-options="field:'chanceDescription',width:80,align:'center',resizable:false,editor:'textbox'">机会描述</th>
+				<th data-options="field:'creatorId',width:80,align:'center',resizable:false,editor:'textbox'">创建人id</th>
+				<th data-options="field:'creatorName',width:80,align:'center',resizable:false,editor:'textbox'">创建人名称</th>
+				<th data-options="field:'createTime',width:80,align:'center',resizable:false,editor:'textbox'">创建时间</th>
 				<th data-options="field:'belong',width:80,align:'center',resizable:false">指派给</th>
 				<th data-options="field:'dispatchTime',width:80,align:'center',resizable:false">指派时间</th>
-				<th data-options="field:'chanceStatus',width:80,align:'center',resizable:false">状态</th>
+				<th disabled="true" data-options="field:'chanceStatus',width:80,align:'center',resizable:false">状态</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="saleChanceToolBar" style="height:auto">
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="">删除销售机会</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="">修改销售机会</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="removeChance()">删除销售机会</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="changeSaleChance()">修改销售机会</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="sendPerson()">指派人员</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="">开发计划</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="">开发成功</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="">开发失败</a>
@@ -30,6 +66,7 @@
 </div>
 
 <script type="text/javascript">
+	//显示列表
 	var myloader = function(param, success, error) {
 		$.ajax({
 			type: "GET",
@@ -42,4 +79,138 @@
 			}
 		});
 	}
+	//删除
+	function removeChance(){
+//					$.messager.alert("删除");
+			var allSaleChance = $("#allSaleChance").datagrid("getSelected");
+//			alert(allSaleChance.chanceStatus);
+			if(allSaleChance != null) {
+				if(allSaleChance.chanceStatus == '未分配'){
+					$("#dlg-removeChance").dialog("open");
+				}
+				else{
+					$("#allSaleChance").datagrid('clearSelections');
+					$.messager.alert("删除错误", "无法删除已分配任务");
+				}
+			} else {
+				$.messager.alert("删除提示", "请选中要删除的行");
+			}
+	}
+	//删除取消按钮
+		function concel_removeChance() {
+			$("#dlg-removeChance").dialog("close");
+		}
+	//删除确认按钮
+		function sure_removeChance() {
+			var allSaleChance = $("#allSaleChance").datagrid("getSelected");
+			if(allSaleChance) {
+				$.ajax({
+					type: 'DELETE',
+					url: 'http://localhost:8080/SaleChance/'+allSaleChance.chanceId,
+					dataType: 'JSON',
+					success: function() {
+						//当提交完毕并删除成功后，自动刷新页面的数据
+						$('#allSaleChance').datagrid('reload');
+						//						$.messager.alert("删除提示",obj.result);
+						$('#dlg-removeChance').dialog('close');
+					}
+				});
+			} 
+		}
+		
+	//修改（保存）
+var editIndex = undefined;
+		function endEditing(){
+			if (editIndex == undefined){return true}
+			if ($('#allSaleChance').datagrid('validateRow', editIndex)){
+//				var ed = $('#tbsell').datagrid('getEditor', {index:editIndex,field:'conNo'});
+//				var productname = $(ed.target).textbox('getText');
+//				$('#tbsell').datagrid('getRows')[editIndex]['cusNo'] = productname;
+				$('#allSaleChance').datagrid('endEdit', editIndex);
+				editIndex = undefined;
+				
+				return true;
+			} else {
+				return false;
+			}
+			
+		}
+		function onDblClickRow(index){
+			var boo = $('#allSaleChance').datagrid('getSelected');
+//			alert(boo.chanceStatus);
+			if(boo.chanceStatus=="已分配"){
+//				alert(boo.chanceStatus);
+				return ;
+			}
+			else if (editIndex != index){
+				if (endEditing()){
+					$('#allSaleChance').datagrid('selectRow', index)
+							.datagrid('beginEdit', index);
+					editIndex = index;
+				} else {
+					$('#allSaleChance').datagrid('selectRow', editIndex);
+				}
+			}
+		}
+		//保存
+		function changeSaleChance(){
+			if (endEditing()){
+//				alert('aaa');
+				$('#allSaleChance').datagrid('acceptChanges');
+				var boo = $('#allSaleChance').datagrid('getSelected');
+//				alert(boo);
+				$.ajax({
+					type: 'put',
+					url: 'http://localhost:8080/SaleChance',
+					dataType: 'JSON',
+					data:boo,
+					success: function() {
+						//当提交完毕并修改成功后，自动刷新页面的数据
+						$('#allSaleChance').datagrid('reload');
+					}
+				});
+			}
+		}
+		//指派人员
+		function sendPerson(){
+//			alert("aaa");
+			var allSaleChance = $("#allSaleChance").datagrid("getSelected");
+//			alert(allSaleChance.chanceStatus);
+			if(allSaleChance != null) {
+				if(allSaleChance.chanceStatus == '未分配'){
+					$("#dlg-sendPerson").dialog("open");
+				}
+				else{
+					$("#allSaleChance").datagrid('clearSelections');
+					$.messager.alert("指派错误", "无法指派已分配任务");
+				}
+			} else {
+				$.messager.alert("指派提示", "请选中要指派的行");
+			}
+		}
+		//确定指派
+		function sureForm(){
+			var send = $("editSend").form("validate");
+			if(send) {
+				$.ajax({
+					type: 'push',
+					url: 'http://localhost:8080/SaleChance/'+send.belong,
+					dataType: 'JSON',
+					data: $("#editSend").serialize(),
+					success: function(obj) {
+						//当提交完毕并修改成功后，自动刷新页面的数据
+						$('#allSaleChance').datagrid('reload');
+						$.messager.alert("修改提示", obj.result);
+						$('#dlg-sendPerson').dialog('close');
+					}
+				});
+			} else {
+				//如果修改的表单中出现了某个框中没有值处理，自行脑补
+				$.messager.alert("错误","修改客户失败");
+			}
+		}
+		//取消指派
+		function cancelForm(){
+			$("#dlg-sendPerson").dialog("close");
+		}
 </script>

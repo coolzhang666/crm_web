@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="overflow: auto;">
 
 	<head>
 		<meta charset="UTF-8">
@@ -15,7 +15,7 @@
 		<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 
-	<body class="easyui-layout">
+	<body class="easyui-layout" style="min-height: 500px;min-width: 1200px;">
 		
 		<!--顶部区域-->
 		<div class="header" data-options="region:'north'">
@@ -30,14 +30,16 @@
 
 		<!--左部菜单栏-->
 		<div class="slider" data-options="region:'west',title:'菜单', collapsible	:false">
-			<div id="sm" class="easyui-sidemenu" data-options="data:data, border:false, width:298"></div>
+			<div id="sm" class="easyui-sidemenu" data-options="data:data, border:false, width:280"></div>
 		</div>
 
 		<!--中间内容部分-->
 		<div class="container" data-options="region:'center'">
 			<div id="tt" class="easyui-tabs"></div>
 		</div>
+	
 
 	</body>
+	
 
 </html>
