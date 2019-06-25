@@ -1,0 +1,36 @@
+<div>
+	<table id="table" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#tb"
+		data-options="pagination:true,singleSelect:true,collapsible:false,loader:myloader,
+		method:'get',fitColumns:true, nowrap:true,pageList:[5,10,15,20],pageSize:5,displayMsg:''">
+		<thead>
+			<tr>
+				<th data-options="field:'customerNo',width:80,align:'center',resizable:false">客户编号</th>
+				<th data-options="field:'customerName',width:100, align:'center',resizable:false">客户名称</th>
+				<th data-options="field:'customerAddress',width:250,align:'center',resizable:false">客户地址</th>
+				<th data-options="field:'customerEmail',width:80,align:'center',resizable:false">客户邮箱</th>
+				<th data-options="field:'customerRegion',width:80, align:'center',resizable:false">客户区域</th>
+				<th data-options="field:'customerPhone',width:60,align:'center',resizable:false">客户电话</th>
+				<th data-options="field:'customerCooperation',width:60,align:'center',resizable:false">合作关系</th>
+				<th data-options="field:'customerGrade',width:60,align:'center',resizable:false">VIP级别</th>
+				<th data-options="field:'customerCredit',width:60,align:'center',resizable:false">信用级别</th>
+				<th data-options="field:'customerSatisfaction',width:60,align:'center',resizable:false">满意度</th>
+				<th data-options="field:'customerStatus',width:60,align:'center',resizable:false">状态</th>
+			</tr>
+		</thead>
+	</table>
+</div>
+
+<script type="text/javascript">
+	var myloader = function(param, success, error) {
+		$.ajax({
+			type:"GET",
+			url:"http://localhost:8080/customer/" + param.page + "/" + param.rows,
+			success: function(data) {
+				var obj = {};
+				obj.total = data.total;
+				obj.rows = data.data;
+				success(obj);
+			}
+		});
+	}
+</script>
