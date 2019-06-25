@@ -1,3 +1,138 @@
-<div>
-	<h1>销售机会模块，详细设计见需求分析</h1>
-</div>
+<h2 align="center">新增销售机会</h2>
+<center>
+	<div class="easyui-panel" style="width:400px" data-options="border:false">
+		<div style="padding:10px 60px 20px 60px">
+			<form id="ff" method="post">
+				<table cellpadding="10px" cellspacing="10px">
+					<tr>
+						<td>客户姓名:</td>
+						<td>
+							<input class="easyui-textbox" type="text" name="customerName" data-options="required:true"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>客户电话:</td>
+						<td><input class="easyui-textbox" type="text" name="customerPhone" data-options="required:true"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>联系人姓名:</td>
+						<td><input class="easyui-textbox" type="text" name="contactName" data-options="required:true"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>联系人电话:</td>
+						<td><input class="easyui-textbox" type="text" name="contactPhone" data-options="required:true"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>机会来源:</td>
+						<td><input class="easyui-textbox" type="text" name="chanceResource" data-options="required:true"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>成功几率:</td>
+						<td><input class="easyui-textbox" type="text" name="successRate" data-options="required:true"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>机会描述:</td>
+						<td><input class="easyui-textbox" type="text" name="chanceDescription" data-options="required:true,multiline:true,height:60"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>创建人Id:</td>
+						<td><input class="easyui-textbox" type="text" name="creatorId" data-options="required:true"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>创建人姓名:</td>
+						<td><input class="easyui-textbox" type="text" name="creatorName" data-options="required:true"></input>
+						</td>
+					</tr>
+					<!--<tr>
+						<td>创建时间:</td>
+						<td><input class="easyui-datebox"  name="createTime" data-options="required:true"></input>
+						</td>
+					</tr>-->
+					<tr>
+						<td>指派给:</td>
+						<td><input class="easyui-validatebox"  id="belong" name="belong" data-options="required:false" style="height: 28px;width:168px;position: relative;
+												  border: 1px solid #95B8E7;
+												  background-color: #fff;
+												  vertical-align: middle;
+												  display: inline-block;
+												  overflow: hidden;
+												  white-space: nowrap;
+												  margin: 0;
+												  padding: 0;
+												  -moz-border-radius: 5px 5px 5px 5px;
+												  -webkit-border-radius: 5px 5px 5px 5px;
+												  border-radius: 5px 5px 5px 5px;"></input>
+						</td>
+
+					</tr>
+					<!--<tr>
+						<td>指派时间:</td>
+						<td><input class="easyui-datebox"  name="dispatchTime" data-options="required:true"></input>
+						</td>
+					</tr>-->
+					<tr>
+						<td>状态:</td>
+						<td><input class="easyui-textbox" type="text" value='未分配' id="chanceStatus" name="chanceStatus" data-options="required:false,disabled:true"></input>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<div style="text-align:center;padding:5px">
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">新增</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">清空</a>
+			</div>
+		</div>
+	</div>
+</center>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#belong").blur(function(){
+			setText();
+		})
+	});
+
+	function setText() {       
+		var value = $('#belong').val();  
+//		alert(value);    
+		if(value != "") { //当文本框的值value不为空时，执行的操作
+			$("#chanceStatus").textbox('setValue', '已分配');      //访问后台
+			$("#chanceStatus").textbox('disable');
+			     
+		}      
+		else       {
+			      //当文本框的值value为空时，执行的操作
+			$("#chanceStatus").textbox('setValue', '未分配'); 
+			$("#chanceStatus").textbox('disable');
+		}   
+	}
+
+	function submitForm() {
+		var boo = $('#ff').form('validate');
+		$("#chanceStatus").textbox('enable');
+		if(boo) {
+			$.ajax({
+				type: 'post', //提交方式
+				url: 'http://localhost:8080/SaleChance/addSaleChance', //提交地址
+				dataType: 'JSON', //数据提交返回方式
+				data: $("#ff").serialize(), //对表单数据序列化
+				success: function() { //提交成功后的提示窗口
+					$('#ff').form('clear');
+					$.messager.alert("新增提示", "新增销售机会成功");
+					$("#chanceStatus").textbox('setValue', '未分配');
+					$("#chanceStatus").textbox('disable');
+				}
+			});
+		} else {
+			//如果不能提交的提示方式，自由拓展
+			$.messager.alert("错误", "添加联系人失败");
+		}
+	}
+
+</script>
