@@ -17,14 +17,14 @@ body {
 }
 
 .logo {
-	width: 300px;
+	width: 30%;
 	height: 52px;
 	background-image: url(../img/logo1.png);
 	background-repeat: no-repeat;
 }
 
 .info {
-	width: 100%;
+	width: 60%;
 	font-size: 40px;
 	font-family: 楷体;
 	text-align: center;
@@ -32,7 +32,8 @@ body {
 
 .slider {
 	width: 300px;
-	background-color: rgb(250, 250, 250);
+	height: 100%;
+	background-color: white;
 }
 
 .container {
