@@ -1,6 +1,7 @@
 <div>
+	
 	<table id="allCustomer" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#customerToolBar"
-		data-options="pagination:true,singleSelect:true,collapsible:false,loader:myloader,
+	 data-options="pagination:true,singleSelect:true,collapsible:false,loader:myloader,
 		method:'get',fitColumns:true, nowrap:true,pageList:[5,10,15,20],pageSize:5,displayMsg:''">
 		<thead>
 			<tr>
@@ -18,20 +19,542 @@
 			</tr>
 		</thead>
 	</table>
+
 	<div id="customerToolBar" style="height:auto">
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="">删除客户</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="">修改客户信息</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="">查看客户联系人</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="">交往记录</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="">查看客户联系人</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="removeCustomer()">删除客户</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="updateCustomer()">修改客户信息</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="lookContact()">查看客户联系人</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="checkRecord()">交往记录</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="addContact()">新增客户联系人</a>
 	</div>
 </div>
 
-<script type="text/javascript">
-	var myloader = function(param, success, error) {
+<div id="addCon" title="添加客户联系人" class="easyui-dialog" data-options="closed:true,width:550,height:450">
+	<center>
+	<h2 style="padding-top: 50px;">联系人信息</h2>
+		<div style="padding:30px 60px 20px 60px">
+			<form id="submitCon" method="post">
+				<table cellpadding="5">
+					<tr>
+						<td>客户Id</td>
+						<td><input class="easyui-textbox" type="text" name="customerId" data-options="required:false,editable:false"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>联系人姓名:</td>
+						<td><input class="easyui-textbox" type="text" name="contactName" data-options="required:false"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>联系人性别:</td>
+						<td>
+							<select class="easyui-combobox" data-options="editable:false" name="contactGender" style="width: 173px;">
+								<option selected="selected" disabled="disabled" value=""></option>
+								<option value="男">男</option>
+								<option value="女">女</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>联系人电话:</td>
+						<td><input class="easyui-textbox" type="text" name="contactPhone" data-options="required:true"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>联系人职位:</td>
+						<td><input class="easyui-textbox" type="text" name="contactJob" data-options="required:false"></input>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<div style="text-align:center;padding:5px">
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitConForm()">提交</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearConForm()">清空</a>
+			</div>
+		</div>
+	</center>
+</div>
+
+<div id="listCon" title="查看联系人信息" class="easyui-dialog" data-options="closed:true">
+	<table id="allContact" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#contactToolBar"
+		data-options="pagination:true,singleSelect:true,collapsible:false,loader:myloaderCon,
+		method:'get',fitColumns:true, nowrap:true,pageList:[5,10,15,20],pageSize:5,displayMsg:''">
+		<thead>
+			<tr>
+				<th data-options="field:'contactName',width:150,align:'center',resizable:false">联系人姓名</th>
+				<th data-options="field:'contactGender',width:100,align:'center',resizable:false">联系人性别</th>
+				<th data-options="field:'contactPhone',width:120,align:'center',resizable:false">联系人电话</th>
+				<th data-options="field:'contactJob',width:120,align:'center',resizable:false">联系人职位</th>
+			</tr>
+		</thead>
+	</table>
+	<div id="contactToolBar" style="height:auto">
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="editContact()">修改联系人</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeContact()">删除联系人</a>
+	</div>
+</div>
+
+<div id="dlgEditContact" class="easyui-dialog" title="修改联系人信息" data-options="closable:false,closed:true,iconCls:'icon-edit'" style="width:600px;height:500px;padding:50px">
+	<div style="padding-top: 15px;">
+		<center>
+		<h2>联系人信息</h2>
+			<div style="padding:40px 60px 20px 60px">
+				<form id="editCon" method="post">
+					<table cellpadding="5">
+						<tr>
+							<td>联系人姓名:</td>
+							<input type="hidden" name="contactId" />
+							<input type="hidden" name="customerId" />
+							<td><input class="easyui-textbox" type="text" name="contactName" data-options="required:false"></input>
+							</td>
+						</tr>
+						<tr>
+							<td>联系人性别:</td>
+							<td>
+								<select class="easyui-combobox" data-options="editable:false" name="contactGender" style="width: 173px;">
+									<option selected="selected" disabled="disabled" value=""></option>
+									<option value="男">男</option>
+									<option value="女">女</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>联系人电话:</td>
+							<td><input class="easyui-textbox" type="text" name="contactPhone" data-options="required:true"></input>
+							</td>
+						</tr>
+						<tr>
+							<td>联系人职位:</td>
+							<td><input class="easyui-textbox" type="text" name="contactJob" data-options="required:false"></input>
+							</td>
+						</tr>
+					</table>
+				</form>
+			<div style="text-align:center;padding:5px">
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="editConForm()">修改</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancelConForm()">取消</a>
+			</div>
+			</div>
+		</center>
+	</div>
+  
+	<!-- 修改联系人窗口 -->
+	<div id="dlgCustomer" class="easyui-dialog" title="修改客户信息" data-options="iconCls:'icon-edit',closed:true" style="width:400px;height:600px;padding:10px">
+		<!--对话框中的修改内容-->
+		<div style="padding:10px 60px 20px 60px">
+			<form id="editCustomer" method="post">
+				<table cellpadding="5">
+					<tr>
+						<td>客户编号:</td>
+						<td>
+							<!--修改时需要主键ID，所以用隐藏的input框来提交cusId-->
+							<input type="hidden" name="customerId" />
+							<input class="easyui-textbox" type="text" name="customerNo" data-options="required:true"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>客户姓名:</td>
+						<td><input class="easyui-textbox" type="text" name="customerName" data-options="required:true" style="width: 172px;"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>客户地址:</td>
+						<td><input class="easyui-textbox" type="text" name="customerAddress" data-options="" style="width: 172px;"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>客户邮箱:</td>
+						<td><input class="easyui-textbox" type="text" name="customerEmail" data-options="" style="width: 172px;"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>客户电话:</td>
+						<td><input id="CustomerPhone" class="easyui-textbox" type="text" name="customerPhone" data-options="" style="width: 172px;"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>客户区域:</td>
+						<td>
+							<select class="easyui-combobox" name="customerRegion" data-options="width:172,required:true">
+								<option value="开州区">开州区</option>
+								<option value="南川区">南川区</option>
+								<option value="江津区">江津区</option>
+								<option value="长寿区">长寿区</option>
+								<option value="永川区">永川区</option>
+								<option value="合川区">合川区</option>
+								<option value="璧山区">璧山区</option>
+								<option value="荣昌区">荣昌区</option>
+								<option value="铜梁区">铜梁区</option>
+								<option value="潼南区">潼南区</option>
+								<option value="渝中区">渝中区</option>
+								<option value="涪陵区">涪陵区</option>
+								<option value="万州区">万州区</option>
+								<option value="綦江区">綦江区</option>
+								<option value="渝北区">渝北区</option>
+								<option value="大足区">大足区</option>
+								<option value="黔江区">黔江区</option>
+								<option value="巴南区">巴南区</option>
+								<option value="大渡口区">大渡口区</option>
+								<option value="江北区">江北区</option>
+								<option value="沙坪坝区">沙坪坝区</option>
+								<option value="九龙坡区">九龙坡区</option>
+								<option value="南岸区">南岸区</option>
+								<option value="北碚区">北碚区</option>
+							</select>
+						</td>
+					</tr>
+
+					<tr>
+						<td>合作关系:</td>
+						<td>
+							<select panlHight="auto" class="easyui-combobox" name="customerCooperation" data-options="width:172,required:true">
+								<option value="普通客户">普通客户</option>
+								<option value="VIP客户">VIP大客户</option>
+								<option value="重点开发客户">重点开发客户</option>
+								<option value="合作伙伴">合作伙伴</option>
+								<option value="战略合作伙伴">战略合作伙伴</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>客户等级</td>
+						<td>
+							<select panlHight="auto" class="easyui-combobox" name="customerGrade" data-options="width:172,required:true">
+								<option value="一级会员">一级会员</option>
+								<option value="二级会员">二级会员</option>
+								<option value="高级会员">高级会员</option>
+								<option value="黑卡级会员">黑卡级会员</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>信用级别:</td>
+						<td>
+							<select panlHight="auto" class="easyui-combobox" name="customerCredit" data-options="width:172,required:true">
+								<option value="1">1(差)</option>
+								<option value="2">2(良好)</option>
+								<option value="3">3(较好)</option>
+								<option value="4">4(好)</option>
+								<option value="5">5(优秀)</option>
+							</select>
+						</td>
+					</tr>
+					<!-- <tr>
+						<td>客户满意度:</td>
+						<td>
+							<select class="easyui-combobox" name="customerStatus" data-options="width:172,required:true">
+								<option value="1">1(非常差)</option>
+								<option value="2">2(差)</option>
+								<option value="3">3(一般)</option>
+								<option value="4">4(好)</option>
+								<option value="5">5(非常好)</option>
+							</select>
+						</td>
+					</tr> -->
+				</table>
+			</form>
+		</div>
+
+		<!--修改的操作按键-->
+		<div style="text-align:center;padding:5px">
+			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="removeCustomer_OK()">修改</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="removeCustomer_NO()">取消</a>
+		</div>
+	</div>
+
+<!-- 交往记录工具栏 -->
+	<div id="recordToolBar" style="height:auto">
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="removeRecord()">删除记录</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="updateRecord()">修改记录</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="pachRecord()">添加记录</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="clearRecord()">清空记录</a>
+	</div>
+
+	<!--点击查看交往记录弹出的对话框-->
+	<div id="showRecord" class="easyui-dialog" title="客户交往记录" data-options="iconCls:'icon-search',closed:true" style="width:880px;"
+	 style="overflow: auto;">
+		<table id="allRecord" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#recordToolBar" data-options="pagination:true,singleSelect:true,collapsible:false,method:'get',fitColumns:true, nowrap:true,pageList:[5,10,15,20],pageSize:5">
+			<thead>
+				<tr>
+					<!-- 	<th data-options="field:'customerNo',width:100,align:'center',resizable:false">客户编号</th> -->
+					<th data-options="field:'customerName',width:100,align:'center',resizable:false">客户姓名</th>
+					<!-- <th data-options="field:'userNo',width:100,align:'center',resizable:false">处理人编号</th> -->
+					<th data-options="field:'handlerName',width:100,align:'center',resizable:false">处理人姓名</th>
+					<th data-options="field:'createTime',width:100,align:'center',resizable:false">时间</th>
+					<th data-options="field:'chatAddress',width:100,align:'center',resizable:false">地点</th>
+					<th data-options="field:'shortDescription',width:170,align:'center',resizable:false">概要</th>
+					<th data-options="field:'longDescription',width:170,align:'center',resizable:false">详细信息</th>
+					<th data-options="field:'moreInfo',width:170,align:'center',resizable:false">备注</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+	
+	<!-- 点击修改 交往记录弹出的对话框-->
+	<div id="updateRecord" class="easyui-dialog" title="修改交往记录" data-options="iconCls:'icon-search',closed:true">
+		<div class="easyui-panel" style="width:400px;border-style: none;">
+			<div style="padding:10px 60px 20px 60px;">
+				<form id="tbUpdateRecord" data-options="novalidate:true" class="easyui-form">
+					<table cellpadding="5">
+						<tr>
+							<td>客户姓名:</td>
+							<td><input class="easyui-textbox" type="text" name="customerName" data-options="required:true" style="width: 160px;"></input>
+							</td>
+						</tr>
+						<tr>
+							<td>客处理人姓名:</td>
+							<td><input class="easyui-textbox" type="text" name="handlerName" data-options="required:true," style="width: 160px;"></input>
+							</td>
+						</tr>
+						<tr>
+							<td>时间:</td>
+							<td><input class="easyui-textbox" type="text" name="createTime" data-options="required:true," style="width: 160px;"></input>
+							</td>
+						</tr>
+						<tr>
+							<td>地点:</td>
+							<td><input class="easyui-textbox" type="text" name="chatAddress" data-options="required:true," style="width: 160px;"></input>
+							</td>
+						</tr>
+						<tr>
+							<td>概要:</td>
+							<td><input class="easyui-textbox" type="text" name="shortDescription" data-options="required:true," style="width: 160px;"></input>
+							</td>
+						</tr>
+						<tr>
+							<td>详细信息:</td>
+							<td><input class="easyui-textbox" type="text" name="longDescription" data-options="required:true," style="width: 160px;"></input>
+							</td>
+						</tr>
+						<tr>
+							<td>备注:</td>
+							<td><input class="easyui-textbox" type="text" name="moreInfo" data-options="required:true," style="width: 160px;"></input>
+							</td>
+						</tr>
+					</table>
+				</form>
+				<div style="text-align:center;padding:5px">
+					<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitRecordForm()" style="margin-right: 20%;">提交</a>
+					<a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancleRecordForm()">取消</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+</div>
+	
+	
+	<!-- 点击新增交往记录弹出的对话框 -->
+	
+	<div id="">
+		
+	</div>
+
+	<script type="text/javascript">
+		var myloader = function(param, success, error) {
+			$.ajax({
+				type: "GET",
+				url: "http://localhost:8080/customer/" + param.page + "/" + param.rows,
+				success: function(data) {
+					var obj = {};
+					obj.total = data.total;
+					obj.rows = data.data;
+					success(obj);
+				}
+			});
+		}
+
+		//工具栏点击删除事件
+		function removeCustomer() {
+			var tbcus = $("#allCustomer").datagrid("getSelected");
+			if (tbcus) {
+				$.messager.confirm('删除', '确定要删除吗', function(r) {
+					if (r) {
+						$.messager.confirm('删除', '最后一次确认', function(r) {
+							if (r) {
+								$.ajax({
+									type: 'DELETE',
+									url: 'http://localhost:8080/customer/',
+									dataType: 'JSON',
+									data: tbcus,
+									success: function(re) {
+										$('#allCustomer').datagrid('reload');
+										$.messager.alert("修改提示", re.msg);
+									}
+								});
+							}
+						});
+					}
+				});
+			} else {
+				$.messager.alert("修改提示", "请选中你修改的行")
+			}
+		}
+
+		//工具栏点击修改事件
+		function updateCustomer() {
+			var tbcus = $("#allCustomer").datagrid("getSelected");
+			if (tbcus) {
+				$('#dlgCustomer').dialog('open');
+				$('#editCustomer').form('load', tbcus);
+			} else {
+				$.messager.alert("修改提示", "请选中你修改的行")
+			}
+		}
+
+		//修改提交的点击事件
+		function removeCustomer_OK() {
+			var custb = $("#editCustomer").form("validate");
+			var fromCustomer = $('#CustomerPhone').combobox('getText');
+			if (fromCustomer.length == 11 || fromCustomer.length == 0) {
+				if (custb) {
+					$.ajax({
+						type: 'put',
+						url: 'http://localhost:8080/customer/',
+						dataType: 'JSON',
+						data: $("#editCustomer").serialize(),
+						success: function(obj) {
+							//当提交完毕并修改成功后，自动刷新页面的数据
+							$('#allCustomer').datagrid('reload');
+							$.messager.alert("修改提示", obj.msg);
+							$('#dlgCustomer').dialog('close');
+						}
+					});
+				} else {
+					//如果修改的表单中出现了某个框中没有值得处理方式，自行脑补
+					$.message.alert("请选中要修改的行")
+				}
+			} else {
+				$.messager.alert("错误提示", "输入正确的电话号码");
+			}
+		}
+    
+	var cusObj;
+	// 新增客户联系人
+	function addContact(){
+		cusObj = $("#allCustomer").datagrid("getSelected");
+		if (cusObj!=null) {
+			var objId = {};
+			objId.customerId  = cusObj.customerId;
+			// 将title中添加客户名字，以便查看
+			$("#addCon").dialog({"title":"添加客户 "+cusObj.customerName+" 联系人"}).dialog("open");
+			$("#submitCon").form("load",objId);
+			
+		} else{
+			$.messager.alert("提示","请选择客户");
+		}
+		
+	}
+	// 确认后提交新增的联系人的信息
+	function submitConForm(){
+		var boo = $("#submitCon").form("validate");
+		if (boo) {
+			$.ajax({
+				type:"POST",
+				url:"http://localhost:8080/contact",
+				dataType:"JSON",
+				data:$("#submitCon").serialize(),
+				success:function(obj){
+					$("#submitCon").form("clear");
+					$.messager.alert("新增提示",obj.msg);
+					// 新增后刷新联系人列表
+					$('#allContact').datagrid('reload');
+				}
+			});
+		} else{
+			alert("新增失败");
+		}
+	}
+	// 清空表单
+	function clearConForm(){
+		$("#submitCon").form("reset");
+		// 重新加载不能修改的项（客户Id），因为清空表单会把该值也去掉
+		cusObj = $("#allCustomer").datagrid("getSelected");
+		var obj = {};
+		obj.customerId  = cusObj.customerId;
+		$("#submitCon").form("load",obj);
+	}
+	//-----------------------------------------------------
+	// 修改联系人信息
+	function editContact(){
+		// 获取选中的联系人行
+		var con = $("#allContact").datagrid("getSelected");
+		// 获取选中的客户行
+		cusObj = $("#allCustomer").datagrid("getSelected");
+		if (con!=null) {
+			$("#dlgEditContact").dialog({"title":"修改客户 "+cusObj.customerName+" 的联系人信息"}).dialog("open");
+			$("#editCon").form("load",con);
+			$("#listCon").dialog("close");
+		} else{
+			$.messager.alert("提示","请选择修改的联系人");
+		}
+	}
+	// 确认修改后的信息并提交
+	function editConForm(){
+		var boo = $('#editCon').form('validate');
+		if(boo) {
+			$.ajax({
+				type: 'PUT',
+				url: 'http://localhost:8080/contact',
+				dataType: 'JSON',
+				data: $('#editCon').serialize(),
+				success: function(obj) {
+					$('#allContact').datagrid('reload');
+					$.messager.alert('修改提示',obj.msg);
+					$('#dlgEditContact').dialog('close');
+				}
+			});
+			$("#listCon").dialog("open");
+		} else {
+			$.messager.alert('修改联系人信息', "修改失败");
+		}
+	}
+	// 取消修改联系人信息对话框
+	function cancelConForm(){
+		$('#dlgEditContact').dialog('close');
+		$("#listCon").dialog("open");
+	}
+	
+	// 删除选中联系人信息
+	function removeContact(){
+		var boo = $("#allContact").datagrid("getSelected");
+		if (boo!=null) {
+			$.messager.confirm("Confirm", "确定要删除该联系人？", function(r) {
+				if(r) {
+					$.ajax({
+						type: 'DELETE',
+						url: 'http://localhost:8080/contact',
+						dataType: 'JSON',
+						data: boo,
+						success: function(obj) {
+							$('#allContact').datagrid('reload');
+							$.messager.alert('修改提示', obj.msg);
+						}
+					})
+				}
+			});
+		} else{
+			$.messager.alert("提示", "请选择删除行");
+		}
+	}
+
+	// 查看当前客户的所有联系人和信息
+	function lookContact(){
+		cusObj = $("#allCustomer").datagrid("getSelected");
+		if (cusObj!=null) {
+			$("#listCon").dialog({"title":"查看客户 "+cusObj.customerName+" 的联系人"}).dialog("open");
+		} else{
+			$.messager.alert("提示","请选择客户");
+		}
+	}
+	
+	// 加载联系人信息
+	var myloaderCon = function(param, success, error) {
+		cusObj = $("#allCustomer").datagrid("getSelected");
 		$.ajax({
 			type: "GET",
-			url: "http://localhost:8080/customer/" + param.page + "/" + param.rows,
+			url: "http://localhost:8080/contact/" + param.page + "/" + param.rows,
 			success: function(data) {
 				var obj = {};
 				obj.total = data.total;
@@ -40,4 +563,87 @@
 			}
 		});
 	}
-</script>
+  
+    function recordLoader(param, success, error) {
+		var cusId = $("#allCustomer").datagrid("getSelected").customerId;
+		$.ajax({
+			type: "GET",
+			url: "http://localhost:8080/chatRecord/" + param.page + "/" + param.rows + "/" + cusId,
+			success: function(data) {
+				var obj = {}
+				obj.total = data.total;
+				obj.rows = data.data;
+				success(obj)
+			}
+		});
+	}
+	 
+	function checkRecord() {
+		var f = $("#allCustomer").datagrid("getSelected");
+		if (f) {
+			$('#showRecord').dialog('open');
+			$('#allRecord').datagrid({
+				loader: recordLoader
+			});
+		} else {
+			$.messager.alert("提示", "没有选中行")
+		}
+	}
+
+	function removeRecord() {
+		var f = $('#allRecord').datagrid("getSelected");
+		if (f) {
+			var b = f.chatId;
+			$.ajax({
+				type: "DELETE",
+				url: "http://localhost:8080/chatRecord/" + b,
+				success: function(data) {
+					$('#allRecord').datagrid('reload');
+					$.messager.alert("提示", data.msg)
+				}
+			})
+		} else {
+			$.messager.alert("提示", "没有选中行")
+		}
+
+	}
+
+	function updateRecord(){
+		var f = $('#allRecord').datagrid("getSelected");
+		if (f) {
+			$('#updateRecord').dialog('open');
+			$('#showRecord').dialog('close');
+			$('#tbUpdateRecord').form("load",f);		
+		} else {
+			$.messager.alert("提示", "没有选中行")
+		}
+	}
+	
+	function pachRecord(){
+		
+	}
+	
+	function clearRecord(){
+		
+	}
+	
+	function submitRecordForm(){
+		$('#tbUpdateRecord').form('submit', {
+			onSubmit: function() {
+				return $(this).form('enableValidation').form('validate');
+			}
+		});
+		var boo = $('#tbUpdateRecord').form('validate');
+		if(boo){
+			$.ajax({
+				type:"PUT",
+				url:"http://localhost:8080/chatRecord",
+				dataType:'JSON',
+				data:$('#tbUpdateRecord').serialize(),
+				success:function(data){
+					$.messager.alert("提示",data.msg)
+				}
+			})
+		}
+	}
+	</script>
