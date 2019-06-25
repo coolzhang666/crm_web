@@ -1,6 +1,5 @@
 <div>
-	<table id="allSaleChance" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#saleChanceToolBar"
-		data-options="pagination:true,singleSelect:true,collapsible:false,loader:myloader,
+	<table id="allSaleChance" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#saleChanceToolBar" data-options="pagination:true,singleSelect:true,collapsible:false,loader:myloader,
 		method:'get',fitColumns:true, nowrap:true,pageList:[5,10,15,20],pageSize:5,displayMsg:''">
 		<thead>
 			<tr>
@@ -23,9 +22,62 @@
 	<div id="saleChanceToolBar" style="height:auto">
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="">删除销售机会</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="">修改销售机会</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="">开发计划</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="developPlan()">开发计划</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="">开发成功</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="">开发失败</a>
+	</div>
+	<div id="allDevelopPlanDialog" class="easyui-dialog" title="开发计划" data-options="iconCls:'icon-edit', closed:true" style="width:600px;">
+		<table id="allDevelopPlan" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#developPlanToolBar" data-options="singleSelect:true,collapsible:false,pagination:true,pageList:[5,10,15,20],pageSize:5,
+			method:'GET',fitColumns:true,fitColumns:true">
+			<thead>
+				<tr>
+					<th data-options="field:'creatorName',width:100,align:'center',resizable:false">创建人</th>
+					<th data-options="field:'planContent',width:100, align:'center',resizable:false">计划内容</th>
+					<th data-options="field:'createTime',width:100,align:'center',resizable:false">创建时间</th>
+					<th data-options="field:'planStatus',width:100,align:'center',resizable:false">状态</th>
+					<th data-options="field:'planResult',width:100, align:'center',resizable:false">执行结果</th>
+				</tr>
+			</thead>
+		</table>
+		<div id="developPlanToolBar" style="height:auto">
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="removeDevelopPlan()">删除开发计划</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="addDevelopPlan()">新增开发计划</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="updateDevelopPlan()">更改开发计划</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="">执行开发计划</a>
+		</div>
+	</div>
+
+	<div id="addDevelopPlanDialog" class="easyui-dialog" title="新增开发计划" data-options="iconCls:'icon-edit', closed:true" style="width:400px">
+		<div style="padding:10px 60px 20px 60px">
+			<form id="addDevelopPlanForm" class="easyui-form" method="post" data-options="novalidate:true">
+				<table cellpadding="5" cellspacing="5px">
+					<tr style="display: none;">
+						<td>销售机会Id:</td>
+						<td><input class="easyui-textbox" type="text" name="chanceId" data-options="required:true" style="width: 200px;"></input>
+						</td>
+					</tr>
+					<tr style="display: none;">
+						<td>创建者id:</td>
+						<td><input class="easyui-textbox" value="1" type="text" name="creatorId" data-options="required:true" style="width: 200px;"></input>
+						</td>
+					</tr>
+					<tr style="display: none;">
+						<td>创建者姓名:</td>
+						<td><input class="easyui-textbox" value="1" type="text" name="creatorName" data-options="required:true" style="width: 200px;"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>计划内容:</td>
+						<td><input class="easyui-textbox" type="text" name="planContent" data-options="required:true" style="width: 200px;"></input>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<div style="text-align:center;padding:5px">
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitAddDevelopPlanForm()">新增</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancelAddDevelopPlanForm()">取消</a>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -41,5 +93,89 @@
 				success(obj);
 			}
 		});
+	}
+
+	function planLoader(param, success, error) {
+		var chanceId = $("#allSaleChance").datagrid("getSelected").chanceId;
+		$.ajax({
+			type: "GET",
+			url: "http://localhost:8080/developPlan/" + chanceId + "/" + param.page + "/" + param.rows,
+			success: function(data) {
+				var obj = {};
+				obj.total = data.total;
+				obj.rows = data.data;
+				success(obj);
+			}
+		});
+	}
+
+	function developPlan() {
+		var saleChance = $("#allSaleChance").datagrid("getSelected");
+		if(saleChance != null) {
+			$("#allDevelopPlanDialog").dialog("open");
+
+			$("#allDevelopPlan").datagrid({
+				loader: planLoader
+			});
+		} else {
+			$.messager.alert("提示", "请选中相应行");
+		}
+	}
+	
+	$("#addDevelopPlanDialog").dialog({
+		onClose:function() {
+			$("#allDevelopPlan").datagrid("reload");
+			$("#allDevelopPlanDialog").dialog("open");
+		}
+	});
+
+	function addDevelopPlan() {
+		var saleChance = $("#allSaleChance").datagrid("getSelected");
+		if(saleChance != null) {
+			var obj = {};
+			obj.chanceId = saleChance.chanceId;
+			$("#allDevelopPlanDialog").dialog("close");
+			$("#addDevelopPlanDialog").dialog("open");
+			$("#addDevelopPlanForm").form("load", obj);
+		} else {
+			$.messager.alert("提示", "请选中相应行");
+		}
+	}
+	
+	function submitAddDevelopPlanForm() {
+		$.ajax({
+			type:"POST",
+			url:"http://localhost:8080/developPlan",
+			dataType: "JSON",
+			data: $("#addDevelopPlanForm").serialize(),
+			success: function(data) {
+				$.messager.alert("提示", data.msg);
+				$("#addDevelopPlanDialog").dialog("close");
+			}
+		});
+	}
+	
+	function cancelAddDevelopPlanForm() {
+		$("#addDevelopPlanDialog").dialog("close");
+	}
+	
+	function removeDevelopPlan() {
+		var developPlan = $("#allDevelopPlan").datagrid("getSelected");
+		if (developPlan != null) {
+			$.ajax({
+				type:"DELETE",
+				url:"http://localhost:8080/developPlan/" + developPlan.planId,
+				success: function(data) {
+					$.messager.alert("提示", data.msg);
+					$("#allDevelopPlan").datagrid("reload");
+				}
+			});
+		} else {
+			$.messager.alert("提示", "请选中相应行");
+		}
+	}
+	
+	function updateDevelopPlan() {
+		alert("hello");
 	}
 </script>
