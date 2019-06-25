@@ -1,0 +1,150 @@
+<center>
+	<h2 align="center" style="margin:10px ;">新增客户</h2>
+	<div class="easyui-panel" style="width:400px;border-style: none;">
+		<div style="padding:10px 60px 10px 60px">
+			<form id="addCus" method="post" style="margin-top: 10px;">
+				<table cellpadding="5">
+					<tr>
+						<td>客户编号:</td>
+						<td>
+							<input class="easyui-textbox" type="text" name="customerNo" data-options="" style="width: 172px;"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>客户姓名:</td>
+						<td><input class="easyui-textbox" type="text" name="customerName" data-options="required:true" style="width: 172px;"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>客户地址:</td>
+						<td><input class="easyui-textbox" type="text" name="customerAddress" style="width: 172px;"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>客户邮箱:</td>
+						<td><input class="easyui-textbox" type="text" name="customerEmail" data-options="validType:'email'" style="width: 172px;"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>客户电话:</td>
+						<td><input id="CustomerPhone" class="easyui-textbox" type="text" name="customerPhone" data-options="validType:'phone'"
+							 style="width: 172px;"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>客户区域:</td>
+						<td>
+							<select class="easyui-combobox" name="customerRegion" data-options="width:172,required:true">
+								<option value="开州区">开州区</option>
+								<option value="南川区">南川区</option>
+								<option value="江津区">江津区</option>
+								<option value="长寿区">长寿区</option>
+								<option value="永川区">永川区</option>
+								<option value="合川区">合川区</option>
+								<option value="璧山区">璧山区</option>
+								<option value="荣昌区">荣昌区</option>
+								<option value="铜梁区">铜梁区</option>
+								<option value="潼南区">潼南区</option>
+								<option value="渝中区">渝中区</option>
+								<option value="涪陵区">涪陵区</option>
+								<option value="万州区">万州区</option>
+								<option value="綦江区">綦江区</option>
+								<option value="渝北区">渝北区</option>
+								<option value="大足区">大足区</option>
+								<option value="黔江区">黔江区</option>
+								<option value="巴南区">巴南区</option>
+								<option value="大渡口区">大渡口区</option>
+								<option value="江北区">江北区</option>
+								<option value="沙坪坝区">沙坪坝区</option>
+								<option value="九龙坡区">九龙坡区</option>
+								<option value="南岸区">南岸区</option>
+								<option value="北碚区">北碚区</option>
+							</select>
+						</td>
+					</tr>
+
+					<tr>
+						<td>合作关系:</td>
+						<td>
+							<select panlHight="auto" class="easyui-combobox" name="customerCooperation" data-options="width:172,required:true">
+								<option value="普通客户">普通客户</option>
+								<option value="VIP客户">VIP大客户</option>
+								<option value="重点开发客户">重点开发客户</option>
+								<option value="合作伙伴">合作伙伴</option>
+								<option value="战略合作伙伴">战略合作伙伴</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>客户等级</td>
+						<td>
+							<select panlHight="auto" class="easyui-combobox" name="customerGrade" data-options="width:172,required:true">
+								<option value="一级会员">一级会员</option>
+								<option value="二级会员">二级会员</option>
+								<option value="高级会员">高级会员</option>
+								<option value="黑卡级会员">黑卡级会员</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>信用级别:</td>
+						<td>
+							<select panlHight="auto" class="easyui-combobox" name="customerCredit" data-options="width:172,required:true">
+								<option value="4">4(好)</option>
+								<option value="1">1(差)</option>
+								<option value="2">2(良好)</option>
+								<option value="3">3(较好)</option>
+								<option value="5">5(优秀)</option>
+							</select>
+						</td>
+					</tr>
+					<!-- <tr> 
+						<td>客户满意度:</td>
+						<td>
+							<select class="easyui-combobox" name="customerStatus" data-options="width:172,required:true">
+								<option value="4">4(好)</option>
+								<option value="1">1(非常差)</option>
+								<option value="2">2(差)</option>
+								<option value="3">3(一般)</option>
+								<option value="5">5(非常好)</option>
+							</select>
+						</td>
+					</tr> -->
+				</table>
+			</form>
+			<div style="text-align:center;padding:5px">
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitCustomer()">新增</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">清空</a>
+			</div>
+		</div>
+	</div>
+</center>
+<script>
+	function submitCustomer() {
+		var bool = $('#addCus').form('validate')
+		var fromCustomer = $('#CustomerPhone').combobox('getText');
+		if (fromCustomer.length == 11 || fromCustomer.length == 0) {
+			if (bool) {
+				$.ajax({
+					type: "post",
+					url: "http://localhost:8080/customer/",
+					async: true,
+					dataType: 'JSON',
+					data: $('#addCus').serialize(),
+					success: function(re) {
+						$("#addCus").form('reset');
+						$.messager.alert("增加", re.msg);
+					}
+				});
+			} else {
+				$.messager.alert("错误提示", "请输入信息");
+			}
+		} else {
+			$.messager.alert("错误提示", "输入正确的电话号码");
+		}
+	}
+
+	function clearForm() {
+		$('#addCus').form('reset');
+	}
+</script>
