@@ -28,7 +28,8 @@ var data = [{
 }, {
 	text: '服务管理',
 	iconCls: 'icon-more',
-	state: 'close',
+//	state: 'close',
+	state: 'open',
 	children: [{
 		text: '新增服务',
 	}, {
@@ -37,6 +38,7 @@ var data = [{
 		text: '处理服务',
 	}, {
 		text: '服务归档',
+		href:'html/service/serviceDone.html'
 	}]
 }, {
 	text: '统计报表',
