@@ -33,6 +33,7 @@ var data = [{
 		text: '新增服务',
 	}, {
 		text: '服务分配',
+		href: 'html/service/allotService.html',
 	}, {
 		text: '处理服务',
 	}, {

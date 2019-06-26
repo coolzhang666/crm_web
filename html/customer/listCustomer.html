@@ -619,7 +619,6 @@
 	// 加载联系人信息
 	function myloaderCon(param, success, error) {
 		cusObj = $("#allCustomer").datagrid("getSelected");
-		console.log(cusObj);
 		$.ajax({
 			type: "GET",
 			url: "http://localhost:8080/contact/" + param.page + "/" + param.rows + "/" + cusObj.customerId,
