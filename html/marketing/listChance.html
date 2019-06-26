@@ -9,20 +9,92 @@
 		
 	</div>
 	
-	<div id="dlg-sendPerson" class="easyui-dialog" title="指派人员" data-options="iconCls:'icon-edit',closed:true" style="width:400px;height:200px;padding:10px">
+	<div id="dlg-sendPerson" class="easyui-dialog" title="指派人员" data-options="iconCls:'icon-edit',closed:true" style="width:420px;height:200px;padding:10px">
 			<div style="padding:10px 60px 20px 60px">
 			<center>
 				<form id="editSend" method="post">
 					<table cellpadding="5">
 						<tr>
+						<!--<td>客户姓名:</td>-->
+						<td>
+							<input type="hidden" name="chanceId" />
+							<input  type="hidden" name="customerName"></input>
+						</td>
+					</tr>
+					<tr>
+						<!--<td>客户电话:</td>-->
+						<td>
+							<input  type="hidden" name="customerPhone"></input>
+						</td>
+					</tr>
+					<tr>
+						<!--<td>联系人姓名:</td>-->
+						<td>
+							<input  type="hidden" name="contactName"></input>
+						</td>
+					</tr>
+					<tr>
+						<!--<td>联系人电话:</td>-->
+						<td>
+							<input  type="hidden" name="contactPhone"></input>
+						</td>
+					</tr>
+					<tr>
+						<!--<td>机会来源:</td>-->
+						<td>
+							<input  type="hidden" name="chanceResource"></input>
+						</td>
+					</tr>
+					<tr>
+						<!--<td>成功几率:</td>-->
+						<td>
+							<input  type="hidden" name="successRate"></input>
+						</td>
+					</tr>
+					<tr>
+						<!--<td>机会描述:</td>-->
+						<td>
+							<input  type="hidden" name="chanceDescription"></input>
+						</td>
+					</tr>
+					<tr>
+						<!--<td>创建人Id:</td>-->
+						<td>
+							<input  type="hidden" name="creatorId"></input>
+						</td>
+					</tr>
+					<tr>
+						<!--<td>创建人姓名:</td>-->
+						<td>
+							<input  type="hidden" name="creatorName"></input>
+						</td>
+					</tr>
+					<tr>
+						<!--<td>创建时间:</td>-->
+						<td>
+							<input  type="hidden" name="createTime"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>指派人ID:</td>
+							<td>
+								<!--<input type="hidden" name="chanceId" />-->
+								<input  id="belong" class="easyui-textbox" type="text" value="" name="belong" data-options="required:true"></input>
+							</td>
+					</tr>
+					<tr>
+						<!--<td>状态:</td>-->
+						<td>
+							<input  type="hidden" name="chanceStatus"></input>
+						</td>
+					</tr>
+					
+						<!--<tr>
 							<td>指派人ID:</td>
 							<td>
-								<!--修改时需要主键ID，所以用隐藏的input框来提交cusId-->
-								<input type="hidden" name="chanceId" />
-								<input class="easyui-textbox" type="text" value="" name="belong" data-options="required:true"></input>
+								<input  id="belong" class="easyui-textbox" type="text" value="" name="belong" data-options="required:true"></input>
 							</td>
-						</tr>
-					
+						</tr>-->
 					</table>
 				</form>
 			</center>
@@ -49,7 +121,7 @@
 				<th data-options="field:'creatorId',width:80,align:'center',resizable:false,editor:'textbox'">创建人id</th>
 				<th data-options="field:'creatorName',width:80,align:'center',resizable:false,editor:'textbox'">创建人名称</th>
 				<th data-options="field:'createTime',width:80,align:'center',resizable:false,editor:'textbox'">创建时间</th>
-				<th data-options="field:'belong',width:80,align:'center',resizable:false">指派给</th>
+				<th data-options="value:'',field:'belong',width:80,align:'center',resizable:false">指派给</th>
 				<th data-options="field:'dispatchTime',width:80,align:'center',resizable:false">指派时间</th>
 				<th disabled="true" data-options="field:'chanceStatus',width:80,align:'center',resizable:false">状态</th>
 			</tr>
@@ -57,7 +129,7 @@
 	</table>
 	<div id="saleChanceToolBar" style="height:auto">
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="removeChance()">删除销售机会</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="changeSaleChance()">修改销售机会</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="changeSaleChance()">保存销售机会</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="sendPerson()">指派人员</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="developPlan()">开发计划</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="">开发成功</a>
@@ -343,7 +415,6 @@ var editIndex = undefined;
 //				$('#tbsell').datagrid('getRows')[editIndex]['cusNo'] = productname;
 				$('#allSaleChance').datagrid('endEdit', editIndex);
 				editIndex = undefined;
-				
 				return true;
 			} else {
 				return false;
@@ -393,7 +464,9 @@ var editIndex = undefined;
 //			alert(allSaleChance.chanceStatus);
 			if(allSaleChance != null) {
 				if(allSaleChance.chanceStatus == '未分配'){
+					$('#belong').textbox('clear');
 					$("#dlg-sendPerson").dialog("open");
+					$("#editSend").form("load",allSaleChance );
 				}
 				else{
 					$("#allSaleChance").datagrid('clearSelections');
@@ -405,23 +478,23 @@ var editIndex = undefined;
 		}
 		//确定指派
 		function sureForm(){
-			var send = $("editSend").form("validate");
+			var send = $("#editSend").form("validate");
+			var allSaleChance = $("#allSaleChance").datagrid("getSelected");
 			if(send) {
 				$.ajax({
-					type: 'push',
-					url: 'http://localhost:8080/SaleChance/'+send.belong,
+					type: 'put',
+					url: 'http://localhost:8080/SaleChance/addSendPerson',
 					dataType: 'JSON',
 					data: $("#editSend").serialize(),
-					success: function(obj) {
+					success: function() {
 						//当提交完毕并修改成功后，自动刷新页面的数据
 						$('#allSaleChance').datagrid('reload');
-						$.messager.alert("修改提示", obj.result);
+						$.messager.alert("指派提示", "指派成功");
 						$('#dlg-sendPerson').dialog('close');
 					}
 				});
 			} else {
-				//如果修改的表单中出现了某个框中没有值处理，自行脑补
-				$.messager.alert("错误","修改客户失败");
+				$.messager.alert("错误","指派人员失败");
 			}
 		}
 		//取消指派

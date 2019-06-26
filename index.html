@@ -35,11 +35,79 @@
 
 		<!--中间内容部分-->
 		<div class="container" data-options="region:'center'">
-			<div id="tt" class="easyui-tabs"></div>
+			<!--<div id="tt" class="easyui-tabs"></div>-->
+			<div id="tt" class="easyui-tabs" style="width:100%;height:100%;" data-options="region:'center',title:'主操作区'"></div>
+				    		
+			<div id="rcmenu" class="easyui-menu" style="">  
+			    <div id="closeall">关闭全部</div>  
+			    <div id="closeother">关闭其他</div> 
+			    <div id="closeright">当前页右侧全部关闭</div>
+			    <div id="closeleft">当前页左侧全部关闭</div> 
+		  </div>
 		</div>
-	
-
 	</body>
 	
+	<script type="text/javascript">
+			//绑定右键菜单事件
+	          $(".easyui-tabs").bind('contextmenu',function(e){         
+	         e.preventDefault();  
+	            $('#rcmenu').menu('show', {  
+	                left: e.pageX,  
+	                top: e.pageY  
+	            });  
+	        });  
+	        //关闭所有标签页  
+	         $("#closeall").bind("click",function(){  
+	            var tablist =$('#tt').tabs('tabs');
+//	            alert("aaaa");
+	             console.log(tablist);
+	          //  return; 
+	            for(var i=tablist.length-1;i>=0;i--){  
+	                $('#tt').tabs('close',i);  
+	            }  
+	        });   
+	        //关闭其他页面（先关闭右侧，再关闭左侧）  
+	        $("#closeother").bind("click",function(){  
+	            var tablist = $('#tt').tabs('tabs');  
+	            var tab = $('#tt').tabs('getSelected');  
+	            var index = $('#tt').tabs('getTabIndex',tab);  
+	            for(var i=tablist.length-1;i>index;i--){  
+	                $('#tt').tabs('close',i);  
+	            }  
+	            var num = index-1;  
+	            if(num < 1){  
+	                return;  
+	            }else{  
+	                for(var i=num;i>=0;i--){  
+	                    $('#tt').tabs('close',i);  
+	                }  
+	                $("#tt").tabs("select", 1);  
+	            }  
+	        });  
+	        //关闭右边的选项卡
+	        $("#closeright").bind("click",function(){  
+	            var tablist = $('#tt').tabs('tabs');  
+	            var tab = $('#tt').tabs('getSelected');  
+	            var index = $('#tt').tabs('getTabIndex',tab);  
+	            for(var i=tablist.length-1;i>index;i--){  
+	                $('#tt').tabs('close',i);  
+	            }  
+	        });  
+	        //关闭左边的选项卡
+	        $("#closeleft").bind("click",function(){  
+	            var tablist = $('#tt').tabs('tabs');  
+	            var tab = $('#tt').tabs('getSelected');  
+	            var index = $('#tt').tabs('getTabIndex',tab);  
+	            var num = index-1;  
+	            if(num < 0){  
+	                return;  
+	            }else{  
+	                for(var i=num;i>=0;i--){  
+	                    $('#tt').tabs('close',i);  
+	                }  
+	                $("#tt").tabs("select", 0);  
+	            }   
+	        });  
+</script>
 
 </html>
