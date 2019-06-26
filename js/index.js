@@ -32,10 +32,13 @@ var data = [{
 	state: 'open',
 	children: [{
 		text: '新增服务',
+		href: 'html/service/addService.html'
 	}, {
 		text: '服务分配',
+		href: 'html/service/allotService.html',
 	}, {
 		text: '处理服务',
+		href:'html/service/handleService.html'
 	}, {
 		text: '服务归档',
 		href:'html/service/serviceDone.html'

@@ -127,11 +127,11 @@
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="changeSaleChance()">保存销售机会</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="sendPerson()">指派人员</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="developPlan()">开发计划</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="">开发成功</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="">开发失败</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="developSuccess()">开发成功</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="developFailed()">开发失败</a>
 	</div>
-	
-	<div id="allDevelopPlanDialog" class="easyui-dialog" title="开发计划" data-options="iconCls:'icon-edit', closed:true" style="width:600px;">
+
+	<div id="allDevelopPlanDialog" class="easyui-dialog" title="开发计划" data-options="iconCls:'icon-edit', closed:true, modal:true" style="width:600px;">
 		<table id="allDevelopPlan" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#developPlanToolBar" data-options="singleSelect:true,collapsible:false,pagination:true,pageList:[5,10,15,20],pageSize:5,
 			method:'GET',fitColumns:true,fitColumns:true">
 			<thead>
@@ -148,7 +148,7 @@
 			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="removeDevelopPlan()">删除开发计划</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="addDevelopPlan()">新增开发计划</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="updateDevelopPlan()">更改开发计划</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="">执行开发计划</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="executeDevelopPlan()">执行开发计划</a>
 		</div>
 	</div>
 
@@ -209,6 +209,11 @@
 						<td><input class="easyui-textbox" value="1" type="text" name="creatorName" data-options="required:true" style="width: 200px;"></input>
 						</td>
 					</tr>
+					<tr style="display: none;">
+						<td>计划状态:</td>
+						<td><input class="easyui-textbox" type="text" name="planStatus" data-options="required:true" style="width: 200px;"></input>
+						</td>
+					</tr>
 					<tr>
 						<td>计划内容:</td>
 						<td><input class="easyui-textbox" type="text" name="planContent" data-options="required:true" style="width: 200px;"></input>
@@ -220,6 +225,177 @@
 				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitchangeDevelopPlanForm()">修改</a>
 				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancelchangeDevelopPlanForm()">取消</a>
 			</div>
+		</div>
+	</div>
+	
+	<div id="executeDevelopPlanDialog" class="easyui-dialog" title="执行开发计划" data-options="iconCls:'icon-edit', closed:true" style="width:400px">
+		<div style="padding:10px 60px 20px 60px">
+			<form id="executeDevelopPlanForm" class="easyui-form" method="post" data-options="novalidate:true">
+				<table cellpadding="5" cellspacing="5px">
+					<tr style="display: none;">
+						<td>开发计划Id:</td>
+						<td><input class="easyui-textbox" type="text" name="planId" data-options="required:true" style="width: 200px;"></input>
+						</td>
+					</tr>
+					<tr style="display: none;">
+						<td>销售机会Id:</td>
+						<td><input class="easyui-textbox" type="text" name="chanceId" data-options="required:true" style="width: 200px;"></input>
+						</td>
+					</tr>
+					<tr style="display: none;">
+						<td>创建者id:</td>
+						<td><input class="easyui-textbox" value="1" type="text" name="creatorId" data-options="required:true" style="width: 200px;"></input>
+						</td>
+					</tr>
+					<tr style="display: none;">
+						<td>创建者姓名:</td>
+						<td><input class="easyui-textbox" value="1" type="text" name="creatorName" data-options="required:true" style="width: 200px;"></input>
+						</td>
+					</tr>
+					<tr style="display: none;">
+						<td>计划内容:</td>
+						<td><input class="easyui-textbox" type="text" name="planContent" data-options="required:true" style="width: 200px;"></input>
+						</td>
+					</tr>
+					<tr style="display: none;">
+						<td>计划状态:</td>
+						<td><input class="easyui-textbox" type="text" name="planStatus" data-options="required:true" style="width: 200px;"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>执行结果:</td>
+						<td><input class="easyui-textbox" type="text" name="planResult" data-options="required:true" style="width: 200px;"></input>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<div style="text-align:center;padding:5px">
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitExecuteDevelopPlanForm()">执行</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancelExecuteDevelopPlanForm()">取消</a>
+			</div>
+		</div>
+	</div>
+	
+	<div id="changeCustomer" class="easyui-dialog" title="修改客户信息"
+		data-options="iconCls:'icon-edit',closed:true, modal:true, closable:false" style="height:600px;padding:10px">
+		<!--对话框中的修改内容-->
+		<div style="padding:10px 60px 20px 60px">
+			<form id="changeCustomerForm" method="post">
+				<table cellpadding="10px" cellspacing="10px">
+					<tr>
+						<td>客户编号:</td>
+						<td>
+							<!--修改时需要主键ID，所以用隐藏的input框来提交cusId-->
+							<input type="hidden" name="customerId" />
+							<input class="easyui-textbox" type="text" name="customerNo" data-options="required:true"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>客户姓名:</td>
+						<td><input class="easyui-textbox" type="text" name="customerName" data-options="required:true" style="width: 172px;"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>客户地址:</td>
+						<td><input class="easyui-textbox" type="text" name="customerAddress" data-options="" style="width: 172px;height: 60px;"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>客户邮箱:</td>
+						<td><input class="easyui-textbox" type="text" name="customerEmail" data-options="" style="width: 172px;"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>客户电话:</td>
+						<td><input id="CustomerPhone" class="easyui-textbox" type="text" name="customerPhone" data-options="" style="width: 172px;"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>客户区域:</td>
+						<td>
+							<select class="easyui-combobox" name="customerRegion" data-options="width:172,required:true">
+								<option value="开州区">开州区</option>
+								<option value="南川区">南川区</option>
+								<option value="江津区">江津区</option>
+								<option value="长寿区">长寿区</option>
+								<option value="永川区">永川区</option>
+								<option value="合川区">合川区</option>
+								<option value="璧山区">璧山区</option>
+								<option value="荣昌区">荣昌区</option>
+								<option value="铜梁区">铜梁区</option>
+								<option value="潼南区">潼南区</option>
+								<option value="渝中区">渝中区</option>
+								<option value="涪陵区">涪陵区</option>
+								<option value="万州区">万州区</option>
+								<option value="綦江区">綦江区</option>
+								<option value="渝北区">渝北区</option>
+								<option value="大足区">大足区</option>
+								<option value="黔江区">黔江区</option>
+								<option value="巴南区">巴南区</option>
+								<option value="大渡口区">大渡口区</option>
+								<option value="江北区">江北区</option>
+								<option value="沙坪坝区">沙坪坝区</option>
+								<option value="九龙坡区">九龙坡区</option>
+								<option value="南岸区">南岸区</option>
+								<option value="北碚区">北碚区</option>
+							</select>
+						</td>
+					</tr>
+
+					<tr>
+						<td>合作关系:</td>
+						<td>
+							<select panlHight="auto" class="easyui-combobox" name="customerCooperation" data-options="width:172,required:true">
+								<option value="普通客户">普通客户</option>
+								<option value="VIP客户">VIP大客户</option>
+								<option value="重点开发客户">重点开发客户</option>
+								<option value="合作伙伴">合作伙伴</option>
+								<option value="战略合作伙伴">战略合作伙伴</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>客户等级</td>
+						<td>
+							<select panlHight="auto" class="easyui-combobox" name="customerGrade" data-options="width:172,required:true">
+								<option value="一级会员">一级会员</option>
+								<option value="二级会员">二级会员</option>
+								<option value="高级会员">高级会员</option>
+								<option value="黑卡级会员">黑卡级会员</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>信用级别:</td>
+						<td>
+							<select panlHight="auto" class="easyui-combobox" name="customerCredit" data-options="width:172,required:true">
+								<option value="1">1(差)</option>
+								<option value="2">2(良好)</option>
+								<option value="3">3(较好)</option>
+								<option value="4">4(好)</option>
+								<option value="5">5(优秀)</option>
+							</select>
+						</td>
+					</tr>
+					<!-- <tr>
+						<td>客户满意度:</td>
+						<td>
+							<select class="easyui-combobox" name="customerStatus" data-options="width:172,required:true">
+								<option value="1">1(非常差)</option>
+								<option value="2">2(差)</option>
+								<option value="3">3(一般)</option>
+								<option value="4">4(好)</option>
+								<option value="5">5(非常好)</option>
+							</select>
+						</td>
+					</tr> -->
+				</table>
+			</form>
+		</div>
+
+		<!--修改的操作按键-->
+		<div style="text-align:center;padding:5px">
+			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="changeCustomer_OK()">修改</a>
 		</div>
 	</div>
 </div>
@@ -239,6 +415,7 @@
 		});
 	}
 
+	// 查看开发计划时负责渲染数据表格
 	function planLoader(param, success, error) {
 		var chanceId = $("#allSaleChance").datagrid("getSelected").chanceId;
 		$.ajax({
@@ -253,6 +430,7 @@
 		});
 	}
 
+	// 查看开发计划
 	function developPlan() {
 		var saleChance = $("#allSaleChance").datagrid("getSelected");
 		if(saleChance != null) {
@@ -266,6 +444,7 @@
 		}
 	}
 	
+	// 添加开发计划表单框关闭事件
 	$("#addDevelopPlanDialog").dialog({
 		onClose:function() {
 			$("#allDevelopPlan").datagrid("reload");
@@ -273,13 +452,23 @@
 		}
 	});
 	
+	// 修改开发计划表单框关闭事件
 	$("#changeDevelopPlanDialog").dialog({
 		onClose:function() {
 			$("#allDevelopPlan").datagrid("reload");
 			$("#allDevelopPlanDialog").dialog("open");
 		}
 	});
+	
+	// 修改开发计划表单框关闭事件
+	$("#executeDevelopPlanDialog").dialog({
+		onClose:function() {
+			$("#allDevelopPlan").datagrid("reload");
+			$("#allDevelopPlanDialog").dialog("open");
+		}
+	});
 
+	// 添加开发计划
 	function addDevelopPlan() {
 		var saleChance = $("#allSaleChance").datagrid("getSelected");
 		if(saleChance != null) {
@@ -293,6 +482,7 @@
 		}
 	}
 	
+	// 提交添加表单
 	function submitAddDevelopPlanForm() {
 		$.ajax({
 			type:"POST",
@@ -306,10 +496,12 @@
 		});
 	}
 	
+	// 取消添加
 	function cancelAddDevelopPlanForm() {
 		$("#addDevelopPlanDialog").dialog("close");
 	}
 	
+	// 删除开发计划
 	function removeDevelopPlan() {
 		var developPlan = $("#allDevelopPlan").datagrid("getSelected");
 		if (developPlan != null) {
@@ -330,6 +522,7 @@
 		}
 	}
 	
+	// 修改开发计划
 	function updateDevelopPlan() {
 		var developPlan = $("#allDevelopPlan").datagrid("getSelected");
 		if (developPlan != null) {
@@ -345,6 +538,7 @@
 		}
 	}
 	
+	// 提交修改
 	function submitchangeDevelopPlanForm() {
 		$.ajax({
 			type:"PUT",
@@ -358,8 +552,100 @@
 		});
 	}
 	
+	// 取消修改
 	function cancelchangeDevelopPlanForm() {
 		$("#changeDevelopPlanDialog").dialog("close");
+	}
+	
+	// 执行开发计划
+	function executeDevelopPlan() {
+		var developPlan = $("#allDevelopPlan").datagrid("getSelected");
+		if (developPlan != null) {
+			if ("未执行" == developPlan.planStatus) {
+				$("#allDevelopPlanDialog").dialog("close");
+				$("#executeDevelopPlanDialog").dialog("open");
+				developPlan.planStatus = "已执行";
+				$("#executeDevelopPlanForm").form("load", developPlan);
+			} else {
+				$.messager.alert("提示", "只能执行未执行的计划");
+			}
+		} else {
+			$.messager.alert("提示", "请选中相应行");
+		}
+	}
+	
+	// 提交执行
+	function submitExecuteDevelopPlanForm() {
+		$.ajax({
+			type:"PUT",
+			url:"http://localhost:8080/developPlan",
+			dataType: "JSON",
+			data: $("#executeDevelopPlanForm").serialize(),
+			success: function(data) {
+				$("#executeDevelopPlanDialog").dialog("close");
+				$.messager.alert("提示", data.msg);
+			}
+		});
+	}
+	
+	// 取消执行开发计划
+	function cancelExecuteDevelopPlanForm() {
+		$("#executeDevelopPlanDialog").dialog("close");
+	}
+	
+	// 开发成功
+	function developSuccess() {
+		var saleChance = $("#allSaleChance").datagrid("getSelected");
+		if(saleChance != null) {
+			if (saleChance.chanceStatus == "已分配") {
+				$.ajax({
+					method: "PUT",
+					url: "http://localhost:8080/saleChance/success",
+					dataType: "JSON",
+					data: saleChance,
+					success: function(data) {
+						if ("1" == data.status) {
+							$("#allSaleChance").datagrid("reload");
+							$("#changeCustomer").dialog("open");
+							$("#changeCustomerForm").form("load", data.data.customer);
+						} else {
+							$.messager.alert("提示", data.msg);
+						}
+					}
+				});
+			} else {
+				$.messager.alert("提示", "只能操作已分配项");
+			}
+		} else {
+			$.messager.alert("提示", "请选中相应行");
+		}
+	}
+	
+	// 开发失败
+	function developFailed() {
+		var saleChance = $("#allSaleChance").datagrid("getSelected");
+		if(saleChance != null) {
+			if (saleChance.chanceStatus == "已分配") {
+				$.messager.confirm("确认", "确定操作吗，这将不可逆", function(r){
+					if(r) {
+						$.ajax({
+							method: "PUT",
+							url: "http://localhost:8080/saleChance/failed",
+							dataType: "JSON",
+							data: saleChance,
+							success: function(data) {
+								$("#allSaleChance").datagrid("reload");
+								$.messager.alert("提示", data.msg);
+							}
+						});
+					}
+				});
+			} else {
+				$.messager.alert("提示", "只能操作已分配项");
+			}
+		} else {
+			$.messager.alert("提示", "请选中相应行");
+		}
 	}
   
 	//删除

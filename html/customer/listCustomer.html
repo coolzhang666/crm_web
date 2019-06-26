@@ -34,21 +34,21 @@
 		<h2 style="padding-top: 50px;">联系人信息</h2>
 		<div style="padding:30px 60px 20px 60px">
 			<form id="submitCon" method="post">
-				<table cellpadding="5">
+				<table cellpadding="5" cellspacing="10">
 					<tr>
-						<td>客户Id</td>
-						<td><input class="easyui-textbox" type="text" name="customerId" data-options="required:false,editable:false"></input>
+						<td>客户Id:</td>
+						<td><input class="easyui-textbox" type="text" name="customerId" data-options="required:false,editable:false" style="width: 170px;"></input>
 						</td>
 					</tr>
 					<tr>
 						<td>联系人姓名:</td>
-						<td><input class="easyui-textbox" type="text" name="contactName" data-options="required:false"></input>
+						<td><input class="easyui-textbox" type="text" name="contactName" data-options="required:false,widhth:170" style="width: 170px;"></input>
 						</td>
 					</tr>
 					<tr>
 						<td>联系人性别:</td>
 						<td>
-							<select class="easyui-combobox" data-options="editable:false" name="contactGender" style="width: 173px;">
+							<select class="easyui-combobox" data-options="editable:false" name="contactGender" style="width: 170px;">
 								<option selected="selected" disabled="disabled" value=""></option>
 								<option value="男">男</option>
 								<option value="女">女</option>
@@ -57,19 +57,19 @@
 					</tr>
 					<tr>
 						<td>联系人电话:</td>
-						<td><input class="easyui-textbox" type="text" name="contactPhone" data-options="required:true"></input>
+						<td><input class="easyui-textbox" type="text" name="contactPhone" data-options="required:true" style="width: 170px;"></input>
 						</td>
 					</tr>
 					<tr>
 						<td>联系人职位:</td>
-						<td><input class="easyui-textbox" type="text" name="contactJob" data-options="required:false"></input>
+						<td><input class="easyui-textbox" type="text" name="contactJob" data-options="required:false" style="width: 170px;"></input>
 						</td>
 					</tr>
 				</table>
 			</form>
 			<div style="text-align:center;padding:5px">
-				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitConForm()">提交</a>
-				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearConForm()">清空</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitConForm()" style="margin-right: 20px;">提交</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearConForm()" style="margin-left: 20px;">清空</a>
 			</div>
 		</div>
 	</center>
@@ -619,7 +619,6 @@
 	// 加载联系人信息
 	function myloaderCon(param, success, error) {
 		cusObj = $("#allCustomer").datagrid("getSelected");
-		console.log(cusObj);
 		$.ajax({
 			type: "GET",
 			url: "http://localhost:8080/contact/" + param.page + "/" + param.rows + "/" + cusObj.customerId,

@@ -1,0 +1,143 @@
+<!-- 新增服务弹窗 -->
+<center style="margin-top: 20px;">
+	<h2>新增服务</h2>
+	<div class="easyui-panel" style="width:400px;border-style: none;">
+		<div style="padding:10px 60px 20px 60px;">
+			<form id="tbService" method="post" data-options="novalidate:true" class="easyui-form">
+				<table cellpadding="5" cellspacing="10">
+					<tr>
+						<td>服务类型:</td>
+						<td>
+							<select panelHeight="auto" class="easyui-combobox" name="serviceType" style="width: 160px;" data-options="required:true">
+								<option value="咨询">咨询</option>
+								<option value="投诉">投诉</option>
+								<option value="建议">建议</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>添加人姓名:</td>
+						<td>
+							<input id="creatorId" name="creatorId" hidden="hidden" />
+							<input id="creatorName" readonly="readonly" class="easyui-textbox" type="text" name="creatorName" data-options="required:true,"
+							 style="width: 160px;"></input>
+
+						</td>
+						<!-- <tr>
+							<td>顾客编号:</td>
+							<td>
+								<input id="cc" class="easyui-combobox" name="cusNo" data-options="
+									valueField:'cusNo',
+									textField:'cusNo',
+									url:'http://192.168.3.26:8080/cus/getAllCus'">
+							</td>
+						</tr> -->
+					</tr>
+
+
+					<tr>
+						<td>客户编号:</td>
+						<td>
+							<input id="customerNo" name="customerNo" value="" class="easyui-combobox" />
+
+							<input id="customerId" name="customerId" hidden="hidden" />
+							<!-- <input name="customerId" hidden="hidden" />
+							<input class="easyui-textbox" type="text" name="customerNo" data-options="required:true," style="width: 160px;" /> -->
+						</td>
+					</tr>
+					<tr>
+						<td>客户姓名:</td>
+						<td><input id="customerName" class="easyui-textbox" type="text" name="customerName" data-options="required:true,"
+							 style="width: 160px;" />
+						</td>
+					</tr>
+
+					<tr>
+						<td>服务状态:</td>
+						<td><input class="easyui-textbox" type="text" name="serviceStatus" data-options="required:true," style="width: 160px;"
+							 value="新创建" readonly="readonly"></input>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<div style="text-align:center;padding:5px">
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="margin-right: 20%;">提交</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">清除</a>
+			</div>
+		</div>
+	</div>
+
+</center>
+
+<!-- 自动加载用户 -->
+<script>
+	//定义一个用户对象,将用户对象的对应值赋值给对象f
+	var f = {};
+	f.creatorId = 1;
+	f.creatorName = 1;
+	$('#tbService').form('load', f);
+</script>
+
+<!-- 用于加载客户的script -->
+<script>
+	$('#customerNo').combobox({
+		valueField: 'customerNo',
+		textField: 'customerNo',
+		onSelect: function(re) {
+			var f = {}
+			f.customerId = re.customerId;
+			f.customerName = re.customerName;
+			$('#tbService').form('load', f)
+		},
+		loader: listCustomerLoader
+	})
+
+	function listCustomerLoader(param, success, error) {
+		$.ajax({
+			type: 'GET',
+			url: 'http://localhost:8080/customer',
+			success: function(re) {
+				success(re.data)
+			}
+		})
+	}
+</script>
+<script>
+	//确认提交
+	function submitForm() {
+		$('#tbService').form('submit', {
+			onSubmit: function() {
+				return $(this).form('enableValidation').form('validate');
+			}
+		});
+		var boo = $('#tbService').form('validate');
+		if (boo) {
+			$.ajax({
+				type: "POST",
+				url: "http://localhost:8080/service",
+				async: true,
+				dataType: 'JSON', //数据提交返回方式
+				data: $("#tbService").serialize(), //对表单数据序列化
+				success: function(re) {
+					var f = {};
+					f.creatorId = $('#creatorId').val();
+					f.creatorName = $('#creatorName').val();
+					$("#tbService").form('clear');
+					$("#tbService").form('reset');
+					$('#tbService').form('load', f);
+					$.messager.alert("新增提示", re.msg)
+				}
+			});
+		}
+	}
+
+	//清空提交内容
+	function clearForm() {
+		var f = {};
+		f.creatorId = $('#creatorId').val();
+		f.creatorName = $('#creatorName').val();
+		$('#tbService').form('clear');
+		$("#tbService").form('reset');
+		$('#tbService').form('load', f);
+	}
+</script>
