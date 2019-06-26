@@ -36,6 +36,7 @@ var data = [{
 		text: '服务分配',
 	}, {
 		text: '处理服务',
+		href:'html/service/handleService.html'
 	}, {
 		text: '服务归档',
 	}]
