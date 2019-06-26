@@ -1,7 +1,7 @@
 var data = [{
 	text: '营销管理',
 	iconCls: 'icon-more',
-	state: 'open',
+	state: 'close',
 	children: [{
 		text: '新增销售机会',
 		href: 'html/marketing/addChance.html'
