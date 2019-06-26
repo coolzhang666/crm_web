@@ -31,6 +31,7 @@ var data = [{
 	state: 'close',
 	children: [{
 		text: '新增服务',
+		href: 'html/service/addService.html'
 	}, {
 		text: '服务分配',
 	}, {
