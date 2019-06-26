@@ -76,7 +76,8 @@
 </div>
 
 <div id="listCon" title="查看联系人信息" class="easyui-dialog" data-options="closed:true">
-	<table id="allContact" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#contactToolBar" data-options="pagination:true,singleSelect:true,collapsible:false,loader:myloaderCon,
+	<table id="allContact" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#contactToolBar"
+		data-options="pagination:true,singleSelect:true,collapsible:false,
 		method:'get',fitColumns:true, nowrap:true,pageList:[5,10,15,20],pageSize:5,displayMsg:''">
 		<thead>
 			<tr>
@@ -602,21 +603,26 @@
 	// 查看当前客户的所有联系人和信息
 	function lookContact() {
 		cusObj = $("#allCustomer").datagrid("getSelected");
-		if (cusObj != null) {
+		if (cusObj!=null) {
+			$("#allContact").datagrid({
+				loader: myloaderCon
+			});
+			
 			$("#listCon").dialog({
-				"title": "查看客户 " + cusObj.customerName + " 的联系人"
-			}).dialog("open");
-		} else {
-			$.messager.alert("提示", "请选择客户");
+				"title":"查看客户 "+cusObj.customerName+" 的联系人"
+				}).dialog("open");
+		} else{
+			$.messager.alert("提示","请选择客户");
 		}
 	}
 
 	// 加载联系人信息
-	var myloaderCon = function(param, success, error) {
+	function myloaderCon(param, success, error) {
 		cusObj = $("#allCustomer").datagrid("getSelected");
+		console.log(cusObj);
 		$.ajax({
 			type: "GET",
-			url: "http://localhost:8080/contact/" + param.page + "/" + param.rows,
+			url: "http://localhost:8080/contact/" + param.page + "/" + param.rows + "/" + cusObj.customerId,
 			success: function(data) {
 				var obj = {};
 				obj.total = data.total;
