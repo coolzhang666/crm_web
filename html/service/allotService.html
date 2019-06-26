@@ -1,0 +1,110 @@
+<div>
+
+	<table id="allService" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#serviceToolBar"
+	 data-options="pagination:true,singleSelect:true,collapsible:false,loader:myloaderService,
+		method:'get',fitColumns:true, nowrap:true,pageList:[5,10,15,20],pageSize:5,displayMsg:''">
+		<thead>
+			<tr>
+				<th data-options="field:'serviceId',width:60,align:'center',resizable:false">服务单据Id</th>
+				<th data-options="field:'serviceType',width:60, align:'center',resizable:false">服务类型</th>
+				<th data-options="field:'creatorId',width:60,align:'center',resizable:false">创建人Id</th>
+				<th data-options="field:'creatorName',width:100,align:'center',resizable:false">创建人姓名</th>
+				<th data-options="field:'customerId',width:60, align:'center',resizable:false">客户Id</th>
+				<th data-options="field:'customerName',width:100,align:'center',resizable:false">客户姓名</th>
+				<th data-options="field:'createTime',width:120,align:'center',resizable:false">创建时间</th>
+				<th data-options="field:'belong',width:60,align:'center',resizable:false">指派人Id</th>
+				<th data-options="field:'dispatchTime',width:120,align:'center',resizable:false">指派时间</th>
+				<th data-options="field:'serviceStatus',width:60,align:'center',resizable:false">服务状态</th>
+			</tr>
+		</thead>
+	</table>
+
+	<div id="serviceToolBar" style="height:auto">
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-man',plain:true" onclick="allotService()">分配服务</a>
+	</div>
+</div>
+
+<div id="dlgAllotService" title="指派人员" class="easyui-dialog" data-options="closed:true,width:350,height:220">
+	<div>
+		<form id="editBelong" style="padding-top: 50px;padding-left: 30px;">
+			<table cellpadding="5" >
+				<tr>
+					<td>指派人Id:</td>
+					<input type="hidden" name="serviceId" />
+					<input type="hidden" name="servicedispatchTime" />
+					<input type="hidden" name="serviceStatus" />
+					<td><select class="easyui-combobox" name="belong" style="width: 172px;" data-options="textField:'belong',valueField:'belong',required:true"></select>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<div style="text-align:center;padding:5px">
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="okSubmitBelong()">确定</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancelSubmitBelong()">取消</a>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var myloaderService = function(param, success, error) {
+		$.ajax({
+			type: "GET",
+			url: "http://localhost:8080/service/" + param.page + "/" + param.rows,
+			success: function(data) {
+				var obj = {};
+				obj.total = data.total;
+				obj.rows = data.data;
+				success(obj);
+			}
+		});
+	}
+	
+	// 获取状态为正常的用户 创建user实体类后在实现
+//	var myloaderBelong = function(param, success, error){
+//		$.ajax({
+//			type: "GET",
+//			url: "http://localhost:8080/service",
+//			success: function(data){
+//				success(data);
+//			}
+//		})
+//	}
+	
+	// 分配服务
+	function allotService(){
+		var boo = $("#allService").datagrid("getSelected");
+		if (boo) {
+			if (boo.serviceStatus != "新创建"){
+				$.messager.alert("提示","请选择'新创建'的服务单据");
+			} else{
+				$("#dlgAllotService").dialog("open");
+				$("#editBelong").form("load",boo);
+			}
+		} else{
+			$.messager.alert("请选择服务");
+		}
+	}
+	
+	// 确定分配
+	function okSubmitBelong(){
+		var ser = $("#editBelong").form("validate");
+		if(ser){
+			$.ajax({
+				type: "PUT",
+				url: "http://localhost:8080/service/",
+				dataType: "JSON",
+				data: $("#editBelong").serialize(),
+				success: function(obj){
+					$.messager.alert("修改提示", obj.msg);
+					$("#allService").datagrid("reload");
+					$("#dlgAllotService").dialog("close");
+				}
+			});
+		}
+	}
+	
+	// 取消分配
+	function cancelSubmitBelong(){
+		$("#dlgAllotService").dialog("close");
+	}
+</script>

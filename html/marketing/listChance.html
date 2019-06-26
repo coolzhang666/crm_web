@@ -9,6 +9,7 @@
 		
 	</div>
 	
+	<!--指派人员弹窗-->
 	<div id="dlg-sendPerson" class="easyui-dialog" title="指派人员" data-options="iconCls:'icon-edit',closed:true" style="width:420px;height:200px;padding:10px">
 			<div style="padding:10px 60px 20px 60px">
 			<center>
@@ -78,8 +79,8 @@
 					<tr>
 						<td>指派人ID:</td>
 							<td>
-								<!--<input type="hidden" name="chanceId" />-->
-								<input  id="belong" class="easyui-textbox" type="text" value="" name="belong" data-options="required:true"></input>
+								<input  id="send_belong" class="easyui-textbox" type="text" value="" name="belong" data-options="required:true">
+								</input>
 							</td>
 					</tr>
 					<tr>
@@ -88,13 +89,6 @@
 							<input  type="hidden" name="chanceStatus"></input>
 						</td>
 					</tr>
-					
-						<!--<tr>
-							<td>指派人ID:</td>
-							<td>
-								<input  id="belong" class="easyui-textbox" type="text" value="" name="belong" data-options="required:true"></input>
-							</td>
-						</tr>-->
 					</table>
 				</form>
 			</center>
@@ -106,6 +100,7 @@
 		</div>
 	</div>
 	
+	<!--销售机会数据列表-->
 	<table id="allSaleChance" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#saleChanceToolBar"
 		data-options="pagination:true,singleSelect:true,collapsible:false,loader:myloader,method:'post',onDblClickRow: onDblClickRow,
 		fitColumns:true, nowrap:true,pageList:[5,10,15,20],pageSize:5,displayMsg:'' ">
@@ -135,6 +130,7 @@
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="developSuccess()">开发成功</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="developFailed()">开发失败</a>
 	</div>
+
 	<div id="allDevelopPlanDialog" class="easyui-dialog" title="开发计划" data-options="iconCls:'icon-edit', closed:true, modal:true" style="width:600px;">
 		<table id="allDevelopPlan" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#developPlanToolBar" data-options="singleSelect:true,collapsible:false,pagination:true,pageList:[5,10,15,20],pageSize:5,
 			method:'GET',fitColumns:true,fitColumns:true">
@@ -750,7 +746,7 @@ var editIndex = undefined;
 //			alert(allSaleChance.chanceStatus);
 			if(allSaleChance != null) {
 				if(allSaleChance.chanceStatus == '未分配'){
-					$('#belong').textbox('clear');
+					$('#send_belong').textbox('clear');
 					$("#dlg-sendPerson").dialog("open");
 					$("#editSend").form("load",allSaleChance );
 				}
