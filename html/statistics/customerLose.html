@@ -1,8 +1,12 @@
 <center style="padding-top: 20px;">
 	<!-- 顶部工具栏 -->
-	<!-- 	<div id="statisticsTools">
-		
-	</div> -->
+
+	<input class="easyui-searchbox" data-options="prompt:'Please Input Value',menu:'#mm',searcher:doSearch" style="width:300px"></input>
+	<div id="mm">
+		<div data-options="name:'all',iconCls:'icon-ok'">All News</div>
+		<div data-options="name:'sports'">Sports News</div>
+	</div>
+
 
 
 	<!-- 流失原因分析 -->
@@ -20,18 +24,16 @@
 
 </center>
 
+
 <script type="text/javascript">
 	// 基于准备好的dom，初始化echarts实例
 	var myChart = echarts.init(document.getElementById('main'));
-
-
-
 	myChart.setOption({
 		title: {
 			text: '流失原因统计'
 		},
 		tooltip: {},
-		
+
 		xAxis: {
 			data: []
 		},
@@ -50,9 +52,9 @@
 			//采用map类型来取值:data.map.a/data.map.b
 			// a=data.data.xlist
 			// b=data.data.slist
-			var a=['流失原因1', 2, 3, 4]
-				var b = [10,50,30,25]
-			
+			var a = ['流失原因1', 2, 3, 4]
+			var b = [10, 50, 30, 25]
+
 			myChart.setOption({
 				xAxis: {
 					data: a
@@ -68,7 +70,10 @@
 
 
 
-	异步加载数据
+	function doSearch(value, name) {
+		alert('You input: ' + value + '(' + name + ')');
+	}
+	//异步加载数据
 	// $.get('http://localhost:8080/customer').done(function(data) {
 	// 	// 填入数据
 	// 	
