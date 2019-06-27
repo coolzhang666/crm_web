@@ -55,6 +55,7 @@ var data = [{
 		text: '客户服务分析',
 	}, {
 		text: '客户流失分析',
+		href:'html/statistics/customerLose.html'
 	}]
 }, {
 	text: '系统管理',
