@@ -1,6 +1,5 @@
 <div>
-	<table id="allService" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#allServiceToolBar"
-		data-options="pagination:true,singleSelect:true,collapsible:false,method:'post',
+	<table id="allService" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#allServiceToolBar" data-options="pagination:true,singleSelect:true,collapsible:false,method:'post',
 		fitColumns:true, nowrap:true,pageList:[5,10,15,20],pageSize:5,displayMsg:'' ">
 		<thead>
 			<tr>
@@ -17,59 +16,62 @@
 			</tr>
 		</thead>
 	</table>
-	<div id="allServiceToolBar" style="height:auto">
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="allService()">查看所有服务</a>
-		<!--<input id="serviceStatus" style="line-height:26px;border:1px solid #ccc">-->
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="doneService()">查看已归档服务</a>
+	<div id="allServiceToolBar" style="height:auto;padding-left: 35%">
+		<a style="float: left;position:relative;" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="allService()">查看所有服务</a>
+		<div style="position:relative;left: 100px;">
+			<span>服务状态:</span>
+			<select id="serviceStatus" class="easyui-combobox" name="serviceStatus" style="width:120px;">
+				<option>新创建</option>
+				<option>已分配</option>
+				<option>已处理</option>
+				<option>已归档</option>
+			</select>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="doneService()">查询</a>
+		</div>
 	</div>
-	<!--<div id="allServiceToolBar" style="padding:3px">
-		<span>Item ID:</span>
-		<input id="serviceStatus" style="line-height:26px;border:1px solid #ccc">
-		<a href="#" class="easyui-linkbutton" plain="true" onclick="doneService()">查看已归档服务</a>
-	</div>
-</div>-->
 
-<script type="text/javascript">
+	<script type="text/javascript">
+		//显示列表
+		var myloader = function(param, success, error) {
+			$.ajax({
+				type: "GET",
+				url: "http://localhost:8080/Service/" + param.page + "/" + param.rows,
+				success: function(data) {
+					var obj = {};
+					obj.total = data.total;
+					obj.rows = data.data;
+					success(obj);
+				}
+			});
+		}
 
-	//显示列表
-	var myloader = function (param, success, error) {
-		$.ajax({
-			type: "GET",
-			url: "http://localhost:8080/Service/" + param.page + "/" + param.rows,
-			success: function(data) {
-				var obj = {};
-				obj.total = data.total;
-				obj.rows = data.data;
-				success(obj);
-			}
-		});
-	}
-	function doneloader(param, success, error) {
-//		var serviceStatus =  $('#serviceStatus').val();
-//		alert(serviceStatus);
-		$.ajax({
-			type: "GET",
-			url: "http://localhost:8080/Service2/" + param.page + "/" + param.rows+"/",
-			success: function(data) {
-				var obj = {};
-				obj.total = data.total;
-				obj.rows = data.data;
-				success(obj);
-			}
-		});
-	}
-	function allService(){
-		$("#allService").datagrid(
-			{
-				loader:myloader
-			}
-		);
-	}
-	function doneService(){
-//		alert($('#serviceStatus').val());
-		$('#allService').datagrid({
-			loader:doneloader
-		})
-	}
-	
-</script>
+		function doneloader(param, success, error) {
+			var status = $('#serviceStatus').val();
+			//		alert(status);
+			$.ajax({
+				type: "GET",
+				url: "http://localhost:8080/Service2/" + param.page + "/" + param.rows + "/" + status,
+				success: function(data) {
+					var obj = {};
+					obj.total = data.total;
+					obj.rows = data.data;
+					success(obj);
+				}
+			});
+		}
+
+		function allService() {
+			$("#allService").datagrid({
+				loader: myloader
+			});
+		}
+
+		function doneService() {
+			//		var serviceStatus =  $('#serviceStatus').val();
+			//		alert(serviceStatus);
+			$('#allService').datagrid({
+				loader: doneloader
+			})
+
+		}
+	</script>

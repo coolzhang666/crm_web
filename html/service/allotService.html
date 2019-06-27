@@ -1,6 +1,6 @@
 <div>
 
-	<table id="allService" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#serviceToolBar"
+	<table id="newService" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#serviceToolBar"
 	 data-options="pagination:true,singleSelect:true,collapsible:false,loader:myloaderService,
 		method:'get',fitColumns:true, nowrap:true,pageList:[5,10,15,20],pageSize:5,displayMsg:''">
 		<thead>
@@ -72,16 +72,12 @@
 	
 	// 分配服务
 	function allotService(){
-		var boo = $("#allService").datagrid("getSelected");
+		var boo = $("#newService").datagrid("getSelected");
 		if (boo) {
-			if (boo.serviceStatus != "新创建"){
-				$.messager.alert("提示","请选择'新创建'的服务单据");
-			} else{
-				$("#dlgAllotService").dialog("open");
-				$("#editBelong").form("load",boo);
-			}
+			$("#dlgAllotService").dialog("open");
+			$("#editBelong").form("load",boo);
 		} else{
-			$.messager.alert("请选择服务");
+			$.messager.alert("提示","请选择服务");
 		}
 	}
 	
@@ -96,8 +92,9 @@
 				data: $("#editBelong").serialize(),
 				success: function(obj){
 					$.messager.alert("修改提示", obj.msg);
-					$("#allService").datagrid("reload");
+					$("#newService").datagrid("reload");
 					$("#dlgAllotService").dialog("close");
+					$("#editBelong").form("reset");
 				}
 			});
 		}
