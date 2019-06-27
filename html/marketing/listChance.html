@@ -10,7 +10,7 @@
 	</div>
 
 	<!--指派人员弹窗-->
-	<div id="dlg-sendPerson" class="easyui-dialog" title="指派人员" data-options="iconCls:'icon-edit',closed:true" style="width:420px;height:200px;padding:10px">
+	<div id="dlg-sendPerson" class="easyui-dialog" title="指派人员" data-options="iconCls:'icon-edit',closed:true" style="width:420px;height:210px;padding:10px">
 		<div style="padding:10px 60px 20px 60px">
 			<center>
 				<form id="editSend" method="post">
@@ -94,14 +94,15 @@
 			</center>
 			<!--操作按键-->
 			<div style="text-align:center;padding-top:35px;">
-				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="sureForm()">确定</a>
-				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancelForm()">取消</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="sureForm()" style="margin-right: 30px;">确定</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancelForm()" style="margin-left: 30px;">取消</a>
 			</div>
 		</div>
 	</div>
 
 	<!--销售机会数据列表-->
-	<table id="allSaleChance" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#saleChanceToolBar" data-options="pagination:true,singleSelect:true,collapsible:false,loader:myloader,method:'post',onDblClickRow: onDblClickRow,
+	<table id="allSaleChance" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#saleChanceToolBar"
+	 data-options="pagination:true,singleSelect:true,collapsible:false,loader:myloader,method:'post',onDblClickRow: onDblClickRow,
 		fitColumns:true, nowrap:true,pageList:[5,10,15,20],pageSize:5,displayMsg:'' ">
 		<thead>
 			<tr>
@@ -130,8 +131,10 @@
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="developFailed()">开发失败</a>
 	</div>
 
-	<div id="allDevelopPlanDialog" class="easyui-dialog" title="开发计划" data-options="iconCls:'icon-edit', closed:true, modal:true" style="width:600px;">
-		<table id="allDevelopPlan" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#developPlanToolBar" data-options="singleSelect:true,collapsible:false,pagination:true,pageList:[5,10,15,20],pageSize:5,
+	<div id="allDevelopPlanDialog" class="easyui-dialog" title="开发计划" data-options="iconCls:'icon-edit', closed:true, modal:true"
+	 style="width:600px;">
+		<table id="allDevelopPlan" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#developPlanToolBar"
+		 data-options="singleSelect:true,collapsible:false,pagination:true,pageList:[5,10,15,20],pageSize:5,
 			method:'GET',fitColumns:true,fitColumns:true">
 			<thead>
 				<tr>
@@ -145,46 +148,52 @@
 		</table>
 		<div id="developPlanToolBar" style="height:auto">
 			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="removeDevelopPlan()">删除开发计划</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="addDevelopPlan()">新增开发计划</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="updateDevelopPlan()">更改开发计划</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="executeDevelopPlan()">执行开发计划</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="addDevelopPlan()">新增开发计划</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="updateDevelopPlan()">更改开发计划</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true" onclick="executeDevelopPlan()">执行开发计划</a>
 		</div>
 	</div>
 
-	<div id="addDevelopPlanDialog" class="easyui-dialog" title="新增开发计划" data-options="iconCls:'icon-edit', closed:true" style="width:400px">
+	<div id="addDevelopPlanDialog" class="easyui-dialog" title="新增开发计划" data-options="iconCls:'icon-add', closed:true"
+	 style="width:420px">
 		<div style="padding:10px 60px 20px 60px">
 			<form id="addDevelopPlanForm" class="easyui-form" method="post" data-options="novalidate:true">
 				<table cellpadding="5" cellspacing="5px">
 					<tr style="display: none;">
 						<td>销售机会Id:</td>
-						<td><input class="easyui-textbox" type="text" name="chanceId" data-options="required:true" style="width: 200px;"></input>
+						<td><input type="text" name="chanceId"></input>
 						</td>
 					</tr>
 					<tr style="display: none;">
 						<td>创建者id:</td>
-						<td><input class="easyui-textbox" value="1" type="text" name="creatorId" data-options="required:true" style="width: 200px;"></input>
+						<td><input value="1" type="text" name="creatorId"></input>
 						</td>
 					</tr>
 					<tr style="display: none;">
 						<td>创建者姓名:</td>
-						<td><input class="easyui-textbox" value="1" type="text" name="creatorName" data-options="required:true" style="width: 200px;"></input>
+						<td><input value="1" type="text" name="creatorName"></input>
 						</td>
 					</tr>
 					<tr>
 						<td>计划内容:</td>
-						<td><input class="easyui-textbox" type="text" name="planContent" data-options="required:true" style="width: 200px;"></input>
+						<td><input type="text" name="planContent" style="width: 200px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;" />
 						</td>
 					</tr>
 				</table>
 			</form>
 			<div style="text-align:center;padding:5px">
-				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitAddDevelopPlanForm()">新增</a>
-				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancelAddDevelopPlanForm()">取消</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton l-btn l-btn-small" onclick="submitAddDevelopPlanForm()" style="margin-right: 30px;"
+				 group="" id=""><span class="l-btn-left"><span class="l-btn-text">新增</span></span></a>
+				<a href="javascript:void(0)" class="easyui-linkbutton l-btn l-btn-small" onclick="cancelAddDevelopPlanForm()" style="margin-left: 30px;"
+				 group="" id=""><span class="l-btn-left"><span class="l-btn-text">取消</span></span></a>
+				<!-- 	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitAddDevelopPlanForm()" >新增</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancelAddDevelopPlanForm()" >取消</a> -->
 			</div>
 		</div>
 	</div>
 
-	<div id="changeDevelopPlanDialog" class="easyui-dialog" title="修改开发计划" data-options="iconCls:'icon-edit', closed:true" style="width:400px">
+	<div id="changeDevelopPlanDialog" class="easyui-dialog" title="修改开发计划" data-options="iconCls:'icon-edit', closed:true"
+	 style="width:420px">
 		<div style="padding:10px 60px 20px 60px">
 			<form id="changeDevelopPlanForm" class="easyui-form" method="post" data-options="novalidate:true">
 				<table cellpadding="5" cellspacing="5px">
@@ -215,19 +224,25 @@
 					</tr>
 					<tr>
 						<td>计划内容:</td>
-						<td><input class="easyui-textbox" type="text" name="planContent" data-options="required:true" style="width: 200px;"></input>
+						<td><input type="text" name="planContent" style="width: 200px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
 						</td>
 					</tr>
 				</table>
 			</form>
 			<div style="text-align:center;padding:5px">
-				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitchangeDevelopPlanForm()">修改</a>
-				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancelchangeDevelopPlanForm()">取消</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton l-btn l-btn-small" onclick="submitchangeDevelopPlanForm()"
+				 style="margin-right: 30px;" group="" id=""><span class="l-btn-left"><span class="l-btn-text">修改</span></span></a>
+				<a href="javascript:void(0)" class="easyui-linkbutton l-btn l-btn-small" onclick="cancelchangeDevelopPlanForm()"
+				 style="margin-left: 30px;" group="" id=""><span class="l-btn-left"><span class="l-btn-text">取消</span></span></a>
+
+				<!-- <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitchangeDevelopPlanForm()">修改</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancelchangeDevelopPlanForm()">取消</a> -->
 			</div>
 		</div>
 	</div>
 
-	<div id="executeDevelopPlanDialog" class="easyui-dialog" title="执行开发计划" data-options="iconCls:'icon-edit', closed:true" style="width:400px">
+	<div id="executeDevelopPlanDialog" class="easyui-dialog" title="执行开发计划" data-options="iconCls:'icon-ok', closed:true"
+	 style="width:420px">
 		<div style="padding:10px 60px 20px 60px">
 			<form id="executeDevelopPlanForm" class="easyui-form" method="post" data-options="novalidate:true">
 				<table cellpadding="5" cellspacing="5px">
@@ -263,19 +278,25 @@
 					</tr>
 					<tr>
 						<td>执行结果:</td>
-						<td><input class="easyui-textbox" type="text" name="planResult" data-options="required:true" style="width: 200px;"></input>
+						<td><input type="text" name="planResult" style="width: 200px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
 						</td>
 					</tr>
 				</table>
 			</form>
 			<div style="text-align:center;padding:5px">
+				<a href="javascript:void(0)" class="easyui-linkbutton l-btn l-btn-small" onclick="submitExecuteDevelopPlanForm()"
+				 style="margin-right: 30px;" group="" id=""><span class="l-btn-left"><span class="l-btn-text">执行</span></span></a>
+				<a href="javascript:void(0)" class="easyui-linkbutton l-btn l-btn-small" onclick="cancelExecuteDevelopPlanForm()"
+				 style="margin-left: 30px;" group="" id=""><span class="l-btn-left"><span class="l-btn-text">取消</span></span></a>
+				<!-- 
 				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitExecuteDevelopPlanForm()">执行</a>
-				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancelExecuteDevelopPlanForm()">取消</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancelExecuteDevelopPlanForm()">取消</a> -->
 			</div>
 		</div>
 	</div>
 
-	<div id="changeCustomer" class="easyui-dialog" title="操作成功，请完善客户信息" data-options="iconCls:'icon-edit',closed:true, modal:true, closable:false" style="height:600px;padding:10px">
+	<div id="changeCustomer" class="easyui-dialog" title="操作成功，请完善客户信息" data-options="iconCls:'icon-edit',closed:true, modal:true, closable:false"
+	 style="height:600px;padding:10px">
 		<!--对话框中的修改内容-->
 		<div style="padding:10px 60px 20px 60px">
 			<form id="changeCustomerForm" method="post">
@@ -305,7 +326,8 @@
 					</tr>
 					<tr>
 						<td>客户电话:</td>
-						<td><input id="CustomerPhone" class="easyui-textbox" type="text" name="customerPhone" data-options="required:true" style="width: 172px;"></input>
+						<td><input id="CustomerPhone" class="easyui-textbox" type="text" name="customerPhone" data-options="required:true"
+							 style="width: 172px;"></input>
 						</td>
 					</tr>
 					<tr>
@@ -397,8 +419,8 @@
 		</div>
 	</div>
 
-	<div id="changeContactDialog" class="easyui-dialog" title="操作成功，请完善联系人信息"
-		data-options="closable:false,closed:true,iconCls:'icon-edit', modal:true, closable:false" style="width:600px;height:500px;padding:50px">
+	<div id="changeContactDialog" class="easyui-dialog" title="操作成功，请完善联系人信息" data-options="closable:false,closed:true,iconCls:'icon-edit', modal:true, closable:false"
+	 style="width:600px;height:500px;padding:50px">
 		<div style="padding-top: 15px;">
 			<center>
 				<h2>联系人信息</h2>
@@ -476,7 +498,7 @@
 	// 查看开发计划
 	function developPlan() {
 		var saleChance = $("#allSaleChance").datagrid("getSelected");
-		if(saleChance != null) {
+		if (saleChance != null) {
 			$("#allDevelopPlanDialog").dialog("open");
 
 			$("#allDevelopPlan").datagrid({
@@ -495,6 +517,7 @@
 		}
 	});
 
+
 	// 修改开发计划表单框关闭事件
 	$("#changeDevelopPlanDialog").dialog({
 		onClose: function() {
@@ -503,7 +526,7 @@
 		}
 	});
 
-	// 修改开发计划表单框关闭事件
+	// 执行开发计划表单框关闭事件
 	$("#executeDevelopPlanDialog").dialog({
 		onClose: function() {
 			$("#allDevelopPlan").datagrid("reload");
@@ -514,12 +537,13 @@
 	// 添加开发计划
 	function addDevelopPlan() {
 		var saleChance = $("#allSaleChance").datagrid("getSelected");
-		if(saleChance != null) {
+		if (saleChance != null) {
 			var obj = {};
 			obj.chanceId = saleChance.chanceId;
 			$("#allDevelopPlanDialog").dialog("close");
 			$("#addDevelopPlanDialog").dialog("open");
 			$("#addDevelopPlanForm").form("load", obj);
+
 		} else {
 			$.messager.alert("提示", "请选中相应行");
 		}
@@ -527,6 +551,7 @@
 
 	// 提交添加表单
 	function submitAddDevelopPlanForm() {
+
 		$.ajax({
 			type: "POST",
 			url: "http://localhost:8080/developPlan",
@@ -534,6 +559,8 @@
 			data: $("#addDevelopPlanForm").serialize(),
 			success: function(data) {
 				$("#addDevelopPlanDialog").dialog("close");
+				// $("#allDevelopPlan").datagrid("reload");
+				// $("#allDevelopPlanDialog").dialog("open");
 				$.messager.alert("提示", data.msg);
 			}
 		});
@@ -542,14 +569,15 @@
 	// 取消添加
 	function cancelAddDevelopPlanForm() {
 		$("#addDevelopPlanDialog").dialog("close");
+		// $("#allDevelopPlanDialog").dialog("open");
 	}
 
 	// 删除开发计划
 	function removeDevelopPlan() {
 		var developPlan = $("#allDevelopPlan").datagrid("getSelected");
-		if(developPlan != null) {
+		if (developPlan != null) {
 			$.messager.confirm('Confirm', '确定要删除这条数据吗？', function(r) {
-				if(r) {
+				if (r) {
 					$.ajax({
 						type: "DELETE",
 						url: "http://localhost:8080/developPlan/" + developPlan.planId,
@@ -568,8 +596,8 @@
 	// 修改开发计划
 	function updateDevelopPlan() {
 		var developPlan = $("#allDevelopPlan").datagrid("getSelected");
-		if(developPlan != null) {
-			if("未执行" == developPlan.planStatus) {
+		if (developPlan != null) {
+			if ("未执行" == developPlan.planStatus) {
 				$("#allDevelopPlanDialog").dialog("close");
 				$("#changeDevelopPlanDialog").dialog("open");
 				$("#changeDevelopPlanForm").form("load", developPlan);
@@ -603,8 +631,8 @@
 	// 执行开发计划
 	function executeDevelopPlan() {
 		var developPlan = $("#allDevelopPlan").datagrid("getSelected");
-		if(developPlan != null) {
-			if("未执行" == developPlan.planStatus) {
+		if (developPlan != null) {
+			if ("未执行" == developPlan.planStatus) {
 				$("#allDevelopPlanDialog").dialog("close");
 				$("#executeDevelopPlanDialog").dialog("open");
 				developPlan.planStatus = "已执行";
@@ -640,15 +668,15 @@
 	// 开发成功
 	function developSuccess() {
 		var saleChance = $("#allSaleChance").datagrid("getSelected");
-		if(saleChance != null) {
-			if(saleChance.chanceStatus == "已分配") {
+		if (saleChance != null) {
+			if (saleChance.chanceStatus == "已分配") {
 				$.ajax({
 					method: "PUT",
 					url: "http://localhost:8080/saleChance/success",
 					dataType: "JSON",
 					data: saleChance,
 					success: function(data) {
-						if("1" == data.status) {
+						if ("1" == data.status) {
 							$("#allSaleChance").datagrid("reload");
 							$("#changeCustomer").dialog("open");
 							$("#changeCustomerForm").form("load", data.data.customer);
@@ -668,14 +696,14 @@
 
 	function changeCustomer_OK() {
 		var validate = $("#changeCustomerForm").form("validate");
-		if(validate) {
+		if (validate) {
 			$.ajax({
 				type: "PUT",
 				url: "http://localhost:8080/customer",
 				dataType: "JSON",
 				data: $("#changeCustomerForm").serialize(),
 				success: function(data) {
-					if("1" == data.status) {
+					if ("1" == data.status) {
 						$("#changeCustomer").dialog("close");
 						$("#changeContactDialog").dialog("open");
 						$("#changeContactForm").form("load", globalContact);
@@ -687,13 +715,13 @@
 			});
 		}
 	}
-	
+
 	function submitChangeContact() {
 		var validate = $("#changeContactForm").form("validate");
 		if (validate) {
 			$.ajax({
-				type:"PUT",
-				url:"http://localhost:8080/contact",
+				type: "PUT",
+				url: "http://localhost:8080/contact",
 				dataType: "JSON",
 				data: $("#changeContactForm").serialize(),
 				success: function(data) {
@@ -707,10 +735,10 @@
 	// 开发失败
 	function developFailed() {
 		var saleChance = $("#allSaleChance").datagrid("getSelected");
-		if(saleChance != null) {
-			if(saleChance.chanceStatus == "已分配") {
+		if (saleChance != null) {
+			if (saleChance.chanceStatus == "已分配") {
 				$.messager.confirm("确认", "确定操作吗，这将不可逆", function(r) {
-					if(r) {
+					if (r) {
 						$.ajax({
 							method: "PUT",
 							url: "http://localhost:8080/saleChance/failed",
@@ -736,8 +764,8 @@
 		//					$.messager.alert("删除");
 		var allSaleChance = $("#allSaleChance").datagrid("getSelected");
 		//			alert(allSaleChance.chanceStatus);
-		if(allSaleChance != null) {
-			if(allSaleChance.chanceStatus == '未分配') {
+		if (allSaleChance != null) {
+			if (allSaleChance.chanceStatus == '未分配') {
 				$("#dlg-removeChance").dialog("open");
 			} else {
 				$("#allSaleChance").datagrid('clearSelections');
@@ -754,7 +782,7 @@
 	//删除确认按钮
 	function sure_removeChance() {
 		var allSaleChance = $("#allSaleChance").datagrid("getSelected");
-		if(allSaleChance) {
+		if (allSaleChance) {
 			$.ajax({
 				type: 'DELETE',
 				url: 'http://localhost:8080/SaleChance/' + allSaleChance.chanceId,
@@ -773,10 +801,10 @@
 	var editIndex = undefined;
 
 	function endEditing() {
-		if(editIndex == undefined) {
+		if (editIndex == undefined) {
 			return true
 		}
-		if($('#allSaleChance').datagrid('validateRow', editIndex)) {
+		if ($('#allSaleChance').datagrid('validateRow', editIndex)) {
 			//				var ed = $('#tbsell').datagrid('getEditor', {index:editIndex,field:'conNo'});
 			//				var productname = $(ed.target).textbox('getText');
 			//				$('#tbsell').datagrid('getRows')[editIndex]['cusNo'] = productname;
@@ -792,11 +820,11 @@
 	function onDblClickRow(index) {
 		var boo = $('#allSaleChance').datagrid('getSelected');
 		//			alert(boo.chanceStatus);
-		if(boo.chanceStatus == "已分配") {
+		if (boo.chanceStatus == "已分配") {
 			//				alert(boo.chanceStatus);
 			return;
-		} else if(editIndex != index) {
-			if(endEditing()) {
+		} else if (editIndex != index) {
+			if (endEditing()) {
 				$('#allSaleChance').datagrid('selectRow', index)
 					.datagrid('beginEdit', index);
 				editIndex = index;
@@ -807,7 +835,7 @@
 	}
 	//保存
 	function changeSaleChance() {
-		if(endEditing()) {
+		if (endEditing()) {
 			//				alert('aaa');
 			$('#allSaleChance').datagrid('acceptChanges');
 			var boo = $('#allSaleChance').datagrid('getSelected');
@@ -829,8 +857,8 @@
 		//			alert("aaa");
 		var allSaleChance = $("#allSaleChance").datagrid("getSelected");
 		//			alert(allSaleChance.chanceStatus);
-		if(allSaleChance != null) {
-			if(allSaleChance.chanceStatus == '未分配') {
+		if (allSaleChance != null) {
+			if (allSaleChance.chanceStatus == '未分配') {
 				$('#send_belong').textbox('clear');
 				$("#dlg-sendPerson").dialog("open");
 				$("#editSend").form("load", allSaleChance);
@@ -846,7 +874,7 @@
 	function sureForm() {
 		var send = $("#editSend").form("validate");
 		var allSaleChance = $("#allSaleChance").datagrid("getSelected");
-		if(send) {
+		if (send) {
 			$.ajax({
 				type: 'put',
 				url: 'http://localhost:8080/SaleChance/addSendPerson',
