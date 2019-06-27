@@ -55,6 +55,7 @@ var data = [{
 		href:'html/statistics/cusComposition.html'
 	}, {
 		text: '客户服务分析',
+		href:'html/statistics/analysisCustomerService.html'
 	}, {
 		text: '客户流失分析',
 		href:'html/statistics/customerLose.html'
