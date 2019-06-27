@@ -98,12 +98,12 @@
 			<h2>联系人信息</h2>
 			<div style="padding:40px 60px 20px 60px">
 				<form id="editCon" method="post">
-					<table cellpadding="5">
+					<table cellpadding="5" cellspacing="10">
 						<tr>
 							<td>联系人姓名:</td>
 							<input type="hidden" name="contactId" />
 							<input type="hidden" name="customerId" />
-							<td><input class="easyui-textbox" type="text" name="contactName" data-options="required:false"></input>
+							<td><input class="easyui-textbox" type="text" name="contactName" data-options="required:false" style="width: 170px;"></input>
 							</td>
 						</tr>
 						<tr>
@@ -118,145 +118,136 @@
 						</tr>
 						<tr>
 							<td>联系人电话:</td>
-							<td><input class="easyui-textbox" type="text" name="contactPhone" data-options="required:true"></input>
+							<td><input class="easyui-textbox" type="text" name="contactPhone" data-options="required:true" style="width: 170px;"></input>
 							</td>
 						</tr>
 						<tr>
 							<td>联系人职位:</td>
-							<td><input class="easyui-textbox" type="text" name="contactJob" data-options="required:false"></input>
+							<td><input class="easyui-textbox" type="text" name="contactJob" data-options="required:false" style="width: 170px;"></input>
 							</td>
 						</tr>
 					</table>
 				</form>
 				<div style="text-align:center;padding:5px">
-					<a href="javascript:void(0)" class="easyui-linkbutton" onclick="editConForm()">修改</a>
-					<a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancelConForm()">取消</a>
+					<a href="javascript:void(0)" class="easyui-linkbutton" onclick="editConForm()" style="margin-right: 30px;">修改</a>
+					<a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancelConForm()" style="margin-left: 30px;">取消</a>
 				</div>
 			</div>
 		</center>
 	</div>
 </div>
 <!-- 修改联系人窗口 -->
-<div id="dlgCustomer" class="easyui-dialog" title="修改客户信息" data-options="iconCls:'icon-edit',closed:true" style="height:600px;padding:10px">
+<div id="dlgCustomer" class="easyui-dialog" title="修改客户信息" data-options="iconCls:'icon-edit',closed:true" style="height:auto;width: auto;padding: 20px;">
 	<!--对话框中的修改内容-->
-	<div style="padding:10px 60px 20px 60px">
-		<form id="editCustomer" method="post">
-			<table cellpadding="10px" cellspacing="10px">
-				<tr>
-					<td>客户编号:</td>
-					<td>
-						<!--修改时需要主键ID，所以用隐藏的input框来提交cusId-->
-						<input type="hidden" name="customerId" />
-						<input class="easyui-textbox" type="text" name="customerNo" data-options="required:true"></input>
-					</td>
-				</tr>
-				<tr>
-					<td>客户姓名:</td>
-					<td><input class="easyui-textbox" type="text" name="customerName" data-options="required:true" style="width: 172px;"></input>
-					</td>
-				</tr>
-				<tr>
-					<td>客户地址:</td>
-					<td><input class="easyui-textbox" type="text" name="customerAddress" data-options="" style="width: 172px;height: 60px;"></input>
-					</td>
-				</tr>
-				<tr>
-					<td>客户邮箱:</td>
-					<td><input class="easyui-textbox" type="text" name="customerEmail" data-options="" style="width: 172px;"></input>
-					</td>
-				</tr>
-				<tr>
-					<td>客户电话:</td>
-					<td><input id="CustomerPhone" class="easyui-textbox" type="text" name="customerPhone" data-options="" style="width: 172px;"></input>
-					</td>
-				</tr>
-				<tr>
-					<td>客户区域:</td>
-					<td>
-						<select class="easyui-combobox" name="customerRegion" data-options="width:172,required:true">
-							<option value="开州区">开州区</option>
-							<option value="南川区">南川区</option>
-							<option value="江津区">江津区</option>
-							<option value="长寿区">长寿区</option>
-							<option value="永川区">永川区</option>
-							<option value="合川区">合川区</option>
-							<option value="璧山区">璧山区</option>
-							<option value="荣昌区">荣昌区</option>
-							<option value="铜梁区">铜梁区</option>
-							<option value="潼南区">潼南区</option>
-							<option value="渝中区">渝中区</option>
-							<option value="涪陵区">涪陵区</option>
-							<option value="万州区">万州区</option>
-							<option value="綦江区">綦江区</option>
-							<option value="渝北区">渝北区</option>
-							<option value="大足区">大足区</option>
-							<option value="黔江区">黔江区</option>
-							<option value="巴南区">巴南区</option>
-							<option value="大渡口区">大渡口区</option>
-							<option value="江北区">江北区</option>
-							<option value="沙坪坝区">沙坪坝区</option>
-							<option value="九龙坡区">九龙坡区</option>
-							<option value="南岸区">南岸区</option>
-							<option value="北碚区">北碚区</option>
-						</select>
-					</td>
-				</tr>
-
-				<tr>
-					<td>合作关系:</td>
-					<td>
-						<select panlHight="auto" class="easyui-combobox" name="customerCooperation" data-options="width:172,required:true">
-							<option value="普通客户">普通客户</option>
-							<option value="VIP客户">VIP大客户</option>
-							<option value="重点开发客户">重点开发客户</option>
-							<option value="合作伙伴">合作伙伴</option>
-							<option value="战略合作伙伴">战略合作伙伴</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td>客户等级</td>
-					<td>
-						<select panlHight="auto" class="easyui-combobox" name="customerGrade" data-options="width:172,required:true">
-							<option value="一级会员">一级会员</option>
-							<option value="二级会员">二级会员</option>
-							<option value="高级会员">高级会员</option>
-							<option value="黑卡级会员">黑卡级会员</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td>信用级别:</td>
-					<td>
-						<select panlHight="auto" class="easyui-combobox" name="customerCredit" data-options="width:172,required:true">
-							<option value="1">1(差)</option>
-							<option value="2">2(良好)</option>
-							<option value="3">3(较好)</option>
-							<option value="4">4(好)</option>
-							<option value="5">5(优秀)</option>
-						</select>
-					</td>
-				</tr>
-				<!-- <tr>
-						<td>客户满意度:</td>
+	<center>
+			<div style="padding:10px 60px 20px 60px">
+			<form id="editCustomer" method="post">
+				<table cellpadding="10px" cellspacing="10px">
+					<tr>
+						<td>客户编号:</td>
 						<td>
-							<select class="easyui-combobox" name="customerStatus" data-options="width:172,required:true">
-								<option value="1">1(非常差)</option>
-								<option value="2">2(差)</option>
-								<option value="3">3(一般)</option>
-								<option value="4">4(好)</option>
-								<option value="5">5(非常好)</option>
+							<!--修改时需要主键ID，所以用隐藏的input框来提交cusId-->
+							<input type="hidden" name="customerId" />
+							<input class="easyui-textbox" type="text" name="customerNo" data-options="required:true" style="width: 170px;"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>客户姓名:</td>
+						<td><input class="easyui-textbox" type="text" name="customerName" data-options="required:true" style="width: 170px;"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>客户地址:</td>
+						<td><input class="easyui-textbox" type="text" name="customerAddress" data-options="" style="width: 170px;height: 60px;"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>客户邮箱:</td>
+						<td><input class="easyui-textbox" type="text" name="customerEmail" data-options="" style="width: 170px;"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>客户电话:</td>
+						<td><input id="CustomerPhone" class="easyui-textbox" type="text" name="customerPhone" data-options="" style="width: 170px;"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>客户区域:</td>
+						<td>
+							<select class="easyui-combobox" name="customerRegion" data-options="width:170,required:true">
+								<option value="开州区">开州区</option>
+								<option value="南川区">南川区</option>
+								<option value="江津区">江津区</option>
+								<option value="长寿区">长寿区</option>
+								<option value="永川区">永川区</option>
+								<option value="合川区">合川区</option>
+								<option value="璧山区">璧山区</option>
+								<option value="荣昌区">荣昌区</option>
+								<option value="铜梁区">铜梁区</option>
+								<option value="潼南区">潼南区</option>
+								<option value="渝中区">渝中区</option>
+								<option value="涪陵区">涪陵区</option>
+								<option value="万州区">万州区</option>
+								<option value="綦江区">綦江区</option>
+								<option value="渝北区">渝北区</option>
+								<option value="大足区">大足区</option>
+								<option value="黔江区">黔江区</option>
+								<option value="巴南区">巴南区</option>
+								<option value="大渡口区">大渡口区</option>
+								<option value="江北区">江北区</option>
+								<option value="沙坪坝区">沙坪坝区</option>
+								<option value="九龙坡区">九龙坡区</option>
+								<option value="南岸区">南岸区</option>
+								<option value="北碚区">北碚区</option>
 							</select>
 						</td>
-					</tr> -->
-			</table>
-		</form>
-	</div>
+					</tr>
+		
+					<tr>
+						<td>合作关系:</td>
+						<td>
+							<select panlHight="auto" class="easyui-combobox" name="customerCooperation" data-options="width:170,required:true">
+								<option value="普通客户">普通客户</option>
+								<option value="VIP客户">VIP大客户</option>
+								<option value="重点开发客户">重点开发客户</option>
+								<option value="合作伙伴">合作伙伴</option>
+								<option value="战略合作伙伴">战略合作伙伴</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>客户等级</td>
+						<td>
+							<select panlHight="auto" class="easyui-combobox" name="customerGrade" data-options="width:170,required:true">
+								<option value="一级会员">一级会员</option>
+								<option value="二级会员">二级会员</option>
+								<option value="高级会员">高级会员</option>
+								<option value="黑卡级会员">黑卡级会员</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>信用级别:</td>
+						<td>
+							<select panlHight="auto" class="easyui-combobox" name="customerCredit" data-options="width:170,required:true">
+								<option value="1">1(差)</option>
+								<option value="2">2(良好)</option>
+								<option value="3">3(较好)</option>
+								<option value="4">4(好)</option>
+								<option value="5">5(优秀)</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		
+	</center>
 
 	<!--修改的操作按键-->
 	<div style="text-align:center;padding:5px">
-		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="removeCustomer_OK()">修改</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="removeCustomer_NO()">取消</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="removeCustomer_OK()" style="margin-right: 30px;">修改</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="removeCustomer_NO()" style="margin-left: 30px;">取消</a>
 	</div>
 </div>
 
@@ -292,54 +283,58 @@
 
 <!-- 点击修改 交往记录弹出的对话框-->
 <div id="updateRecord" class="easyui-dialog" title="修改交往记录" data-options="iconCls:'icon-search',closed:true">
-	<div class="easyui-panel" style="width:400px;border-style: none;">
+	<div class="easyui-panel" style="width:420px;border-style: none;">
 		<div style="padding:10px 60px 20px 60px;">
 			<form id="tbUpdateRecord" data-options="novalidate:true" class="easyui-form">
-				<table cellpadding="5">
+				<table cellpadding="5" cellspacing="10">
 					<tr>
 						<td>客户姓名:</td>
 						<td>
 							<input type="text" hidden="hidden" name="chatId" />
 							<input type="text" hidden="hidden" name="customerId" />
 							<input type="text" hidden="hidden" name="handlerId" />
-							<input class="easyui-textbox" type="text" name="customerName" data-options="required:true" style="width: 160px;"></input>
+							 
+						
+							<input type="text" name="customerName"  style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
 						</td>
 					</tr>
 					<tr>
 						<td>客处理人姓名:</td>
-						<td><input class="easyui-textbox" type="text" name="handlerName" data-options="required:true," style="width: 160px;"></input>
+						<td><input   type="text" name="handlerName" style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;" ></input>
 						</td>
 					</tr>
 					<tr>
 						<td>时间:</td>
-						<td><input class="easyui-textbox" type="text" name="createTime" data-options="required:true," style="width: 160px;"></input>
+						<td><input  type="date" name="createTime"  style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;" ></input>
 						</td>
 					</tr>
 					<tr>
 						<td>地点:</td>
-						<td><input class="easyui-textbox" type="text" name="chatAddress" data-options="required:true," style="width: 160px;"></input>
+						<td><input  type="text" name="chatAddress" style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;" ></input>
 						</td>
 					</tr>
 					<tr>
 						<td>概要:</td>
-						<td><input class="easyui-textbox" type="text" name="shortDescription" data-options="required:true," style="width: 160px;"></input>
+						<td><input  type="text" name="shortDescription"  style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;" ></input>
 						</td>
 					</tr>
 					<tr>
 						<td>详细信息:</td>
-						<td><input class="easyui-textbox" type="text" name="longDescription" data-options="required:true," style="width: 160px;"></input>
+						<td><input  type="text" name="longDescription"  style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;" ></input>
 						</td>
 					</tr>
 					<tr>
 						<td>备注:</td>
-						<td><input class="easyui-textbox" type="text" name="moreInfo" data-options="required:true," style="width: 160px;"></input>
+						<td><input   type="text" name="moreInfo"  style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;" ></input>
 						</td>
 					</tr>
 				</table>
 			</form>
 			<div style="text-align:center;padding:5px">
-				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitRecordForm()" style="margin-right: 20%;">提交</a>
-				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancleRecordForm()">取消</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton l-btn l-btn-small" onclick="submitRecordForm()" style="margin-right: 30px;"
+				 group="" id=""><span class="l-btn-left"><span class="l-btn-text">提交</span></span></a>
+				<a href="javascript:void(0)" class="easyui-linkbutton l-btn l-btn-small" onclick="cancleRecordForm()" style="margin-left: 30px;"
+				 group="" id=""><span class="l-btn-left"><span class="l-btn-text">取消</span></span></a>
 			</div>
 		</div>
 	</div>
@@ -350,54 +345,56 @@
 <!-- 点击新增交往记录弹出的对话框 -->
 
 <div id="newRecord" class="easyui-dialog" title="新增交往记录" data-options="iconCls:'icon-add',closed:true">
-	<div class="easyui-panel" style="width:400px;border-style: none;">
+	<div class="easyui-panel" style="width:430px;border-style: none;">
 		<div style="padding:10px 60px 20px 60px;">
 			<form id="tbNewRecord" data-options="novalidate:true" class="easyui-form">
-				<table cellpadding="5">
+				<table cellpadding="5" cellspacing="10">
 					<tr>
 						<td>客户姓名:</td>
 						<td>
 							<input type="text" hidden="hidden" name="customerId" />
 							<input type="text" hidden="hidden" name="handlerId" />
-							<input class="easyui-textbox" type="text" name="customerName" data-options="required:true," style="width: 160px;" readonly="readonly" />
+							<input  type="text" name="customerName"   style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"/>
 						</td>
 					</tr>
 					<tr>
 						<td>客户处理人姓名:</td>
 						<td>
-							<input class="easyui-textbox" type="text" name="handlerName" data-options="required:true," style="width: 160px;"></input>
+							<input  type="text" name="handlerName"  style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
 						</td>
 					</tr>
 					<tr>
 						<td>时间:</td>
-						<td><input class="easyui-textbox" type="date" name="createTime" data-options="required:true," style="width: 160px;"></input>
+						<td><input  type="date" name="createTime"  style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
 						</td>
 					</tr>
 					<tr>
 						<td>地点:</td>
-						<td><input class="easyui-textbox" type="text" name="chatAddress" data-options="required:true," style="width: 160px;"></input>
+						<td><input  type="text" name="chatAddress"  style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
 						</td>
 					</tr>
 					<tr>
 						<td>概要:</td>
-						<td><input class="easyui-textbox" type="text" name="shortDescription" data-options="required:true," style="width: 160px;"></input>
+						<td><input  type="text" name="shortDescription"  style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
 						</td>
 					</tr>
 					<tr>
 						<td>详细信息:</td>
-						<td><input class="easyui-textbox" type="text" name="longDescription" data-options="required:true," style="width: 160px;"></input>
+						<td><input  type="text" name="longDescription"  style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
 						</td>
 					</tr>
 					<tr>
 						<td>备注:</td>
-						<td><input class="easyui-textbox" type="text" name="moreInfo" data-options="required:true," style="width: 160px;"></input>
+						<td><input  type="text" name="moreInfo"  style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
 						</td>
 					</tr>
 				</table>
 			</form>
 			<div style="text-align:center;padding:5px">
-				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitNewRecordForm()" style="margin-right: 20%;">提交</a>
-				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancleNewRecordForm()">取消</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton l-btn l-btn-small" onclick="submitNewRecordForm()" style="margin-right: 30px;"
+				 group="" id=""><span class="l-btn-left"><span class="l-btn-text">提交</span></span></a>
+				<a href="javascript:void(0)" class="easyui-linkbutton l-btn l-btn-small" onclick="cancleNewRecordForm()" style="margin-left: 30px;"
+				 group="" id=""><span class="l-btn-left"><span class="l-btn-text">取消</span></span></a>
 			</div>
 		</div>
 	</div>
@@ -416,6 +413,22 @@
 			}
 		});
 	}
+	
+	//修改交往记录窗口关闭后的事件
+	$("#updateRecord").dialog({
+		onClose:function(){
+			$("#allRecord").datagrid("reload");
+			$('#showRecord').dialog("open");
+		}
+	})
+	
+	//添加交往记录窗口关闭后的事件
+	$("#newRecord").dialog({
+		onClose:function(){
+			$("#allRecord").datagrid("reload");
+			$('#showRecord').dialog("open")
+		}
+	})
 
 	//工具栏点击删除事件
 	function removeCustomer() {
@@ -707,17 +720,19 @@
 
 	//删除对应用户的所有交往记录
 	function clearRecord() {
-		$.messager.confirm("提示", "确认清空", function() {
-			var f = $("#allCustomer").datagrid("getSelected");
-			var b = f.customerId;
-			$.ajax({
-				type: "DELETE",
-				url: "http://localhost:8080/chatRecord/All/" + b,
-				success: function(data) {
-					$('#allRecord').datagrid('reload');
-					$.messager.alert("提示", data.msg)
-				}
-			})
+		$.messager.confirm("提示", "确认清空", function(re) {
+			if(re){
+				var f = $("#allCustomer").datagrid("getSelected");
+				var b = f.customerId;
+				$.ajax({
+					type: "DELETE",
+					url: "http://localhost:8080/chatRecord/All/" + b,
+					success: function(data) {
+						$('#allRecord').datagrid('reload');
+						$.messager.alert("提示", data.msg)
+					}
+				})
+			}
 		})
 
 	}
