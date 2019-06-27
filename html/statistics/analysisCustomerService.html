@@ -1,0 +1,57 @@
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="analysisCusService" style="width: 600px;height:400px; margin:60px 200px;"></div>
+<script type="text/javascript">
+	$.ajax({
+		type: "GET",
+		url: "http://localhost:8080/getServiceType/",
+		success: function(data) {
+			var analyService = echarts.init(document.getElementById('analysisCusService'));
+			alert(data)
+			analyService.showLoading();
+			analyService.setOptions(
+				title: {
+					text: '某站点用户访问来源',
+					subtext: '纯属虚构',
+					x: 'center'
+				},
+				tooltip: {
+					trigger: 'item',
+					formatter: "{a} <br/>{b} : {c} ({d}%)"
+				},
+				legend: {
+					orient: 'vertical',
+					left: 'left',
+					data: data.type
+				},
+				series: [{
+					name: '服务数量',
+					type: 'pie',
+					radius: '55%',
+					center: ['50%', '60%'],
+					data: [
+						{
+							value: data.count[0],
+							name: data.type[0]
+						},
+						{
+							value: data.count[1],
+							name: data.type[1]
+						},
+						{
+							value: data.count[2],
+							name: data.type[2]
+						},
+
+					],
+					itemStyle: {
+						emphasis: {
+							shadowBlur: 10,
+							shadowOffsetX: 0,
+							shadowColor: 'rgba(0, 0, 0, 0.5)'
+						}
+					}
+				}]
+			);
+		},
+	});
+</script>
