@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Refresh" content="1;url:cusComposition.html" />
+		<title>ECharts</title>
+		<!-- 引入 echarts.js -->
+		<script src="../../js/echarts.min.js"></script>
+	</head>
+
+	<body>
+		<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+		<center>
+			<!--<div id="main" style="width: 600px;height:400px;padding-top: 50px;"></div>-->
+			<div id="container" style="width: 100%;height:600px;"></div>
+			<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+			<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+			<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+			<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+			<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+			<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+			<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=xfhhaTThl11qYVrqLZii6w8qE5ggnhrY&__ec_v__=20190126"></script>
+			<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+			<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+		</center>
+
+		<script type="text/javascript">
+//			var result_list = [1, 2, 3, 4];
+//			var result;
+			$.ajax({
+				type: "post",
+				url: "http://localhost:8080/ReportView/cusCompositon",
+				success: function(Rvalue) {
+					//	alert(data);
+					var result_list;
+					result_list = Rvalue;
+					var max_result=0;
+					for(var i=0;i<result_list.length;i++){
+						if(result_list[i]>max_result){
+							max_result=result_list[i];
+						}
+					}
+//					alert(result_list);
+					var dom = document.getElementById("container");
+					var myChart = echarts.init(dom);
+					var app = {};
+					option = null;
+					var data = [{
+						name: 'Vip等级',
+						children: [{
+							name: '一级会员',
+							value: result_list[0],
+						}, {
+							name: '二级会员',
+							value: result_list[1],
+						}, {
+							name: '高级会员',
+							value: result_list[2],
+						}, {
+							name: '黑卡级会员',
+							value: result_list[3],
+						}]
+					}, {
+						name: '信用度',
+						children: [{
+							name: '1(差)',
+							value: result_list[4],
+						}, {
+							name: '2(良好)',
+							value: result_list[5],
+						}, {
+							name: '3(较好)',
+							value: result_list[6],
+						}, {
+							name: '4(好)',
+							value: result_list[7],
+						},{
+							name: '5(优秀)',
+							value: result_list[8],
+						}]
+					}, {
+						name: '满意度',
+						children: [{
+							name: '1(非常不满意)',
+							value: result_list[9],
+						}, {
+							name: '2(不满意)',
+							value: result_list[10],
+						}, {
+							name: '3(基本满意)',
+							value: result_list[11],
+						}, {
+							name: '4(满意)',
+							value: result_list[12],
+						},{
+							name: '5(非常满意',
+							value: result_list[13],
+						}]
+					}];
+
+					option = {
+						visualMap: {
+							type: 'continuous',
+							min: 0,
+							max: max_result,
+							inRange: {
+								color: [ '#76c0cb','#F28C8C','#e0719c']
+							}
+						},
+						series: {
+							type: 'sunburst',
+							data: data,
+							radius: [0, '80%'],
+       						clockwise: true,
+							label: {
+								rotate: 'radial'
+							}
+						}
+					};
+
+					if(option && typeof option === "object") {
+						myChart.setOption(option, true);
+					}
+				}
+			});
+			
+		</script>
+	</body>
+
+</html>

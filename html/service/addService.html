@@ -23,15 +23,6 @@
 							 style="width: 160px;"></input>
 
 						</td>
-						<!-- <tr>
-							<td>顾客编号:</td>
-							<td>
-								<input id="cc" class="easyui-combobox" name="cusNo" data-options="
-									valueField:'cusNo',
-									textField:'cusNo',
-									url:'http://192.168.3.26:8080/cus/getAllCus'">
-							</td>
-						</tr> -->
 					</tr>
 
 
@@ -41,8 +32,6 @@
 							<input id="customerNo" name="customerNo" value="" class="easyui-combobox" style="width: 160px;"/>
 
 							<input id="customerId" name="customerId" hidden="hidden" />
-							<!-- <input name="customerId" hidden="hidden" />
-							<input class="easyui-textbox" type="text" name="customerNo" data-options="required:true," style="width: 160px;" /> -->
 						</td>
 					</tr>
 					<tr>
@@ -83,6 +72,7 @@
 	$('#customerNo').combobox({
 		valueField: 'customerNo',
 		textField: 'customerNo',
+		panelHeight:150,
 		onSelect: function(re) {
 			var f = {}
 			f.customerId = re.customerId;
