@@ -49,6 +49,7 @@ var data = [{
 	state: 'close',
 	children: [{
 		text: '客户贡献分析',
+		href: 'statistics/customerContribution.html',
 	}, {
 		text: '客户构成分析',
 	}, {

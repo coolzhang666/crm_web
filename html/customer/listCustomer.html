@@ -47,7 +47,7 @@
 					<tr>
 						<td>联系人性别:</td>
 						<td>
-							<select class="easyui-combobox" data-options="editable:false" name="contactGender" style="width: 170px;">
+							<select class="easyui-combobox" data-options="editable:false,panelHeight:100" name="contactGender" style="width: 170px;">
 								<option selected="selected" disabled="disabled" value=""></option>
 								<option value="男">男</option>
 								<option value="女">女</option>
@@ -109,7 +109,7 @@
 						<tr>
 							<td>联系人性别:</td>
 							<td>
-								<select class="easyui-combobox" data-options="editable:false" name="contactGender" style="width: 173px;">
+								<select class="easyui-combobox" data-options="editable:false,panelHeight:100" name="contactGender" style="width: 173px;">
 									<option selected="selected" disabled="disabled" value=""></option>
 									<option value="男">男</option>
 									<option value="女">女</option>
@@ -503,15 +503,20 @@
 	// 确认后提交新增的联系人的信息
 	function submitConForm() {
 		var boo = $("#submitCon").form("validate");
+		cusObj = $("#allCustomer").datagrid("getSelected");
 		if(boo) {
+			var obj = {};
+			obj.customerId = cusObj.customerId;
 			$.ajax({
 				type: "POST",
 				url: "http://localhost:8080/contact",
 				dataType: "JSON",
 				data: $("#submitCon").serialize(),
-				success: function(obj) {
+				success: function(objData) {
 					$("#submitCon").form("clear");
-					$.messager.alert("新增提示", obj.msg);
+					// 重新加载不能修改的项（客户Id），因为清空表单会把该值也去掉
+					$("#submitCon").form("load", obj);
+					$.messager.alert("新增提示", objData.msg);
 					// 新增后刷新联系人列表
 					$('#allContact').datagrid('reload');
 				}
@@ -519,6 +524,7 @@
 		} else {
 			alert("新增失败");
 		}
+
 	}
 	// 清空表单
 	function clearConForm() {
