@@ -28,14 +28,14 @@ var data = [{
 }, {
 	text: '服务管理',
 	iconCls: 'icon-more',
-//	state: 'close',
-	state: 'open',
+	state: 'close',
+//	state: 'open',
 	children: [{
 		text: '新增服务',
 		href: 'html/service/addService.html'
 	}, {
 		text: '服务分配',
-		href: 'html/service/allotService.html',
+		href: 'html/service/allotService.html'
 	}, {
 		text: '处理服务',
 		href:'html/service/handleService.html'
@@ -46,16 +46,19 @@ var data = [{
 }, {
 	text: '统计报表',
 	iconCls: 'icon-more',
-	state: 'close',
+	state: 'open',
 	children: [{
 		text: '客户贡献分析',
+		href: 'statistics/customerContribution.html',
 	}, {
 		text: '客户构成分析',
+		href:'html/statistics/cusComposition.html'
 	}, {
 		text: '客户服务分析',
 		href:'html/statistics/analysisCustomerService.html'
 	}, {
 		text: '客户流失分析',
+		href:'html/statistics/customerLose.html'
 	}]
 }, {
 	text: '系统管理',
