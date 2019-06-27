@@ -20,8 +20,147 @@
 	</table>
 
 	<div id="escapeCustomerToolBar" style="height:auto">
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="">暂缓流失</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="">确认流失</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="dlayEscape()">暂缓流失</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="confirmEscape()">确认流失</a>
+	</div>
+
+	<div id="allDelayRecordDialog" class="easyui-dialog" title="暂缓措施" data-options="iconCls:'icon-edit', closed:true, modal:true" style="width:600px;">
+		<table id="allDelayRecord" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#delayRecordToolBar"
+			data-options="singleSelect:true,collapsible:false,pagination:true,pageList:[5,10,15,20],pageSize:5,
+			method:'GET',fitColumns:true,fitColumns:true">
+			<thead>
+				<tr>
+					<th data-options="field:'creatorName',width:100,align:'center',resizable:false">创建人</th>
+					<th data-options="field:'createTime',width:100,align:'center',resizable:false">创建时间</th>
+					<th data-options="field:'delayMethod',width:100, align:'center',resizable:false">暂缓措施</th>
+				</tr>
+			</thead>
+		</table>
+		<div id="delayRecordToolBar" style="height:auto">
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="removeEscapeRecord()">删除暂缓措施</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="addEscapeRecord()">新增暂缓措施</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="updateEscapeRecord()">更改暂缓措施</a>
+		</div>
+	</div>
+	
+	<div id="addDelayRecordDialog" class="easyui-dialog" title="新增暂缓措施" data-options="iconCls:'icon-edit', closed:true, modal:true" style="width:400px">
+		<div style="padding:10px 60px 20px 60px">
+			<form id="addDelayRecordForm" class="easyui-form" method="post" data-options="novalidate:true">
+				<table cellpadding="5" cellspacing="5px">
+					<tr style="display: none;">
+						<td>暂缓措施Id:</td>
+						<td><input class="easyui-textbox" type="text" name="delayId" data-options="required:true" style="width: 200px;"></input>
+						</td>
+					</tr>
+					<tr style="display: none;">
+						<td>客户Id:</td>
+						<td><input class="easyui-textbox" type="text" name="customerId" data-options="required:true" style="width: 200px;"></input>
+						</td>
+					</tr>
+					<tr style="display: none;">
+						<td>创建者id:</td>
+						<td><input class="easyui-textbox" value="1" type="text" name="creatorId" data-options="required:true" style="width: 200px;"></input>
+						</td>
+					</tr>
+					<tr style="display: none;">
+						<td>创建者姓名:</td>
+						<td><input class="easyui-textbox" value="1" type="text" name="creatorName" data-options="required:true" style="width: 200px;"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>暂缓措施:</td>
+						<td><input type="text" name="delayMethod" style="width: 200px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;""></input>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<div style="text-align:center;padding:5px">
+				<a href="javascript:void(0)" class="easyui-linkbutton l-btn l-btn-small" onclick="submitAddDelayRecordForm()" style="margin-right: 30px;"
+				 group="" id=""><span class="l-btn-left"><span class="l-btn-text">新增</span></span></a>
+				<a href="javascript:void(0)" class="easyui-linkbutton l-btn l-btn-small" onclick="cancelAddDelayRecordForm()" style="margin-left: 30px;"
+				 group="" id=""><span class="l-btn-left"><span class="l-btn-text">取消</span></span></a>
+			</div>
+		</div>
+	</div>
+	
+	<div id="changeDelayRecordDialog" class="easyui-dialog" title="新增暂缓措施" data-options="iconCls:'icon-edit', closed:true, modal:true" style="width:420px">
+		<div style="padding:10px 60px 20px 60px">
+			<form id="changeDelayRecordForm" class="easyui-form" method="post" data-options="novalidate:true">
+				<table cellpadding="5" cellspacing="5px">
+					<tr style="display: none;">
+						<td>暂缓措施Id:</td>
+						<td><input class="easyui-textbox" type="text" name="delayId" data-options="required:true" style="width: 200px;"></input>
+						</td>
+					</tr>
+					<tr style="display: none;">
+						<td>客户Id:</td>
+						<td><input class="easyui-textbox" type="text" name="customerId" data-options="required:true" style="width: 200px;"></input>
+						</td>
+					</tr>
+					<tr style="display: none;">
+						<td>创建者id:</td>
+						<td><input class="easyui-textbox" value="1" type="text" name="creatorId" data-options="required:true" style="width: 200px;"></input>
+						</td>
+					</tr>
+					<tr style="display: none;">
+						<td>创建者姓名:</td>
+						<td><input class="easyui-textbox" value="1" type="text" name="creatorName" data-options="required:true" style="width: 200px;"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>暂缓措施:</td>
+						<td><input type="text" name="delayMethod" style="width: 200px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<div style="text-align:center;padding:5px">
+				<a href="javascript:void(0)" class="easyui-linkbutton l-btn l-btn-small" onclick="submitchangeDelayRecordForm()" style="margin-right: 30px;"
+				 group="" id=""><span class="l-btn-left"><span class="l-btn-text">修改</span></span></a>
+				<a href="javascript:void(0)" class="easyui-linkbutton l-btn l-btn-small" onclick="cancelchangeDelayRecordForm()" style="margin-left: 30px;"
+				 group="" id=""><span class="l-btn-left"><span class="l-btn-text">取消</span></span></a>
+			</div>
+		</div>
+	</div>
+	
+	<div id="addEscapeRecordDialog" class="easyui-dialog" title="确认流失" data-options="iconCls:'icon-edit', closed:true, modal:true" style="width:420px">
+		<div style="padding:10px 60px 20px 60px">
+			<form id="addEscapeRecordForm" class="easyui-form" method="post" data-options="novalidate:true">
+				<table cellpadding="5" cellspacing="5px">
+					<tr style="display: none;">
+						<td>客户Id:</td>
+						<td><input class="easyui-textbox" type="text" name="customerId" data-options="required:true" style="width: 200px;"></input>
+						</td>
+					</tr>
+					<tr style="display: none;">
+						<td>创建者id:</td>
+						<td><input class="easyui-textbox" value="1" type="text" name="creatorId" data-options="required:true" style="width: 200px;"></input>
+						</td>
+					</tr>
+					<tr style="display: none;">
+						<td>创建者姓名:</td>
+						<td><input class="easyui-textbox" value="1" type="text" name="creatorName" data-options="required:true" style="width: 200px;"></input>
+						</td>
+					</tr>
+					<tr>
+						<td>流失原因:</td>
+						<td>
+							<select panlHight="auto" class="easyui-combobox" name="escapeReason" data-options="width:172,required:true">
+								<option value="流失原因1">流失原因1</option>
+								<option value="流失原因2">流失原因2</option>
+								<option value="流失原因3">流失原因3</option>
+								<option value="流失原因4">流失原因4</option>
+								<option value="流失原因5">流失原因5</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<div style="text-align:center;padding:5px">
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitAddEscapeRecordForm()">提交</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancelAddEscapeRecordForm()">取消</a>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -31,12 +170,158 @@
 			type: "GET",
 			url: "http://localhost:8080/customer/escape/" + param.page + "/" + param.rows,
 			success: function(data) {
-				console.log(data);
 				var obj = {};
 				obj.total = data.total;
 				obj.rows = data.data;
 				success(obj);
 			}
 		});
+	}
+	
+	function delayRecordLoader(param, success, error) {
+		var escapeCustomer = $("#escapeCustomer").datagrid("getSelected");
+		$.ajax({
+			type:"GET",
+			url:"http://localhost:8080/delayRecord/" + escapeCustomer.customerId + "/" + param.page + "/" + param.rows,
+			success: function(data) {
+				obj = {};
+				obj.total = data.total;
+				obj.rows = data.data;
+				success(obj);
+			}
+		});
+	}
+	
+	function dlayEscape() {
+		var escapeCustomer = $("#escapeCustomer").datagrid("getSelected");
+		if (escapeCustomer != null) {
+			$("#allDelayRecordDialog").dialog("open");
+			$("#allDelayRecord").datagrid({
+				loader:delayRecordLoader
+			});
+		} else {
+			$.messager.alert("提示", "请选中相应行");
+		}
+	}
+	
+	function addEscapeRecord() {
+		var escapeCustomer = $("#escapeCustomer").datagrid("getSelected");
+		$("#addDelayRecordDialog").dialog("open");
+		$("#allDelayRecordDialog").dialog("close");
+		$("#addDelayRecordForm").form("load", escapeCustomer);
+	}
+	
+	$("#addDelayRecordDialog").dialog({
+		onClose: function() {
+			$("#allDelayRecord").datagrid("reload");
+			$("#allDelayRecordDialog").dialog("open");
+			$("#addDelayRecordForm").form("reset");
+		}
+	});
+	
+	function submitAddDelayRecordForm() {
+		$.ajax({
+			type:"POST",
+			url:"http://localhost:8080/delayRecord",
+			dataType: "JSON",
+			data: $("#addDelayRecordForm").serialize(),
+			success: function(data) {
+				$("#addDelayRecordDialog").dialog("close");
+				$.messager.alert("提示", data.msg);
+			}
+		});
+	}
+	
+	function cancelAddDelayRecordForm() {
+		$("#addDelayRecordDialog").dialog("close");
+	}
+	
+	function updateEscapeRecord() {
+		var delayRecord = $("#allDelayRecord").datagrid("getSelected");
+		if (delayRecord != null) {
+			$("#changeDelayRecordDialog").dialog("open");
+			$("#allDelayRecordDialog").dialog("close");
+			$("#changeDelayRecordForm").form("load", delayRecord);
+		} else {
+			$.messager.alert("提示", "请选中相应行");
+		}
+	}
+	
+	$("#changeDelayRecordDialog").dialog({
+		onClose: function() {
+			$("#allDelayRecord").datagrid("reload");
+			$("#allDelayRecordDialog").dialog("open");
+			$("#changeDelayRecordForm").form("reset");
+		}
+	});
+	
+	function submitchangeDelayRecordForm() {
+		$.ajax({
+			type:"PUT",
+			url:"http://localhost:8080/delayRecord",
+			dataType: "JSON",
+			data: $("#changeDelayRecordForm").serialize(),
+			success: function(data) {
+				$("#changeDelayRecordDialog").dialog("close");
+				$.messager.alert("提示", data.msg);
+			}
+		});
+	}
+	
+	function cancelchangeDelayRecordForm() {
+		$("#changeDelayRecordDialog").dialog("close");
+	}
+	
+	function removeEscapeRecord() {
+		var delayRecord = $("#allDelayRecord").datagrid("getSelected");
+		if (delayRecord != null) {
+			$.messager.confirm('Confirm', '确定要删除这条数据吗？', function(r) {
+				if(r) {
+					$.ajax({
+						type: "DELETE",
+						url: "http://localhost:8080/delayRecord/" + delayRecord.delayId,
+						success: function(data) {
+							$("#allDelayRecord").datagrid("reload");
+							$.messager.alert("提示", data.msg);
+						}
+					});
+				}
+			});
+		} else {
+			$.messager.alert("提示", "请选中相应行");
+		}
+	}
+	
+	function confirmEscape() {
+		var escapeCustomer = $("#escapeCustomer").datagrid("getSelected");
+		if (escapeCustomer != null) {
+			$("#addEscapeRecordDialog").dialog("open");
+			$("#addEscapeRecordForm").form("load", escapeCustomer);
+		} else {
+			$.messager.alert("提示", "请选中相应行");
+		}
+	}
+	
+	function submitAddEscapeRecordForm() {
+		var validate = $("#addEscapeRecordForm").form("validate");
+		if (validate) {
+			$.ajax({
+				type:"PUT",
+				url:"http://localhost:8080/escapeRecord",
+				dataType: "JSON",
+				data: $("#addEscapeRecordForm").serialize(),
+				success: function(data) {
+					$("#addEscapeRecordForm").form("reset");
+					$("#addEscapeRecordDialog").dialog("close");
+					$("#escapeCustomer").datagrid("reload");
+					$.messager.alert("提示", data.msg);
+				}
+			});
+		}
+	}
+	
+	function cancelAddEscapeRecordForm() {
+		$("#addEscapeRecordForm").form("reset");
+		$("#addEscapeRecordDialog").dialog("close");
 	}
 </script>
