@@ -1,94 +1,94 @@
 <div>
 	<!--删除信息弹窗-->
 	<div id="dlg-removeChance" class="easyui-dialog" title="删除信息" data-options="iconCls:'icon-edit',closed:true" style="width:300px;height:180px;">
-			<h5 align="center" style="font-size: 16px;line-height: 80px;">确定删除该行内容？</h5>
-			<div style="text-align:center;padding:5px">
-				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="sure_removeChance()">删除</a>
-				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="concel_removeChance()">取消</a>
-			</div>
-		
+		<h5 align="center" style="font-size: 16px;line-height: 80px;">确定删除该行内容？</h5>
+		<div style="text-align:center;padding:5px">
+			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="sure_removeChance()">删除</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="concel_removeChance()">取消</a>
+		</div>
+
 	</div>
-	
+
 	<!--指派人员弹窗-->
 	<div id="dlg-sendPerson" class="easyui-dialog" title="指派人员" data-options="iconCls:'icon-edit',closed:true" style="width:420px;height:200px;padding:10px">
-			<div style="padding:10px 60px 20px 60px">
+		<div style="padding:10px 60px 20px 60px">
 			<center>
 				<form id="editSend" method="post">
 					<table cellpadding="5">
 						<tr>
-						<!--<td>客户姓名:</td>-->
-						<td>
-							<input type="hidden" name="chanceId" />
-							<input  type="hidden" name="customerName"></input>
-						</td>
-					</tr>
-					<tr>
-						<!--<td>客户电话:</td>-->
-						<td>
-							<input  type="hidden" name="customerPhone"></input>
-						</td>
-					</tr>
-					<tr>
-						<!--<td>联系人姓名:</td>-->
-						<td>
-							<input  type="hidden" name="contactName"></input>
-						</td>
-					</tr>
-					<tr>
-						<!--<td>联系人电话:</td>-->
-						<td>
-							<input  type="hidden" name="contactPhone"></input>
-						</td>
-					</tr>
-					<tr>
-						<!--<td>机会来源:</td>-->
-						<td>
-							<input  type="hidden" name="chanceResource"></input>
-						</td>
-					</tr>
-					<tr>
-						<!--<td>成功几率:</td>-->
-						<td>
-							<input  type="hidden" name="successRate"></input>
-						</td>
-					</tr>
-					<tr>
-						<!--<td>机会描述:</td>-->
-						<td>
-							<input  type="hidden" name="chanceDescription"></input>
-						</td>
-					</tr>
-					<tr>
-						<!--<td>创建人Id:</td>-->
-						<td>
-							<input  type="hidden" name="creatorId"></input>
-						</td>
-					</tr>
-					<tr>
-						<!--<td>创建人姓名:</td>-->
-						<td>
-							<input  type="hidden" name="creatorName"></input>
-						</td>
-					</tr>
-					<tr>
-						<!--<td>创建时间:</td>-->
-						<td>
-							<input  type="hidden" name="createTime"></input>
-						</td>
-					</tr>
-					<tr>
-						<td>指派人ID:</td>
+							<!--<td>客户姓名:</td>-->
 							<td>
-								<input  id="send_belong" class="easyui-textbox" type="text" value="" name="belong" data-options="required:true">
+								<input type="hidden" name="chanceId" />
+								<input type="hidden" name="customerName"></input>
+							</td>
+						</tr>
+						<tr>
+							<!--<td>客户电话:</td>-->
+							<td>
+								<input type="hidden" name="customerPhone"></input>
+							</td>
+						</tr>
+						<tr>
+							<!--<td>联系人姓名:</td>-->
+							<td>
+								<input type="hidden" name="contactName"></input>
+							</td>
+						</tr>
+						<tr>
+							<!--<td>联系人电话:</td>-->
+							<td>
+								<input type="hidden" name="contactPhone"></input>
+							</td>
+						</tr>
+						<tr>
+							<!--<td>机会来源:</td>-->
+							<td>
+								<input type="hidden" name="chanceResource"></input>
+							</td>
+						</tr>
+						<tr>
+							<!--<td>成功几率:</td>-->
+							<td>
+								<input type="hidden" name="successRate"></input>
+							</td>
+						</tr>
+						<tr>
+							<!--<td>机会描述:</td>-->
+							<td>
+								<input type="hidden" name="chanceDescription"></input>
+							</td>
+						</tr>
+						<tr>
+							<!--<td>创建人Id:</td>-->
+							<td>
+								<input type="hidden" name="creatorId"></input>
+							</td>
+						</tr>
+						<tr>
+							<!--<td>创建人姓名:</td>-->
+							<td>
+								<input type="hidden" name="creatorName"></input>
+							</td>
+						</tr>
+						<tr>
+							<!--<td>创建时间:</td>-->
+							<td>
+								<input type="hidden" name="createTime"></input>
+							</td>
+						</tr>
+						<tr>
+							<td>指派人ID:</td>
+							<td>
+								<input id="send_belong" class="easyui-textbox" type="text" value="" name="belong" data-options="required:true">
 								</input>
 							</td>
-					</tr>
-					<tr>
-						<!--<td>状态:</td>-->
-						<td>
-							<input  type="hidden" name="chanceStatus"></input>
-						</td>
-					</tr>
+						</tr>
+						<tr>
+							<!--<td>状态:</td>-->
+							<td>
+								<input type="hidden" name="chanceStatus"></input>
+							</td>
+						</tr>
 					</table>
 				</form>
 			</center>
@@ -99,10 +99,9 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<!--销售机会数据列表-->
-	<table id="allSaleChance" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#saleChanceToolBar"
-		data-options="pagination:true,singleSelect:true,collapsible:false,loader:myloader,method:'post',onDblClickRow: onDblClickRow,
+	<table id="allSaleChance" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#saleChanceToolBar" data-options="pagination:true,singleSelect:true,collapsible:false,loader:myloader,method:'post',onDblClickRow: onDblClickRow,
 		fitColumns:true, nowrap:true,pageList:[5,10,15,20],pageSize:5,displayMsg:'' ">
 		<thead>
 			<tr>
@@ -184,7 +183,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div id="changeDevelopPlanDialog" class="easyui-dialog" title="修改开发计划" data-options="iconCls:'icon-edit', closed:true" style="width:400px">
 		<div style="padding:10px 60px 20px 60px">
 			<form id="changeDevelopPlanForm" class="easyui-form" method="post" data-options="novalidate:true">
@@ -227,7 +226,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div id="executeDevelopPlanDialog" class="easyui-dialog" title="执行开发计划" data-options="iconCls:'icon-edit', closed:true" style="width:400px">
 		<div style="padding:10px 60px 20px 60px">
 			<form id="executeDevelopPlanForm" class="easyui-form" method="post" data-options="novalidate:true">
@@ -275,9 +274,8 @@
 			</div>
 		</div>
 	</div>
-	
-	<div id="changeCustomer" class="easyui-dialog" title="修改客户信息"
-		data-options="iconCls:'icon-edit',closed:true, modal:true, closable:false" style="height:600px;padding:10px">
+
+	<div id="changeCustomer" class="easyui-dialog" title="操作成功，请完善客户信息" data-options="iconCls:'icon-edit',closed:true, modal:true, closable:false" style="height:600px;padding:10px">
 		<!--对话框中的修改内容-->
 		<div style="padding:10px 60px 20px 60px">
 			<form id="changeCustomerForm" method="post">
@@ -307,7 +305,7 @@
 					</tr>
 					<tr>
 						<td>客户电话:</td>
-						<td><input id="CustomerPhone" class="easyui-textbox" type="text" name="customerPhone" data-options="" style="width: 172px;"></input>
+						<td><input id="CustomerPhone" class="easyui-textbox" type="text" name="customerPhone" data-options="required:true" style="width: 172px;"></input>
 						</td>
 					</tr>
 					<tr>
@@ -377,7 +375,7 @@
 							</select>
 						</td>
 					</tr>
-					<!-- <tr>
+					<tr>
 						<td>客户满意度:</td>
 						<td>
 							<select class="easyui-combobox" name="customerStatus" data-options="width:172,required:true">
@@ -388,7 +386,7 @@
 								<option value="5">5(非常好)</option>
 							</select>
 						</td>
-					</tr> -->
+					</tr>
 				</table>
 			</form>
 		</div>
@@ -396,6 +394,51 @@
 		<!--修改的操作按键-->
 		<div style="text-align:center;padding:5px">
 			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="changeCustomer_OK()">修改</a>
+		</div>
+	</div>
+
+	<div id="changeContactDialog" class="easyui-dialog" title="操作成功，请完善联系人信息"
+		data-options="closable:false,closed:true,iconCls:'icon-edit', modal:true, closable:false" style="width:600px;height:500px;padding:50px">
+		<div style="padding-top: 15px;">
+			<center>
+				<h2>联系人信息</h2>
+				<div style="padding:40px 60px 20px 60px">
+					<form id="changeContactForm" method="post">
+						<table cellpadding="5">
+							<tr>
+								<td>联系人姓名:</td>
+								<input type="hidden" name="contactId" />
+								<input type="hidden" name="customerId" />
+								<td><input class="easyui-textbox" type="text" name="contactName" data-options="required:false"></input>
+								</td>
+							</tr>
+							<tr>
+								<td>联系人性别:</td>
+								<td>
+									<select class="easyui-combobox" data-options="editable:false" name="contactGender" style="width: 173px;">
+										<option selected="selected" disabled="disabled" value=""></option>
+										<option value="男">男</option>
+										<option value="女">女</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>联系人电话:</td>
+								<td><input class="easyui-textbox" type="text" name="contactPhone" data-options="required:true"></input>
+								</td>
+							</tr>
+							<tr>
+								<td>联系人职位:</td>
+								<td><input class="easyui-textbox" type="text" name="contactJob" data-options="required:false"></input>
+								</td>
+							</tr>
+						</table>
+					</form>
+					<div style="text-align:center;padding:5px">
+						<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitChangeContact()">修改</a>
+					</div>
+				</div>
+			</center>
 		</div>
 	</div>
 </div>
@@ -443,26 +486,26 @@
 			$.messager.alert("提示", "请选中相应行");
 		}
 	}
-	
+
 	// 添加开发计划表单框关闭事件
 	$("#addDevelopPlanDialog").dialog({
-		onClose:function() {
+		onClose: function() {
 			$("#allDevelopPlan").datagrid("reload");
 			$("#allDevelopPlanDialog").dialog("open");
 		}
 	});
-	
+
 	// 修改开发计划表单框关闭事件
 	$("#changeDevelopPlanDialog").dialog({
-		onClose:function() {
+		onClose: function() {
 			$("#allDevelopPlan").datagrid("reload");
 			$("#allDevelopPlanDialog").dialog("open");
 		}
 	});
-	
+
 	// 修改开发计划表单框关闭事件
 	$("#executeDevelopPlanDialog").dialog({
-		onClose:function() {
+		onClose: function() {
 			$("#allDevelopPlan").datagrid("reload");
 			$("#allDevelopPlanDialog").dialog("open");
 		}
@@ -481,12 +524,12 @@
 			$.messager.alert("提示", "请选中相应行");
 		}
 	}
-	
+
 	// 提交添加表单
 	function submitAddDevelopPlanForm() {
 		$.ajax({
-			type:"POST",
-			url:"http://localhost:8080/developPlan",
+			type: "POST",
+			url: "http://localhost:8080/developPlan",
 			dataType: "JSON",
 			data: $("#addDevelopPlanForm").serialize(),
 			success: function(data) {
@@ -495,21 +538,21 @@
 			}
 		});
 	}
-	
+
 	// 取消添加
 	function cancelAddDevelopPlanForm() {
 		$("#addDevelopPlanDialog").dialog("close");
 	}
-	
+
 	// 删除开发计划
 	function removeDevelopPlan() {
 		var developPlan = $("#allDevelopPlan").datagrid("getSelected");
-		if (developPlan != null) {
+		if(developPlan != null) {
 			$.messager.confirm('Confirm', '确定要删除这条数据吗？', function(r) {
-				if (r) {
+				if(r) {
 					$.ajax({
-						type:"DELETE",
-						url:"http://localhost:8080/developPlan/" + developPlan.planId,
+						type: "DELETE",
+						url: "http://localhost:8080/developPlan/" + developPlan.planId,
 						success: function(data) {
 							$("#allDevelopPlan").datagrid("reload");
 							$.messager.alert("提示", data.msg);
@@ -521,12 +564,12 @@
 			$.messager.alert("提示", "请选中相应行");
 		}
 	}
-	
+
 	// 修改开发计划
 	function updateDevelopPlan() {
 		var developPlan = $("#allDevelopPlan").datagrid("getSelected");
-		if (developPlan != null) {
-			if ("未执行" == developPlan.planStatus) {
+		if(developPlan != null) {
+			if("未执行" == developPlan.planStatus) {
 				$("#allDevelopPlanDialog").dialog("close");
 				$("#changeDevelopPlanDialog").dialog("open");
 				$("#changeDevelopPlanForm").form("load", developPlan);
@@ -537,12 +580,12 @@
 			$.messager.alert("提示", "请选中相应行");
 		}
 	}
-	
+
 	// 提交修改
 	function submitchangeDevelopPlanForm() {
 		$.ajax({
-			type:"PUT",
-			url:"http://localhost:8080/developPlan",
+			type: "PUT",
+			url: "http://localhost:8080/developPlan",
 			dataType: "JSON",
 			data: $("#changeDevelopPlanForm").serialize(),
 			success: function(data) {
@@ -551,17 +594,17 @@
 			}
 		});
 	}
-	
+
 	// 取消修改
 	function cancelchangeDevelopPlanForm() {
 		$("#changeDevelopPlanDialog").dialog("close");
 	}
-	
+
 	// 执行开发计划
 	function executeDevelopPlan() {
 		var developPlan = $("#allDevelopPlan").datagrid("getSelected");
-		if (developPlan != null) {
-			if ("未执行" == developPlan.planStatus) {
+		if(developPlan != null) {
+			if("未执行" == developPlan.planStatus) {
 				$("#allDevelopPlanDialog").dialog("close");
 				$("#executeDevelopPlanDialog").dialog("open");
 				developPlan.planStatus = "已执行";
@@ -573,12 +616,12 @@
 			$.messager.alert("提示", "请选中相应行");
 		}
 	}
-	
+
 	// 提交执行
 	function submitExecuteDevelopPlanForm() {
 		$.ajax({
-			type:"PUT",
-			url:"http://localhost:8080/developPlan",
+			type: "PUT",
+			url: "http://localhost:8080/developPlan",
 			dataType: "JSON",
 			data: $("#executeDevelopPlanForm").serialize(),
 			success: function(data) {
@@ -587,27 +630,29 @@
 			}
 		});
 	}
-	
+
 	// 取消执行开发计划
 	function cancelExecuteDevelopPlanForm() {
 		$("#executeDevelopPlanDialog").dialog("close");
 	}
-	
+
+	var globalContact;
 	// 开发成功
 	function developSuccess() {
 		var saleChance = $("#allSaleChance").datagrid("getSelected");
 		if(saleChance != null) {
-			if (saleChance.chanceStatus == "已分配") {
+			if(saleChance.chanceStatus == "已分配") {
 				$.ajax({
 					method: "PUT",
 					url: "http://localhost:8080/saleChance/success",
 					dataType: "JSON",
 					data: saleChance,
 					success: function(data) {
-						if ("1" == data.status) {
+						if("1" == data.status) {
 							$("#allSaleChance").datagrid("reload");
 							$("#changeCustomer").dialog("open");
 							$("#changeCustomerForm").form("load", data.data.customer);
+							globalContact = data.data.contact;
 						} else {
 							$.messager.alert("提示", data.msg);
 						}
@@ -620,13 +665,51 @@
 			$.messager.alert("提示", "请选中相应行");
 		}
 	}
+
+	function changeCustomer_OK() {
+		var validate = $("#changeCustomerForm").form("validate");
+		if(validate) {
+			$.ajax({
+				type: "PUT",
+				url: "http://localhost:8080/customer",
+				dataType: "JSON",
+				data: $("#changeCustomerForm").serialize(),
+				success: function(data) {
+					if("1" == data.status) {
+						$("#changeCustomer").dialog("close");
+						$("#changeContactDialog").dialog("open");
+						$("#changeContactForm").form("load", globalContact);
+					} else {
+						$("changeCustomer").dialog("close");
+						$.messager.alert("提示", data.msg);
+					}
+				}
+			});
+		}
+	}
 	
+	function submitChangeContact() {
+		var validate = $("#changeContactForm").form("validate");
+		if (validate) {
+			$.ajax({
+				type:"PUT",
+				url:"http://localhost:8080/contact",
+				dataType: "JSON",
+				data: $("#changeContactForm").serialize(),
+				success: function(data) {
+					$("#changeContactDialog").dialog("close");
+					$.messager.alert("提示", data.msg);
+				}
+			});
+		}
+	}
+
 	// 开发失败
 	function developFailed() {
 		var saleChance = $("#allSaleChance").datagrid("getSelected");
 		if(saleChance != null) {
-			if (saleChance.chanceStatus == "已分配") {
-				$.messager.confirm("确认", "确定操作吗，这将不可逆", function(r){
+			if(saleChance.chanceStatus == "已分配") {
+				$.messager.confirm("确认", "确定操作吗，这将不可逆", function(r) {
 					if(r) {
 						$.ajax({
 							method: "PUT",
@@ -647,140 +730,141 @@
 			$.messager.alert("提示", "请选中相应行");
 		}
 	}
-  
+
 	//删除
-	function removeChance(){
-//					$.messager.alert("删除");
-			var allSaleChance = $("#allSaleChance").datagrid("getSelected");
-//			alert(allSaleChance.chanceStatus);
-			if(allSaleChance != null) {
-				if(allSaleChance.chanceStatus == '未分配'){
-					$("#dlg-removeChance").dialog("open");
-				}
-				else{
-					$("#allSaleChance").datagrid('clearSelections');
-					$.messager.alert("删除错误", "无法删除已分配任务");
-				}
+	function removeChance() {
+		//					$.messager.alert("删除");
+		var allSaleChance = $("#allSaleChance").datagrid("getSelected");
+		//			alert(allSaleChance.chanceStatus);
+		if(allSaleChance != null) {
+			if(allSaleChance.chanceStatus == '未分配') {
+				$("#dlg-removeChance").dialog("open");
 			} else {
-				$.messager.alert("删除提示", "请选中要删除的行");
+				$("#allSaleChance").datagrid('clearSelections');
+				$.messager.alert("删除错误", "无法删除已分配任务");
 			}
+		} else {
+			$.messager.alert("删除提示", "请选中要删除的行");
+		}
 	}
 	//删除取消按钮
-		function concel_removeChance() {
-			$("#dlg-removeChance").dialog("close");
-		}
+	function concel_removeChance() {
+		$("#dlg-removeChance").dialog("close");
+	}
 	//删除确认按钮
-		function sure_removeChance() {
-			var allSaleChance = $("#allSaleChance").datagrid("getSelected");
-			if(allSaleChance) {
-				$.ajax({
-					type: 'DELETE',
-					url: 'http://localhost:8080/SaleChance/'+allSaleChance.chanceId,
-					dataType: 'JSON',
-					success: function() {
-						//当提交完毕并删除成功后，自动刷新页面的数据
-						$('#allSaleChance').datagrid('reload');
-						//						$.messager.alert("删除提示",obj.result);
-						$('#dlg-removeChance').dialog('close');
-					}
-				});
-			} 
+	function sure_removeChance() {
+		var allSaleChance = $("#allSaleChance").datagrid("getSelected");
+		if(allSaleChance) {
+			$.ajax({
+				type: 'DELETE',
+				url: 'http://localhost:8080/SaleChance/' + allSaleChance.chanceId,
+				dataType: 'JSON',
+				success: function() {
+					//当提交完毕并删除成功后，自动刷新页面的数据
+					$('#allSaleChance').datagrid('reload');
+					//						$.messager.alert("删除提示",obj.result);
+					$('#dlg-removeChance').dialog('close');
+				}
+			});
 		}
-		
+	}
+
 	//修改（保存）
-var editIndex = undefined;
-		function endEditing(){
-			if (editIndex == undefined){return true}
-			if ($('#allSaleChance').datagrid('validateRow', editIndex)){
-//				var ed = $('#tbsell').datagrid('getEditor', {index:editIndex,field:'conNo'});
-//				var productname = $(ed.target).textbox('getText');
-//				$('#tbsell').datagrid('getRows')[editIndex]['cusNo'] = productname;
-				$('#allSaleChance').datagrid('endEdit', editIndex);
-				editIndex = undefined;
-				return true;
-			} else {
-				return false;
-			}
-			
+	var editIndex = undefined;
+
+	function endEditing() {
+		if(editIndex == undefined) {
+			return true
 		}
-		function onDblClickRow(index){
+		if($('#allSaleChance').datagrid('validateRow', editIndex)) {
+			//				var ed = $('#tbsell').datagrid('getEditor', {index:editIndex,field:'conNo'});
+			//				var productname = $(ed.target).textbox('getText');
+			//				$('#tbsell').datagrid('getRows')[editIndex]['cusNo'] = productname;
+			$('#allSaleChance').datagrid('endEdit', editIndex);
+			editIndex = undefined;
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
+	function onDblClickRow(index) {
+		var boo = $('#allSaleChance').datagrid('getSelected');
+		//			alert(boo.chanceStatus);
+		if(boo.chanceStatus == "已分配") {
+			//				alert(boo.chanceStatus);
+			return;
+		} else if(editIndex != index) {
+			if(endEditing()) {
+				$('#allSaleChance').datagrid('selectRow', index)
+					.datagrid('beginEdit', index);
+				editIndex = index;
+			} else {
+				$('#allSaleChance').datagrid('selectRow', editIndex);
+			}
+		}
+	}
+	//保存
+	function changeSaleChance() {
+		if(endEditing()) {
+			//				alert('aaa');
+			$('#allSaleChance').datagrid('acceptChanges');
 			var boo = $('#allSaleChance').datagrid('getSelected');
-//			alert(boo.chanceStatus);
-			if(boo.chanceStatus=="已分配"){
-//				alert(boo.chanceStatus);
-				return ;
-			}
-			else if (editIndex != index){
-				if (endEditing()){
-					$('#allSaleChance').datagrid('selectRow', index)
-							.datagrid('beginEdit', index);
-					editIndex = index;
-				} else {
-					$('#allSaleChance').datagrid('selectRow', editIndex);
+			//				alert(boo);
+			$.ajax({
+				type: 'put',
+				url: 'http://localhost:8080/SaleChance',
+				dataType: 'JSON',
+				data: boo,
+				success: function() {
+					//当提交完毕并修改成功后，自动刷新页面的数据
+					$('#allSaleChance').datagrid('reload');
 				}
-			}
+			});
 		}
-		//保存
-		function changeSaleChance(){
-			if (endEditing()){
-//				alert('aaa');
-				$('#allSaleChance').datagrid('acceptChanges');
-				var boo = $('#allSaleChance').datagrid('getSelected');
-//				alert(boo);
-				$.ajax({
-					type: 'put',
-					url: 'http://localhost:8080/SaleChance',
-					dataType: 'JSON',
-					data:boo,
-					success: function() {
-						//当提交完毕并修改成功后，自动刷新页面的数据
-						$('#allSaleChance').datagrid('reload');
-					}
-				});
-			}
-		}
-		//指派人员
-		function sendPerson(){
-//			alert("aaa");
-			var allSaleChance = $("#allSaleChance").datagrid("getSelected");
-//			alert(allSaleChance.chanceStatus);
-			if(allSaleChance != null) {
-				if(allSaleChance.chanceStatus == '未分配'){
-					$('#send_belong').textbox('clear');
-					$("#dlg-sendPerson").dialog("open");
-					$("#editSend").form("load",allSaleChance );
-				}
-				else{
-					$("#allSaleChance").datagrid('clearSelections');
-					$.messager.alert("指派错误", "无法指派已分配任务");
-				}
+	}
+	//指派人员
+	function sendPerson() {
+		//			alert("aaa");
+		var allSaleChance = $("#allSaleChance").datagrid("getSelected");
+		//			alert(allSaleChance.chanceStatus);
+		if(allSaleChance != null) {
+			if(allSaleChance.chanceStatus == '未分配') {
+				$('#send_belong').textbox('clear');
+				$("#dlg-sendPerson").dialog("open");
+				$("#editSend").form("load", allSaleChance);
 			} else {
-				$.messager.alert("指派提示", "请选中要指派的行");
+				$("#allSaleChance").datagrid('clearSelections');
+				$.messager.alert("指派错误", "无法指派已分配任务");
 			}
+		} else {
+			$.messager.alert("指派提示", "请选中要指派的行");
 		}
-		//确定指派
-		function sureForm(){
-			var send = $("#editSend").form("validate");
-			var allSaleChance = $("#allSaleChance").datagrid("getSelected");
-			if(send) {
-				$.ajax({
-					type: 'put',
-					url: 'http://localhost:8080/SaleChance/addSendPerson',
-					dataType: 'JSON',
-					data: $("#editSend").serialize(),
-					success: function() {
-						//当提交完毕并修改成功后，自动刷新页面的数据
-						$('#allSaleChance').datagrid('reload');
-						$.messager.alert("指派提示", "指派成功");
-						$('#dlg-sendPerson').dialog('close');
-					}
-				});
-			} else {
-				$.messager.alert("错误","指派人员失败");
-			}
+	}
+	//确定指派
+	function sureForm() {
+		var send = $("#editSend").form("validate");
+		var allSaleChance = $("#allSaleChance").datagrid("getSelected");
+		if(send) {
+			$.ajax({
+				type: 'put',
+				url: 'http://localhost:8080/SaleChance/addSendPerson',
+				dataType: 'JSON',
+				data: $("#editSend").serialize(),
+				success: function() {
+					//当提交完毕并修改成功后，自动刷新页面的数据
+					$('#allSaleChance').datagrid('reload');
+					$.messager.alert("指派提示", "指派成功");
+					$('#dlg-sendPerson').dialog('close');
+				}
+			});
+		} else {
+			$.messager.alert("错误", "指派人员失败");
 		}
-		//取消指派
-		function cancelForm(){
-			$("#dlg-sendPerson").dialog("close");
-		}
+	}
+	//取消指派
+	function cancelForm() {
+		$("#dlg-sendPerson").dialog("close");
+	}
 </script>
