@@ -53,6 +53,7 @@ var data = [{
 		text: '客户构成分析',
 	}, {
 		text: '客户服务分析',
+		href:'html/statistics/analysisCustomerService.html'
 	}, {
 		text: '客户流失分析',
 	}]
