@@ -39,6 +39,7 @@ var data = [{
 	}, {
 		text: '服务归档',
 		href: 'html/service/serviceDone.html'
+
 	}]
 }, {
 	text: '统计报表',
@@ -46,16 +47,16 @@ var data = [{
 	state: 'open',
 	children: [{
 		text: '客户贡献分析',
-		href: 'statistics/customerContribution.html',
+		href: 'html/statistics/customerContribution.html',
 	}, {
 		text: '客户构成分析',
-		href:'html/statistics/cusComposition.html'
+		href: 'html/statistics/cusComposition.html'
 	}, {
 		text: '客户服务分析',
-		href:'html/statistics/analysisCustomerService.html'
+		href: 'html/statistics/analysisCustomerService.html'
 	}, {
 		text: '客户流失分析',
-		href:'html/statistics/customerLose.html'
+		href: 'html/statistics/customerLose.html'
 	}]
 }, {
 	text: '系统管理',
@@ -72,16 +73,43 @@ var loginObj;
 $(document).ready(function() {
 	$('#sm').sidemenu({
 		onSelect: function(obj) {
-			var tabt = $('#tt').tabs('getTab', obj.text);
-			if(tabt == null) {
-				$('#tt').tabs('add', {
-					title: obj.text,
-					closable: true,
-					href: obj.href,
-				});
+			if(loginObj != null) {
+				if((loginObj.userRole == '销售主管' || loginObj.userRole =='客户经理' || loginObj.userRole == '系统管理员')) {
+					if(loginObj.userRole =='系统管理员'){
+//						alert(loginObj.userRole);
+						var tabt = $('#tt').tabs('getTab', obj.text);
+						if(tabt == null) {
+							$('#tt').tabs('add', {
+								title: obj.text,
+								closable: true,
+								href: obj.href,
+							});
+						} else {
+							$('#tt').tabs('select', obj.text);
+						}
+					}
+					
+					else if((obj.text == '新增销售机会')&&(loginObj.userRole == '销售主管' || loginObj.userRole=='客户经理')) {
+						alert(loginObj.userRole);
+						var tabt = $('#tt').tabs('getTab', obj.text);
+						if(tabt == null) {
+							$('#tt').tabs('add', {
+								title: obj.text,
+								closable: true,
+								href: obj.href,
+							});
+						} else {
+							$('#tt').tabs('select', obj.text);
+						}
+					}
+
+				} else {
+					$.messager.alert("提示", "权限不够，无法操作");
+				}
 			} else {
-				$('#tt').tabs('select', obj.text);
+				$.messager.alert("提示", "请先登录");
 			}
+
 		}
 	});
 
@@ -95,8 +123,9 @@ function login() {
 	var validate = $("#loginForm").form("validate");
 	if(validate) {
 		$.ajax({
-			type:"GET",
-			url:"http://localhost:8080/user/1",
+			type: "GET",
+			url: "http://localhost:8080/user/1",
+			//			async:false,
 			success: function(data) {
 				$("#loginDialog").dialog("close");
 				$("#loginForm").form("reset");
