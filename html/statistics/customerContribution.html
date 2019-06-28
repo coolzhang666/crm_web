@@ -1,13 +1,13 @@
 <div>
 	<div id="orderToolButton" toolbar="ordertoolbar"></div>
 	<div id="orderToolBar" style="height:auto;text-align: center;">
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="orderTotalPrice()">总计</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="orderName()">按客户查看</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-more',plain:true" onclick="orderTotalPrice()">总计</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-man',plain:true" onclick="orderName()">按客户查看</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="orderYear()">按年查看</a>
 	</div>
-	<div id="orderTotalPrice" style="width: 800px;height:500px;"></div>
-	<div id="orderName" style="width: 800px;height:500px;display: none;"></div>
-	<div id="orderYear" style="width: 800px;height:500px;display: none;"></div>
+	<div id="orderTotalPrice" style="width: 800px;height:450px;"></div>
+	<div id="orderName" style="width: 800px;height:450px;display: none;"></div>
+	<div id="orderYear" style="width: 800px;height:450px;display: none;"></div>
 </div>
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
@@ -15,18 +15,20 @@
 		var myChart1 = echarts.init(document.getElementById('orderName'));
 		var myChart2 = echarts.init(document.getElementById('orderYear'));
         // 指定图表的配置项和数据
-        myChart.setOption({
-            legend: {},
+        
+        // 使用刚指定的配置项和数据显示图表。
+		
+		myChart.setOption({
 		    tooltip: {},
-        legend: {
-            data:['总金额']
-        },
-        xAxis: {
-            data: []
-        },
-        yAxis: {},
-        series: [{
-            name: '总金额',
+	        legend: {
+	            data:['总金额']
+	        },
+	        xAxis: {
+	            data: []
+	        },
+	        yAxis: {},
+	        series: [{
+	            name: '总金额',
             type: 'bar',
             data: []
         }]
@@ -44,7 +46,7 @@
 		});
 
 		myChart1.setOption({
-            legend: {},
+//          legend: {},
 		    tooltip: {},
 	        legend: {
 	            data:['2016','2017','2018'],
@@ -72,6 +74,17 @@
 	        }]
         });
         
+        $.get("http://localhost:8080/orderTotalPrice").done(function (data){
+			myChart.setOption({
+				xAxis:{
+					data:data.xlist
+				},
+				series:{
+					data:data.slist
+				}
+			});
+		});
+
         $.get("http://localhost:8080/orderName").done(function (data){
 			myChart.setOption({
 				xAxis:{
@@ -84,7 +97,7 @@
 		});
         
         myChart2.setOption({
-            legend: {},
+//          legend: {},
 		    tooltip: {},
 	        legend: {
 	            data:['销量1']
@@ -106,8 +119,8 @@
 		function orderTotalPrice(){
 			var n1 = document.getElementById("orderTotalPrice");
 			var n2 = document.getElementById("orderName");
-			var n3 = document.getElementById("orderYear");
-			n1.style.display = "inline";
+			var n3 = document.getElementById("orderYear");、
+			n1.style.display = "block";、
 			n2.style.display = "none";
 			n3.style.display = "none";
 		}
@@ -117,8 +130,52 @@
 			var n2 = document.getElementById("orderName");
 			var n3 = document.getElementById("orderYear");
 			n1.style.display = "none";
-			n2.style.display = "inline";
+			n2.style.display = "block";
 			n3.style.display = "none";
+			myChart1.setOption({
+			    tooltip: {},
+		        legend: {
+		            data:['2016','2017','2018','2019'],
+		        },
+		        xAxis: {
+		            data: [],
+		        },
+		        yAxis: {},
+		        series: [{
+		            name: '2016',
+		            type: 'bar',
+		            data: []
+		        },{
+		            name: '2017',
+		            type: 'bar',
+		            data: []
+		        },{
+		            name: '2018',
+		            type: 'bar',
+		            data: []
+		        },{
+		            name: '2019',
+		            type: 'bar',
+		            data: []
+		        }]
+	        });
+	        
+	        $.get("http://localhost:8080/orderName").done(function (data){
+				myChart1.setOption({
+					xAxis:{
+						data:data.xlist,
+					},
+					series:[{
+						data:data.slist16,
+					},{
+						data:data.slist17,
+					},{
+						data:data.slist18,
+					},{
+						data:data.slist19,
+					}]
+				});
+			});
 		}
 		
 		function orderYear(){
@@ -127,7 +184,32 @@
 			var n3 = document.getElementById("orderYear");
 			n1.style.display = "none";
 			n2.style.display = "none";
-			n3.style.display = "inline";
+			n3.style.display = "block";
+			myChart2.setOption({
+			    tooltip: {},
+		        legend: {
+		            data:["年份总金额"]
+		        },
+		        xAxis: {
+		            data: []
+		        },
+		        yAxis: {},
+		        series: [{
+		            name: '年份总金额',
+		            type: 'bar',
+		            data: []
+		        }]
+	        });
+	        $.get("http://localhost:8080/orderYear").done(function (data){
+				myChart2.setOption({
+					xAxis:{
+						data:data.xlist
+					},
+					series:{
+						data:data.slist
+					}
+				});
+			});
 		}
 
     </script>

@@ -1,6 +1,7 @@
 <div>
 
-	<table id="allCustomer" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#customerToolBar" data-options="pagination:true,singleSelect:true,collapsible:false,loader:myloader,
+	<table id="allCustomer" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#customerToolBar"
+	 data-options="pagination:true,singleSelect:true,collapsible:false,loader:myloader,
 		method:'get',fitColumns:true, nowrap:true,pageList:[5,10,15,20],pageSize:5,displayMsg:''">
 		<thead>
 			<tr>
@@ -36,7 +37,8 @@
 				<table cellpadding="5" cellspacing="10">
 					<tr>
 						<td>客户Id:</td>
-						<td><input class="easyui-textbox" type="text" name="customerId" data-options="required:false,editable:false" style="width: 170px;"></input>
+						<td><input class="easyui-textbox" type="text" name="customerId" data-options="required:false,editable:false"
+							 style="width: 170px;"></input>
 						</td>
 					</tr>
 					<tr>
@@ -92,7 +94,8 @@
 	</div>
 </div>
 
-<div id="dlgEditContact" class="easyui-dialog" title="修改联系人信息" data-options="closable:false,closed:true,iconCls:'icon-edit'" style="width:600px;height:500px;padding:50px">
+<div id="dlgEditContact" class="easyui-dialog" title="修改联系人信息" data-options="closable:false,closed:true,iconCls:'icon-edit'"
+ style="width:600px;height:500px;padding:50px">
 	<div style="padding-top: 15px;">
 		<center>
 			<h2>联系人信息</h2>
@@ -144,7 +147,7 @@
 <div id="dlgCustomer" class="easyui-dialog" title="修改客户信息" data-options="iconCls:'icon-edit',closed:true" style="height:auto;width: auto;padding: 20px;">
 	<!--对话框中的修改内容-->
 	<center>
-			<div style="padding:10px 60px 20px 60px">
+		<div style="padding:10px 60px 20px 60px">
 			<form id="editCustomer" method="post">
 				<table cellpadding="10px" cellspacing="10px">
 					<tr>
@@ -206,7 +209,7 @@
 							</select>
 						</td>
 					</tr>
-		
+
 					<tr>
 						<td>合作关系:</td>
 <<<<<<< HEAD
@@ -272,7 +275,7 @@
 				</table>
 			</form>
 		</div>
-		
+
 	</center>
 
 	<!--修改的操作按键-->
@@ -291,7 +294,8 @@
 </div>
 
 <!--点击查看交往记录弹出的对话框-->
-<div id="showRecord" class="easyui-dialog" title="客户交往记录" data-options="iconCls:'icon-search',closed:true" style="width:880px;" style="overflow: auto;">
+<div id="showRecord" class="easyui-dialog" title="客户交往记录" data-options="iconCls:'icon-search',closed:true" style="width:880px;"
+ style="overflow: auto;">
 	<table id="allRecord" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#recordToolBar" data-options="pagination:true,singleSelect:true,collapsible:false,method:'get',fitColumns:true, nowrap:true,pageList:[5,10,15,20],pageSize:5">
 		<thead>
 			<tr>
@@ -324,39 +328,39 @@
 							<input type="text" hidden="hidden" name="chatId" />
 							<input type="text" hidden="hidden" name="customerId" />
 							<input type="text" hidden="hidden" name="handlerId" />
-							 
-						
-							<input type="text" name="customerName"  style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
+
+
+							<input type="text" name="customerName" style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
 						</td>
 					</tr>
 					<tr>
 						<td>客处理人姓名:</td>
-						<td><input   type="text" name="handlerName" style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;" ></input>
+						<td><input type="text" name="handlerName" style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
 						</td>
 					</tr>
 					<tr>
 						<td>时间:</td>
-						<td><input  type="date" name="createTime"  style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;" ></input>
+						<td><input type="date" name="createTime" style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
 						</td>
 					</tr>
 					<tr>
 						<td>地点:</td>
-						<td><input  type="text" name="chatAddress" style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;" ></input>
+						<td><input type="text" name="chatAddress" style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
 						</td>
 					</tr>
 					<tr>
 						<td>概要:</td>
-						<td><input  type="text" name="shortDescription"  style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;" ></input>
+						<td><input type="text" name="shortDescription" style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
 						</td>
 					</tr>
 					<tr>
 						<td>详细信息:</td>
-						<td><input  type="text" name="longDescription"  style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;" ></input>
+						<td><input type="text" name="longDescription" style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
 						</td>
 					</tr>
 					<tr>
 						<td>备注:</td>
-						<td><input   type="text" name="moreInfo"  style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;" ></input>
+						<td><input type="text" name="moreInfo" style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
 						</td>
 					</tr>
 				</table>
@@ -385,38 +389,38 @@
 						<td>
 							<input type="text" hidden="hidden" name="customerId" />
 							<input type="text" hidden="hidden" name="handlerId" />
-							<input  type="text" name="customerName"   style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"/>
+							<input type="text" name="customerName" style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;" />
 						</td>
 					</tr>
 					<tr>
 						<td>客户处理人姓名:</td>
 						<td>
-							<input  type="text" name="handlerName"  style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
+							<input type="text" name="handlerName" style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
 						</td>
 					</tr>
 					<tr>
 						<td>时间:</td>
-						<td><input  type="date" name="createTime"  style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
+						<td><input type="date" name="createTime" style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
 						</td>
 					</tr>
 					<tr>
 						<td>地点:</td>
-						<td><input  type="text" name="chatAddress"  style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
+						<td><input type="text" name="chatAddress" style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
 						</td>
 					</tr>
 					<tr>
 						<td>概要:</td>
-						<td><input  type="text" name="shortDescription"  style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
+						<td><input type="text" name="shortDescription" style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
 						</td>
 					</tr>
 					<tr>
 						<td>详细信息:</td>
-						<td><input  type="text" name="longDescription"  style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
+						<td><input type="text" name="longDescription" style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
 						</td>
 					</tr>
 					<tr>
 						<td>备注:</td>
-						<td><input  type="text" name="moreInfo"  style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
+						<td><input type="text" name="moreInfo" style="width: 170px;border-radius: 5px;height: 28px;border: 1px solid #95B8E7;"></input>
 						</td>
 					</tr>
 				</table>
@@ -444,18 +448,18 @@
 			}
 		});
 	}
-	
+
 	//修改交往记录窗口关闭后的事件
 	$("#updateRecord").dialog({
-		onClose:function(){
+		onClose: function() {
 			$("#allRecord").datagrid("reload");
 			$('#showRecord').dialog("open");
 		}
 	})
-	
+
 	//添加交往记录窗口关闭后的事件
 	$("#newRecord").dialog({
-		onClose:function(){
+		onClose: function() {
 			$("#allRecord").datagrid("reload");
 			$('#showRecord').dialog("open")
 		}
@@ -463,12 +467,13 @@
 
 	//工具栏点击删除事件
 	function removeCustomer() {
+		if(loginObj.userRole == "销售主管" || loginObj.userRole == "系统管理员"){
 		var tbcus = $("#allCustomer").datagrid("getSelected");
-		if(tbcus) {
+		if (tbcus) {
 			$.messager.confirm('删除', '确定要删除吗', function(r) {
-				if(r) {
+				if (r) {
 					$.messager.confirm('删除', '最后一次确认', function(r) {
-						if(r) {
+						if (r) {
 							$.ajax({
 								type: 'DELETE',
 								url: 'http://localhost:8080/customer/',
@@ -486,16 +491,23 @@
 		} else {
 			$.messager.alert("修改提示", "请选中你修改的行")
 		}
+	} else{
+		$.messager.alert("修改提示", "权限不足")
+	}
 	}
 
 	//工具栏点击修改事件
 	function updateCustomer() {
-		var tbcus = $("#allCustomer").datagrid("getSelected");
-		if(tbcus) {
-			$('#dlgCustomer').dialog('open');
-			$('#editCustomer').form('load', tbcus);
+		if (loginObj.userRole == "客户经理" || loginObj.userRole == "系统管理员" ) {
+			var tbcus = $("#allCustomer").datagrid("getSelected");
+			if (tbcus) {
+				$('#dlgCustomer').dialog('open');
+				$('#editCustomer').form('load', tbcus);
+			} else {
+				$.messager.alert("修改提示", "请选中你修改的行")
+			}
 		} else {
-			$.messager.alert("修改提示", "请选中你修改的行")
+			$.messager.alert("修改提示", "权限不足")
 		}
 	}
 
@@ -503,8 +515,8 @@
 	function removeCustomer_OK() {
 		var custb = $("#editCustomer").form("validate");
 		var fromCustomer = $('#CustomerPhone').combobox('getText');
-		if(fromCustomer.length == 11 || fromCustomer.length == 0) {
-			if(custb) {
+		if (fromCustomer.length == 11 || fromCustomer.length == 0) {
+			if (custb) {
 				$.ajax({
 					type: 'put',
 					url: 'http://localhost:8080/customer/',
@@ -530,7 +542,7 @@
 	// 新增客户联系人
 	function addContact() {
 		cusObj = $("#allCustomer").datagrid("getSelected");
-		if(cusObj != null) {
+		if (cusObj != null) {
 			var objId = {};
 			objId.customerId = cusObj.customerId;
 			// 将title中添加客户名字，以便查看
@@ -548,7 +560,7 @@
 	function submitConForm() {
 		var boo = $("#submitCon").form("validate");
 		cusObj = $("#allCustomer").datagrid("getSelected");
-		if(boo) {
+		if (boo) {
 			var obj = {};
 			obj.customerId = cusObj.customerId;
 			$.ajax({
@@ -586,7 +598,7 @@
 		var con = $("#allContact").datagrid("getSelected");
 		// 获取选中的客户行
 		cusObj = $("#allCustomer").datagrid("getSelected");
-		if(con != null) {
+		if (con != null) {
 			$("#dlgEditContact").dialog({
 				"title": "修改客户 " + cusObj.customerName + " 的联系人信息"
 			}).dialog("open");
@@ -599,7 +611,7 @@
 	// 确认修改后的信息并提交
 	function editConForm() {
 		var boo = $('#editCon').form('validate');
-		if(boo) {
+		if (boo) {
 			$.ajax({
 				type: 'PUT',
 				url: 'http://localhost:8080/contact',
@@ -625,9 +637,9 @@
 	// 删除选中联系人信息
 	function removeContact() {
 		var boo = $("#allContact").datagrid("getSelected");
-		if(boo != null) {
+		if (boo != null) {
 			$.messager.confirm("Confirm", "确定要删除该联系人？", function(r) {
-				if(r) {
+				if (r) {
 					$.ajax({
 						type: 'DELETE',
 						url: 'http://localhost:8080/contact',
@@ -648,7 +660,7 @@
 	// 查看当前客户的所有联系人和信息
 	function lookContact() {
 		cusObj = $("#allCustomer").datagrid("getSelected");
-		if(cusObj != null) {
+		if (cusObj != null) {
 			$("#allContact").datagrid({
 				loader: myloaderCon
 			});
@@ -694,7 +706,7 @@
 	//点击后显示所有交往记录
 	function checkRecord() {
 		var f = $("#allCustomer").datagrid("getSelected");
-		if(f) {
+		if (f) {
 			$('#showRecord').dialog('open');
 			$('#allRecord').datagrid({
 				loader: recordLoader
@@ -707,7 +719,7 @@
 	//删除某一条交往记录
 	function removeRecord() {
 		var f = $('#allRecord').datagrid("getSelected");
-		if(f) {
+		if (f) {
 			var b = f.chatId;
 			$.ajax({
 				type: "DELETE",
@@ -726,7 +738,7 @@
 	//修改交往记录
 	function updateRecord() {
 		var f = $('#allRecord').datagrid("getSelected");
-		if(f) {
+		if (f) {
 			$('#updateRecord').dialog('open');
 			$('#showRecord').dialog('close');
 			$('#tbUpdateRecord').form("load", f);
@@ -753,7 +765,7 @@
 	//删除对应用户的所有交往记录
 	function clearRecord() {
 		$.messager.confirm("提示", "确认清空", function(re) {
-			if(re){
+			if (re) {
 				var f = $("#allCustomer").datagrid("getSelected");
 				var b = f.customerId;
 				$.ajax({
@@ -777,7 +789,7 @@
 			}
 		});
 		var boo = $('#tbUpdateRecord').form('validate');
-		if(boo) {
+		if (boo) {
 			$.ajax({
 				type: "PUT",
 				url: "http://localhost:8080/chatRecord",
@@ -804,7 +816,7 @@
 			}
 		});
 		var boo = $('#tbNewRecord').form('validate');
-		if(boo) {
+		if (boo) {
 			$.ajax({
 				type: "POST",
 				url: "http://localhost:8080/chatRecord",

@@ -30,7 +30,7 @@
 </div>
 
 <script>
-	// 获取要区里的信息
+	// 获取要处理的信息
 	var handlerloader = function(param, success, error) {
 		var handlerId = 1;
 		$.ajax({
@@ -57,8 +57,8 @@
 	//处理信息框的提交事件
 	function submitHandlerMessage(){
 		//定义操作者的Id和名字
-		var handlerId = 1;
-		var handlerName = "李廷川";
+		var handlerId = loginObj.userId;
+		var handlerName = loginObj.userName;
 		// 定义处理结果
 		var handResult = "OK";
 		//定义客户满意度
