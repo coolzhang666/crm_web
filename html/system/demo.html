@@ -4,6 +4,15 @@
 
 <script type="text/javascript">
 	function testGlobal() {
-		alert(loginObj.userName);
+		$.ajax({
+			type: "GET",
+			url: "http://localhost:8080/checkOnline",
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function(data) {
+				alert(data.msg);
+			}
+		});
 	}
 </script>
