@@ -1,0 +1,34 @@
+<div>
+	<table id="allfeedBack" class="easyui-datagrid" style="width:100%;height:500px;" toolbar="#toolBarFeedVack"
+	 data-options="pagination:true,singleSelect:true,collapsible:false,loader:feedBackloader,
+		method:'get',fitColumns:true, nowrap:true,pageList:[5,10,15,20],pageSize:5,displayMsg:''">
+		<thead>
+			<tr>
+				<th data-options="field:'serviceId',width:80,align:'center',resizable:false">服务编号</th>
+				<th data-options="field:'serviceType',width:100, align:'center',resizable:false">服务类型</th>
+				<th data-options="field:'customerId',width:100,align:'center',resizable:false">客户编号</th>
+				<th data-options="field:'customerName',width:80,align:'center',resizable:false">客户姓名</th>
+				<th data-options="field:'handTime',width:80, align:'center',resizable:false">处理时间</th>
+				<th data-options="field:'serviceStatus',width:60,align:'center',resizable:false">状态</th>
+			</tr>
+		</thead>
+	</table>
+	<!-- 要处理的服务信息的菜单栏 -->
+	<div id="toolBarFeedVack" style="height:auto">
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="handlerCustomerService()">处理</a>
+	</div>
+</div>
+<script>
+	var feedBackloader = function(param, success, error) {
+		$.ajax({
+			type: "GET",
+			url: "http://localhost:8080/getHandService/" + param.page + "/" + param.rows ,
+			success: function(data) {
+				var obj = {};
+				obj.total = data.total;
+				obj.rows = data.data;
+				success(obj);
+			}
+		});
+	}
+</script>
