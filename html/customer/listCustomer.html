@@ -112,7 +112,11 @@
 						<tr>
 							<td>联系人性别:</td>
 							<td>
+<<<<<<< HEAD
+								<select class="easyui-combobox" data-options="editable:false" name="contactGender"  style="width: 170px;">
+=======
 								<select class="easyui-combobox" data-options="editable:false,panelHeight:100" name="contactGender" style="width: 173px;">
+>>>>>>> master
 									<option selected="selected" disabled="disabled" value=""></option>
 									<option value="男">男</option>
 									<option value="女">女</option>
@@ -208,6 +212,7 @@
 
 					<tr>
 						<td>合作关系:</td>
+<<<<<<< HEAD
 						<td>
 							<select panlHight="auto" class="easyui-combobox" name="customerCooperation" data-options="width:170,required:true">
 								<option value="普通客户">普通客户</option>
@@ -232,6 +237,32 @@
 					<tr>
 						<td>信用级别:</td>
 						<td>
+=======
+						<td>
+							<select panlHight="auto" class="easyui-combobox" name="customerCooperation" data-options="width:170,required:true">
+								<option value="普通客户">普通客户</option>
+								<option value="VIP客户">VIP大客户</option>
+								<option value="重点开发客户">重点开发客户</option>
+								<option value="合作伙伴">合作伙伴</option>
+								<option value="战略合作伙伴">战略合作伙伴</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>客户等级</td>
+						<td>
+							<select panlHight="auto" class="easyui-combobox" name="customerGrade" data-options="width:170,required:true">
+								<option value="一级会员">一级会员</option>
+								<option value="二级会员">二级会员</option>
+								<option value="高级会员">高级会员</option>
+								<option value="黑卡级会员">黑卡级会员</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>信用级别:</td>
+						<td>
+>>>>>>> master
 							<select panlHight="auto" class="easyui-combobox" name="customerCredit" data-options="width:170,required:true">
 								<option value="1">1(差)</option>
 								<option value="2">2(良好)</option>
@@ -719,7 +750,8 @@
 	//添加一条交往记录
 	function pachRecord() {
 		$('#tbNewRecord').form('clear');
-		var handlerId = 1;
+		//当前登录人的id
+		var handlerId = loginObj.userId;
 		var f = $("#allCustomer").datagrid("getSelected");
 		$('#showRecord').dialog('close');
 		$('#newRecord').dialog('open');

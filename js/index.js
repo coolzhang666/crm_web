@@ -36,7 +36,10 @@ var data = [{
 	}, {
 		text: '处理服务',
 		href: 'html/service/handleService.html'
-	},{
+	}, {
+		text: '服务反馈',
+		href: 'html/service/feedBackService.html'
+	}, {
 		text: '服务归档',
 		href: 'html/service/serviceDone.html'
 
