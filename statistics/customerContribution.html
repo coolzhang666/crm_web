@@ -1,0 +1,133 @@
+<div>
+	<div id="orderToolButton" toolbar="ordertoolbar"></div>
+	<div id="orderToolBar" style="height:auto;text-align: center;">
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="orderTotalPrice()">总计</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="orderName()">按客户查看</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="orderYear()">按年查看</a>
+	</div>
+	<div id="orderTotalPrice" style="width: 800px;height:500px;"></div>
+	<div id="orderName" style="width: 800px;height:500px;display: none;"></div>
+	<div id="orderYear" style="width: 800px;height:500px;display: none;"></div>
+</div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('orderTotalPrice'));
+		var myChart1 = echarts.init(document.getElementById('orderName'));
+		var myChart2 = echarts.init(document.getElementById('orderYear'));
+        // 指定图表的配置项和数据
+        myChart.setOption({
+            legend: {},
+		    tooltip: {},
+        legend: {
+            data:['总金额']
+        },
+        xAxis: {
+            data: []
+        },
+        yAxis: {},
+        series: [{
+            name: '总金额',
+            type: 'bar',
+            data: []
+        }]
+        });
+        
+        $.get("http://localhost:8080/orderTotalPrice").done(function (data){
+			myChart.setOption({
+				xAxis:{
+					data:data.xlist
+				},
+				series:{
+					data:data.slist
+				}
+			});
+		});
+
+		myChart1.setOption({
+            legend: {},
+		    tooltip: {},
+	        legend: {
+	            data:['2016','2017','2018'],
+	        },
+	        xAxis: {
+	            data: [],
+	        },
+	        yAxis: {},
+	        series: [{
+	            name: '2016',
+	            type: 'bar',
+	            data: []
+	        },{
+	            name: '2017',
+	            type: 'bar',
+	            data: []
+	        },{
+	            name: '2018',
+	            type: 'bar',
+	            data: []
+	        },{
+	            name: '2019',
+	            type: 'bar',
+	            data: []
+	        }]
+        });
+        
+        $.get("http://localhost:8080/orderName").done(function (data){
+			myChart.setOption({
+				xAxis:{
+					data:data.xlist,
+				},
+				series:[{
+					data:data.slist16,
+				}]
+			});
+		});
+        
+        myChart2.setOption({
+            legend: {},
+		    tooltip: {},
+	        legend: {
+	            data:['销量1']
+	        },
+	        xAxis: {
+	            data: ["2012","2013","2014","2015","2016","2017"]
+	        },
+	        yAxis: {},
+	        series: [{
+	            name: '销量1',
+	            type: 'bar',
+	            data: [1, 2, 3, 10, 23, 20]
+	        }]
+        });
+		
+		
+        // 使用刚指定的配置项和数据显示图表。
+		
+		function orderTotalPrice(){
+			var n1 = document.getElementById("orderTotalPrice");
+			var n2 = document.getElementById("orderName");
+			var n3 = document.getElementById("orderYear");
+			n1.style.display = "inline";
+			n2.style.display = "none";
+			n3.style.display = "none";
+		}
+		
+		function orderName(){
+			var n1 = document.getElementById("orderTotalPrice");
+			var n2 = document.getElementById("orderName");
+			var n3 = document.getElementById("orderYear");
+			n1.style.display = "none";
+			n2.style.display = "inline";
+			n3.style.display = "none";
+		}
+		
+		function orderYear(){
+			var n1 = document.getElementById("orderTotalPrice");
+			var n2 = document.getElementById("orderName");
+			var n3 = document.getElementById("orderYear");
+			n1.style.display = "none";
+			n2.style.display = "none";
+			n3.style.display = "inline";
+		}
+
+    </script>

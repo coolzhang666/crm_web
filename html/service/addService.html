@@ -62,8 +62,8 @@
 <script>
 	//定义一个用户对象,将用户对象的对应值赋值给对象f
 	var f = {};
-	f.creatorId = 1;
-	f.creatorName = 1;
+	f.creatorId = loginObj.userId;
+	f.creatorName = loginObj.userName;
 	$('#tbService').form('load', f);
 </script>
 

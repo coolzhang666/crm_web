@@ -14,16 +14,48 @@
 		<script src="easyui/locale/easyui-lang-zh_CN.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="js/echarts.min.js" ></script>
-    
 	</head>
 
 	<body class="easyui-layout" style="min-height: 500px;min-width: 1200px;">
-		
+
+		<!--登录表单-->
+		<div id="loginDialog" title="登录" class="easyui-dialog" data-options="closed:true,width:550,height:450">
+			<center>
+				<h2 style="padding-top: 50px;">登录</h2>
+				<div style="padding:30px 60px 20px 60px">
+					<form id="loginForm" method="post">
+						<table cellpadding="5" cellspacing="10">
+							<tr>
+								<td>编号:</td>
+								<td><input class="easyui-textbox" type="text" name="userNo" data-options="required:true" style="width: 170px;"></input>
+								</td>
+							</tr>
+							<tr>
+								<td>密码:</td>
+								<td><input class="easyui-textbox" type="password" name="userPassword" data-options="required:true" style="width: 170px;"></input>
+								</td>
+							</tr>
+						</table>
+					</form>
+					<div style="text-align:center;padding:5px">
+						<a href="javascript:void(0)" class="easyui-linkbutton" onclick="login()" style="margin-right: 20px;">登录</a>
+					</div>
+				</div>
+			</center>
+		</div>
+
 		<!--顶部区域-->
 		<div class="header" data-options="region:'north'">
 			<div class="logo"></div>
 			<div class="info">重庆理工大学客户关系管理系统</div>
-			<div class="logo" style="background-image: none;"></div>
+			<div class="logo logo_right">
+				<div class="userName">
+					<div id="login" class="login">请登录</div>
+				</div>
+				<div class="headcut_wrapper">
+					<img class="headcut" src="img/headcut.png" />
+				</div>
+			</div>
 		</div>
 
 		<!--左部菜单栏-->
@@ -35,77 +67,77 @@
 		<div class="container" data-options="region:'center'">
 			<!--<div id="tt" class="easyui-tabs"></div>-->
 			<div id="tt" class="easyui-tabs" style="width:100%;height:100%;" data-options="region:'center',title:'主操作区'"></div>
-				    		
-			<div id="rcmenu" class="easyui-menu" style="">  
-			    <div id="closeall">关闭全部</div>  
-			    <div id="closeother">关闭其他</div> 
-			    <div id="closeright">当前页右侧全部关闭</div>
-			    <div id="closeleft">当前页左侧全部关闭</div> 
-		  </div>
+
+			<div id="rcmenu" class="easyui-menu" style="">
+				<div id="closeall">关闭全部</div>
+				<div id="closeother">关闭其他</div>
+				<div id="closeright">当前页右侧全部关闭</div>
+				<div id="closeleft">当前页左侧全部关闭</div>
+			</div>
 		</div>
 	</body>
-	
+
 	<script type="text/javascript">
-			//绑定右键菜单事件
-	          $(".easyui-tabs").bind('contextmenu',function(e){         
-	         e.preventDefault();  
-	            $('#rcmenu').menu('show', {  
-	                left: e.pageX,  
-	                top: e.pageY  
-	            });  
-	        });  
-	        //关闭所有标签页  
-	         $("#closeall").bind("click",function(){  
-	            var tablist =$('#tt').tabs('tabs');
-//	            alert("aaaa");
-	             console.log(tablist);
-	          //  return; 
-	            for(var i=tablist.length-1;i>=0;i--){  
-	                $('#tt').tabs('close',i);  
-	            }  
-	        });   
-	        //关闭其他页面（先关闭右侧，再关闭左侧）  
-	        $("#closeother").bind("click",function(){  
-	            var tablist = $('#tt').tabs('tabs');  
-	            var tab = $('#tt').tabs('getSelected');  
-	            var index = $('#tt').tabs('getTabIndex',tab);  
-	            for(var i=tablist.length-1;i>index;i--){  
-	                $('#tt').tabs('close',i);  
-	            }  
-	            var num = index-1;  
-	            if(num < 1){  
-	                return;  
-	            }else{  
-	                for(var i=num;i>=0;i--){  
-	                    $('#tt').tabs('close',i);  
-	                }  
-	                $("#tt").tabs("select", 1);  
-	            }  
-	        });  
-	        //关闭右边的选项卡
-	        $("#closeright").bind("click",function(){  
-	            var tablist = $('#tt').tabs('tabs');  
-	            var tab = $('#tt').tabs('getSelected');  
-	            var index = $('#tt').tabs('getTabIndex',tab);  
-	            for(var i=tablist.length-1;i>index;i--){  
-	                $('#tt').tabs('close',i);  
-	            }  
-	        });  
-	        //关闭左边的选项卡
-	        $("#closeleft").bind("click",function(){  
-	            var tablist = $('#tt').tabs('tabs');  
-	            var tab = $('#tt').tabs('getSelected');  
-	            var index = $('#tt').tabs('getTabIndex',tab);  
-	            var num = index-1;  
-	            if(num < 0){  
-	                return;  
-	            }else{  
-	                for(var i=num;i>=0;i--){  
-	                    $('#tt').tabs('close',i);  
-	                }  
-	                $("#tt").tabs("select", 0);  
-	            }   
-	        });  
-</script>
+		//绑定右键菜单事件
+		$(".easyui-tabs").bind('contextmenu', function(e) {
+			e.preventDefault();
+			$('#rcmenu').menu('show', {
+				left: e.pageX,
+				top: e.pageY
+			});
+		});
+		//关闭所有标签页  
+		$("#closeall").bind("click", function() {
+			var tablist = $('#tt').tabs('tabs');
+			//	            alert("aaaa");
+			console.log(tablist);
+			//  return; 
+			for(var i = tablist.length - 1; i >= 0; i--) {
+				$('#tt').tabs('close', i);
+			}
+		});
+		//关闭其他页面（先关闭右侧，再关闭左侧）  
+		$("#closeother").bind("click", function() {
+			var tablist = $('#tt').tabs('tabs');
+			var tab = $('#tt').tabs('getSelected');
+			var index = $('#tt').tabs('getTabIndex', tab);
+			for(var i = tablist.length - 1; i > index; i--) {
+				$('#tt').tabs('close', i);
+			}
+			var num = index - 1;
+			if(num < 1) {
+				return;
+			} else {
+				for(var i = num; i >= 0; i--) {
+					$('#tt').tabs('close', i);
+				}
+				$("#tt").tabs("select", 1);
+			}
+		});
+		//关闭右边的选项卡
+		$("#closeright").bind("click", function() {
+			var tablist = $('#tt').tabs('tabs');
+			var tab = $('#tt').tabs('getSelected');
+			var index = $('#tt').tabs('getTabIndex', tab);
+			for(var i = tablist.length - 1; i > index; i--) {
+				$('#tt').tabs('close', i);
+			}
+		});
+		//关闭左边的选项卡
+		$("#closeleft").bind("click", function() {
+			var tablist = $('#tt').tabs('tabs');
+			var tab = $('#tt').tabs('getSelected');
+			var index = $('#tt').tabs('getTabIndex', tab);
+			var num = index - 1;
+			if(num < 0) {
+				return;
+			} else {
+				for(var i = num; i >= 0; i--) {
+					$('#tt').tabs('close', i);
+				}
+				$("#tt").tabs("select", 0);
+			}
+		});
+	</script>
 
 </html>

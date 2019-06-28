@@ -48,9 +48,35 @@ body {
 .tabs-panels{
 	height: 100%;
 }
-/*
-.panel{
+
+.logo_right {
+	background-image: none;
+	height: 80px;
 	display: flex;
-	justify-content: space-around;
-}*/
+	align-items: center;
+	justify-content: flex-end;
+}
+
+.userName {
+	margin: 20px;
+	font-size: 22px;
+}
+
+.headcut_wrapper {
+	width: 60px;
+	height: 60px;
+	display: flex;
+	align-items: center;
+	margin-right: 20px;
+}
+
+.headcut {
+	border-radius: 500px;
+	width: 100%;
+	height: 100%;
+}
+
+.login {
+	cursor: pointer;
+}
 
