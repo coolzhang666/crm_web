@@ -1,57 +1,107 @@
-<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-<div id="analysisCusService" style="width: 600px;height:400px; margin:60px 200px;"></div>
+<div style="margin-left: 30px;margin-top: 20px;">
+	输入年份:<input id="getTime" type="text" />
+	<button onclick="submitTime()">提交</button>
+	<button onclick="changCount()">取消</button>
+</div>
+<center style="padding-top: 40px;">
+	<div  id="ServiceStatic" style="width: 600px;height:400px;padding: 10px;"></div>
+	<div hidden="hidden" id="DateStatic" style="width: 600px;height:400px;padding: 10px;"></div>
+
+</center>
+
 <script type="text/javascript">
+	// 基于准备好的dom，初始化echarts实例
+	var ServiceSta = echarts.init(document.getElementById('ServiceStatic'));
+	ServiceSta.setOption({
+		title: {
+			text: '客户服务统计'
+		},
+		tooltip: {},
+
+		xAxis: {
+			data: []
+		},
+		yAxis: {},
+		series: [{
+			name: '客户服务统计',
+			type: 'bar',
+			data: []
+		}]
+	});
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:8080/getServiceType/",
+		url: "http://localhost:8080/getServiceCount",
 		success: function(data) {
-			var analyService = echarts.init(document.getElementById('analysisCusService'));
-			alert(data)
-			analyService.showLoading();
-			analyService.setOptions(
-				title: {
-					text: '某站点用户访问来源',
-					subtext: '纯属虚构',
-					x: 'center'
-				},
-				tooltip: {
-					trigger: 'item',
-					formatter: "{a} <br/>{b} : {c} ({d}%)"
-				},
-				legend: {
-					orient: 'vertical',
-					left: 'left',
-					data: data.type
+			//采用map类型来取值:data.map.a/data.map.b
+			// a=data.data.xlist
+			// b=data.data.slist
+			console.log(data)
+			ServiceSta.setOption({
+				xAxis: {
+					data: data.data.type
 				},
 				series: [{
-					name: '服务数量',
-					type: 'pie',
-					radius: '55%',
-					center: ['50%', '60%'],
-					data: [
-						{
-							value: data.count[0],
-							name: data.type[0]
-						},
-						{
-							value: data.count[1],
-							name: data.type[1]
-						},
-						{
-							value: data.count[2],
-							name: data.type[2]
-						},
-
-					],
-					itemStyle: {
-						emphasis: {
-							shadowBlur: 10,
-							shadowOffsetX: 0,
-							shadowColor: 'rgba(0, 0, 0, 0.5)'
-						}
-					}
+					// 根据名字对应到相应的系列
+					name: '客户服务统计',
+					data: data.data.count
 				}]
-			);
-		},
+			});
+		}
 	});
+	var dateStatic = echarts.init(document.getElementById('DateStatic'));
+	dateStatic.setOption({
+		title: {
+			text: '客户服务统计'
+		},
+		tooltip: {},
+	
+		xAxis: {
+			data: []
+		},
+		yAxis: {},
+		series: [{
+			name: '客户服务统计',
+			type: 'bar',
+			data: []
+		}]
+	});
+	function submitTime() {
+		var create_time = document.getElementById("getTime").value;
+		if(create_time != null || create_time != "") {
+			var serviceSta = document.getElementById("ServiceStatic");
+			var dateSta = document.getElementById("DateStatic");
+			serviceSta.style.display = "none";
+			dateSta.style.display = "inline";
+			$.ajax({
+				type: "GET",
+				url: "http://localhost:8080/getDateCount/"+create_time,
+				success: function(data) {
+					//采用map类型来取值:data.map.a/data.map.b
+					// a=data.data.xlist
+					// b=data.data.slist
+					console.log(data)
+					dateStatic.setOption({
+						xAxis: {
+							data: data.data.type
+						},
+						series: [{
+							// 根据名字对应到相应的系列
+							name: '客户服务统计',
+							data: data.data.count
+						}]
+					});
+				}
+			});
+		} else {
+			$.messager.alert("错误提示", "输入正确的年份");
+		}
+	}
+	
+	 function changCount() {
+		 var serviceSta = document.getElementById("ServiceStatic");
+		 var dateSta = document.getElementById("DateStatic");
+		 serviceSta.style.display = "inline";
+		 dateSta.style.display = "none";
+		 document.getElementById("getTime").value = "";
+	 }
 </script>

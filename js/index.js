@@ -36,7 +36,7 @@ var data = [{
 	}, {
 		text: '处理服务',
 		href: 'html/service/handleService.html'
-	}, {
+	},{
 		text: '服务归档',
 		href: 'html/service/serviceDone.html'
 
@@ -71,6 +71,18 @@ var data = [{
 var loginObj;
 
 $(document).ready(function() {
+	$.ajax({
+		type:"GET",
+		url:"http://localhost:8080/checkOnline",
+		success: function(data) {
+			if ("1" == data.status) {
+				loginObj = data.data;
+			} else {
+				loginObj = null;
+			}
+		}
+	});
+	
 	$('#sm').sidemenu({
 		onSelect: function(obj) {
 			if(loginObj != null) {
@@ -123,15 +135,19 @@ function login() {
 	var validate = $("#loginForm").form("validate");
 	if(validate) {
 		$.ajax({
-			type: "GET",
-			url: "http://localhost:8080/user/1",
-			//			async:false,
+			type: "POST",
+			url: "http://localhost:8080/login",
+			dataType: "JSON",
+			data: $("#loginForm").serialize(),
 			success: function(data) {
-				$("#loginDialog").dialog("close");
-				$("#loginForm").form("reset");
-				$.messager.alert("提示", data.msg);
-				loginObj = data.data;
-				document.getElementById("login").innerText = loginObj.userName;
+				if("1" == data.status) {
+					$("#loginDialog").dialog("close");
+					$("#loginForm").form("reset");
+					loginObj = data.data;
+					document.getElementById("login").innerText = loginObj.userName;
+				} else {
+					$.messager.alert("提示", data.msg);
+				}
 			}
 		});
 	}
